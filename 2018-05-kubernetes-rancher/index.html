@@ -8,11 +8,46 @@
 			<div class="slides">
 				<section>
 					<h1>Ranger des cubes dans des boites</h1>
-					<h3>De Docker à Rancher, quésako ?</h3>
+					<h3>Une balade de Docker à Rancher</h3>
 					<p>
-						<small>Created by <a href="https://baptiste-leduc.now.sh/">Baptiste Leduc</a></small>
+						<small>Created by <a href="https://baptiste-leduc.now.sh/" target="_blank">Baptiste Leduc</a> for <a href="https://weglot.com/" target="_blank">Weglot</a></small>
 					</p>
 				</section>
+				<!-- CONTAINERS -->
+				<section>
+					<h1>1. Containers</h1>
+					<h3>On les utilise déjà tous, mais c'est quoi en vrai ?</h3>
+				</section>
+				<section>
+					<h1>Grossièrement ...</h1>
+					<p>C'est un mélange de:</p>
+					<p><a href="https://en.wikipedia.org/wiki/Chroot" target="_blank">chroot</a>,<a href="https://en.wikipedia.org/wiki/Linux_namespaces" target="_blank">namespaces</a> & <a href="https://en.wikipedia.org/wiki/Cgroups" target="_blank">cgroups</a>.</p>
+					<p>Des process qui permettent d'isoler un environnement au sein d'un système linux.</p>
+				</section>
+				<section>
+					<img src="images/google_logo.png" height="100px" />
+					<div>&</div>
+					<img src="images/lxc_logo.png" height="100px" />
+					<p>Utilisé en production depuis plus de 15 ans par Google via <a href="https://linuxcontainers.org/" target="_blank">LXC</a> (et l'utilisation de chroot)</p>
+					<p>Mais le papier R&D est sorti ~8 ans après, pour éviter la concurrence</p>
+				</section>
+				<section>
+					<h1>2013</h1>
+					<p>Création de <a href="https://www.docker.com/community-edition" target="_blank">Docker</a> par <a href="https://fr.wikipedia.org/wiki/Solomon_Hykes" target="_blank">Solomon Hykes</a></p>
+					<p>Au début basé sur <a href="https://linuxcontainers.org/" target="_blank">LXC</a> puis lâché pour un système de gestion du container interne: <a href="https://github.com/docker/libcontainer" target="_blank">libcontainer</a></p>
+					<p>Une idée en tête: simplifier la création d’image via les Dockerfile et supprimer la lourdeur des VMs !</p>
+				</section>
+				<section>
+					<img src="images/google_logo.png" height="100px" />
+					<h1>~20 milliards</h1>
+					<h2>de containers par semaine</h2>
+					<p>Et gérer des containers en production, c'est loin d'être simple, surtout à cette échelle, il faut une solution !</p>
+				</section>
+				<!-- KUBERNETES -->
+				<section>
+					Kubenertes
+				</section>
+				<!-- RANCHER -->
 				<section>
 					<section>B0</section>
 					<section>B1</section>

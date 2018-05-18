@@ -10,7 +10,7 @@
 					<h1>Ranger des cubes dans des boites</h1>
 					<h3>Une balade de Docker à Rancher</h3>
 					<p>
-						<small>Created by <a href="https://baptiste-leduc.now.sh/" target="_blank">Baptiste Leduc</a> for <a href="https://weglot.com/" target="_blank">Weglot</a></small>
+						<small>Crée par <a href="https://baptiste-leduc.now.sh/" target="_blank">Baptiste Leduc</a> pour <a href="https://weglot.com/" target="_blank">Weglot</a></small>
 					</p>
 				</section>
 				<!-- CONTAINERS -->
@@ -49,6 +49,43 @@
 					<img src="images/kubernetes_logo.png" height="250px">
 					<h1>2. Kubernetes</h1>
 					<h3>Gérer quelques containers avec un peu d'automatisation</h3>
+				</section>
+				<section>
+					<img src="images/google_logo.png" height="100px" />
+					<p>Création de Borg en interne pour gérer ces soucis de gestion des containers</p>
+				</section>
+				<section>
+					<img src="images/kubernetes_logo.png" height="100px">
+					<h1>2014</h1>
+					<p>Création du "Project Seven" par une partie du groupe ayant géré Borg</p>
+					<p>Google le rends open-source pour étendre son usage via <a href="https://cloud.google.com/" target="_blank">Google Cloud</a></p>
+				</section>
+				<section>
+					<img src="images/cncf_logo.png" height="100px">
+					<h1>2015</h1>
+					<p>Don de la gestion du projet à la <a href="https://www.cncf.io/" target="_blank">Cloud Native Computing Fundation</a> (CNCF)</p>
+					<p>Elle met en place ces règles de gestions pour que le projet puisse servir à tous et rends le lien avec Google plus faible</p>
+				</section>
+				<section>
+					Objectif: Gérer des centaines de milliers de serveurs en production (aujourd’hui ~20k nodes max par cluster, encore trop faible comparés aux ~2m serveurs de Google) de façon automatique / flexible / scalable
+				</section>
+				<section>
+					Projet le plus actif sur Github: 100/250 commits / jour (32 000 PR depuis 2014)
+				</section>
+				<section>
+					Dialoguer avec Kubernetes ? > yaml, format type:
+					1. Pod simple - metadata: name / namespace & spec
+					2. Deployment (stay-alive / gestion de déploiement avec ancienne / nouvelle version)
+					3. Forwarding / Ingress (Load balancing) / CronJob …
+				</section>
+				<section>
+					Architecture: etc (key/value storage) / API Server (communication avec etcd) / Controller Manager (logique des objets) / Scheduler (répartition des pods)
+				</section>
+				<section>
+					Et sur le serveurs ? kubelet (scheduler serveur) / kube-proxy (networking) + pods
+				</section>
+				<section>
+					Exemple récent: Pokémon Go
 				</section>
 				<!-- RANCHER -->
 				<section>

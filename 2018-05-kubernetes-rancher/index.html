@@ -2,6 +2,7 @@
 	<head>
 		<link rel="stylesheet" href="css/reveal.css">
 		<link rel="stylesheet" href="css/theme.css">
+		<link rel="stylesheet" href="css/highlight.css">
 	</head>
 	<body>
 		<div class="reveal">
@@ -77,10 +78,109 @@
 					<p>Des entreprises comme <strong>Amazon</strong> ou <strong>Microsoft</strong> qui ont des ingénieurs travaillant sur le projet</p>
 				</section>
 				<section>
-					<section>Dialoguer avec Kubernetes ? > yaml, format type:</section>
-					<section>1. Pod simple - metadata: name / namespace & spec</section>
-					<section>2. Deployment (stay-alive / gestion de déploiement avec ancienne / nouvelle version)</section>
-					<section>3. Forwarding / Ingress (Load balancing) / CronJob …</section>
+					<section>
+						<h1>Dialoguer avec Kubernetes</h1>
+						<h3>Comment ça marche ?</h3>
+					</section>
+					<section>
+						<h3>Simple Pod</h3>
+						<pre><code data-trim data-noescape class="yaml" style="max-height: none;">
+							apiVersion: v1
+							kind: Pod
+							metadata:
+							  name: nginx
+							spec:
+							  containers:
+							  - name: nginx
+							    image: nginx:1.7.9
+							    ports:
+							    - containerPort: 8080
+						</code></pre>
+					</section>
+					<section>
+						<h3>Deployment</h3>
+						<pre><code data-trim data-noescape class="yaml" style="max-height: none;">
+							apiVersion: apps/v1beta2
+							kind: Deployment
+							metadata:
+							  name: nginx-deployment
+							  labels:
+							    app: nginx
+							spec:
+							  replicas: 3
+							  selector:
+							    matchLabels:
+							      app: nginx
+							  template:
+							    metadata:
+							      labels:
+							        app: nginx
+							    specs:
+							      containers:
+							      - name: nginx
+							        image: nginx:1.7.9
+							        ports:
+							        - containerPort: 8080
+						</code></pre>
+					</section>
+					<section>
+						<h3>Service</h3>
+						<pre><code data-trim data-noescape class="yaml" style="max-height: none;">
+							apiVersion: v1
+							kind: Service
+							metadata:
+							  name: nginx-svc
+						    spec:
+						      selector:
+							    app: nginx
+							  ports:
+							  - protocol: TCP
+							    port: 80
+							    targetPort: 8080
+						</code></pre>
+					</section>
+					<section>
+						<h3>Ingress</h3>
+						<pre><code data-trim data-noescape class="yaml" style="max-height: none;">
+							apiVersion: extensions/v1beta1
+							kind: Ingress
+							metadata:
+							  name: test-ingress
+							  annotations:
+							    nginx.ingress.kubernetes.io/rewrite-target: /
+							spec:
+							  rules:
+							  - http:
+							      paths:
+							      - path: /
+							        backend:
+							          serviceName: nginx-svc
+							          servicePort: 80
+						</code></pre>
+					</section>
+					<section>
+						<h3>CronJob</h3>
+						<pre><code data-trim data-noescape class="yaml" style="max-height: none;">
+							apiVersion: batch/v1beta1
+							kind: CronJob
+							metadata:
+							  name: hello
+							spec:
+							  schedule: "*/1 * * * *"
+							  jobTemplate:
+							    spec:
+							      template:
+							        spec:
+							          containers:
+							          - name: hello
+							            image: busybox
+							            args:
+							            - /bin/sh
+							            - -c
+							            - date; echo Hello world
+							          restartPolicy: OnFailure
+						</code></pre>
+					</section>
 				</section>
 				<section>
 					<img src="images/kubernetes_global_architecture.png" height="400px" />
@@ -89,6 +189,7 @@
 						<li>API Server: communication avec etcd </li>
 						<li>Controller Manager (logique des objets)</li>
 						<li>Scheduler: répartition des pods</li>
+					</ul>
 				</section>
 				<section>
 					<img src="images/kubernetes_pods.png" height="400px" />
@@ -100,7 +201,8 @@
 				</section>
 				<section>
 					<section>
-						<h1>Et dans la vraie vie ?</h1>
+						<h1>Qui utilise ça ?</h1>
+						<h3>Un exemple récente: Pokemon Go</h3>
 					</section>
 					<section>1</section>
 					<section>1</section>
@@ -122,9 +224,15 @@
 				</section>
 			</div>
 		</div>
+		<script src="js/head.js"></script>
 		<script src="js/reveal.js"></script>
 		<script>
-			Reveal.initialize();
+			Reveal.initialize({
+				dependencies: [
+                    // Syntax highlight for <code> elements
+                    { src: 'js/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                ]
+			});
 		</script>
 	</body>
 </html>

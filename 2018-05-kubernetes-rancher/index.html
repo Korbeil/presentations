@@ -77,19 +77,35 @@
 					<p>Des entreprises comme <strong>Amazon</strong> ou <strong>Microsoft</strong> qui ont des ingénieurs travaillant sur le projet</p>
 				</section>
 				<section>
-					Dialoguer avec Kubernetes ? > yaml, format type:
-					1. Pod simple - metadata: name / namespace & spec
-					2. Deployment (stay-alive / gestion de déploiement avec ancienne / nouvelle version)
-					3. Forwarding / Ingress (Load balancing) / CronJob …
+					<section>Dialoguer avec Kubernetes ? > yaml, format type:</section>
+					<section>1. Pod simple - metadata: name / namespace & spec</section>
+					<section>2. Deployment (stay-alive / gestion de déploiement avec ancienne / nouvelle version)</section>
+					<section>3. Forwarding / Ingress (Load balancing) / CronJob …</section>
 				</section>
 				<section>
-					Architecture: etc (key/value storage) / API Server (communication avec etcd) / Controller Manager (logique des objets) / Scheduler (répartition des pods)
+					<img src="images/kubernetes_global_architecture.png" height="400px" />
+					<ul>
+						<li>etcd: key/value storage</li>
+						<li>API Server: communication avec etcd </li>
+						<li>Controller Manager (logique des objets)</li>
+						<li>Scheduler: répartition des pods</li>
 				</section>
 				<section>
-					Et sur le serveurs ? kubelet (scheduler serveur) / kube-proxy (networking) + pods
+					<img src="images/kubernetes_pods.png" height="400px" />
+					<ul>
+						<li>kubelet: scheduler interne au serveur</li>
+						<li>kube-proxy: networking interne au serveur</li>
+						<li>pods: les containers :)</li>
+					</ul>
 				</section>
 				<section>
-					Exemple récent: Pokémon Go
+					<section>
+						<h1>Et dans la vraie vie ?</h1>
+					</section>
+					<section>1</section>
+					<section>1</section>
+					<section>1</section>
+					<section>1</section>
 				</section>
 				<!-- RANCHER -->
 				<section>

@@ -214,11 +214,41 @@
 					<h1>3. Rancher</h1>
 					<h3>Mais bon, Kubernetes c'est compliqué !</h3>
 				</section>
-				<section>A</section>
+				<section>
+					<h1>C'est quoi ?</h1>
+					<p><strong>2014:</strong> Rancher Labs est fondé et crée <a href="https://rancher.com/" target="_blank">Rancher</a> !</p>
+					<p>Permet l'abstraction d'un service comme Kubernetes pour la plupart des providers populaires (Google / Amazon / Microsoft).</p>
+					<p>Et ainsi l'utilisation des services, du network, du load balancing, du monitoring et d'un recovery</p>
+				</section>
+				<section>
+					<h1>Installation</h1>
+					<p>Rien de plus simple ! Pour la production:</p>
+					<pre><code data-trim data-noescape class="bash" style="max-height: none;">
+						$ docker run -d --restart=unless-stopped -p 80:80 -p 443:443 \
+						rancher/rancher:latest --acme-domain admin.rancher.com
+					</code></pre>
+					<p>Et en plus, on auto-génère un certificat SSL avec <a href="https://certbot.eff.org/" target="_blank">certbot</a> (via le service <a href="https://letsencrypt.org/" target="_blank">Let’s Encrypt</a>)</p>
+				</section>
+				<section>
+					<h1>Et à l'usage ?</h1>
+					<ul>
+						<li class="fragment">Version haut niveau, donc pas autant de possibilités qu'un Kubernetes classique, mais toutes les fonctions de base sont là !</li>
+						<li class="fragment">Ajout du layer "Projet" qui permet de mieux structurer les applications</li>
+						<li class="fragment">Gestion complète des droits et login via github qui simplifie l'auth.</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Mais aussi:</h3>
+					<ul>
+						<li class="fragment">Gestion des storages abstraites / automatisés (Persistant Volume / Storage Classes)</li>
+						<li class="fragment">Gestion de pipelines avec synchronisation Github</li>
+						<li class="fragment">Monitoring via des alertes (Slack / Email / WebHook)</li>
+					</ul>
+				</section>
 				<!-- END -->
 				<section>
-					<h1>4. Fin</h1>
 					<img src="images/micdrop.gif" />
+					<h1>4. Fin</h1>
 				</section>
 				<section>
 					<h1>Links</h1>
@@ -226,6 +256,7 @@
 						<li><a href="https://www.youtube.com/watch?v=Ompowc9pkBw" target="_blank">Introduction à Kubernetes — Renaud Chaput</a></li>
 						<li><a href="https://kubernetes.io/docs/home/?path=users&persona=app-developer&level=foundational" target="_blank">Kubernetes Documentation</a></li>
 						<li><a href="https://cloudplatform.googleblog.com/2016/09/bringing-Pokemon-GO-to-life-on-Google-Cloud.html" target="_blank">Bringing Pokémon GO to life on Google Cloud</a></li>
+						<li><a href="https://rancher.com/docs/rancher/v2.x/en/" target="_blank">Rancher Documentation</a></li>
 					</ul>
 				</section>
 			</div>

@@ -87,7 +87,7 @@
 					</section>
 					<section>
 						<h3>Simple Pod</h3>
-						<pre><code data-trim data-noescape class="yaml" style="max-height: none;">
+						<pre class="notranslate"><code data-trim data-noescape class="yaml" style="max-height: none;">
 							apiVersion: v1
 							kind: Pod
 							metadata:
@@ -102,7 +102,7 @@
 					</section>
 					<section>
 						<h3>Deployment</h3>
-						<pre><code data-trim data-noescape class="yaml" style="max-height: none;">
+						<pre class="notranslate"><code data-trim data-noescape class="yaml" style="max-height: none;">
 							apiVersion: apps/v1beta2
 							kind: Deployment
 							metadata:
@@ -128,7 +128,7 @@
 					</section>
 					<section>
 						<h3>Service</h3>
-						<pre><code data-trim data-noescape class="yaml" style="max-height: none;">
+						<pre class="notranslate"><code data-trim data-noescape class="yaml" style="max-height: none;">
 							apiVersion: v1
 							kind: Service
 							metadata:
@@ -144,7 +144,7 @@
 					</section>
 					<section>
 						<h3>Ingress</h3>
-						<pre><code data-trim data-noescape class="yaml" style="max-height: none;">
+						<pre class="notranslate"><code data-trim data-noescape class="yaml" style="max-height: none;">
 							apiVersion: extensions/v1beta1
 							kind: Ingress
 							metadata:
@@ -163,7 +163,7 @@
 					</section>
 					<section>
 						<h3>CronJob</h3>
-						<pre><code data-trim data-noescape class="yaml" style="max-height: none;">
+						<pre class="notranslate"><code data-trim data-noescape class="yaml" style="max-height: none;">
 							apiVersion: batch/v1beta1
 							kind: CronJob
 							metadata:
@@ -223,7 +223,7 @@
 				<section>
 					<h1>Installation</h1>
 					<p>Rien de plus simple ! Pour la production:</p>
-					<pre><code data-trim data-noescape class="bash" style="max-height: none;">
+					<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">
 						$ docker run -d --restart=unless-stopped -p 80:80 -p 443:443 \
 						rancher/rancher:latest --acme-domain admin.rancher.com
 					</code></pre>

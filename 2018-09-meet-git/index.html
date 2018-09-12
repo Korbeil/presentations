@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Ranger des cubes dans des boites - Une balade de Docker à Rancher</title>
+		<title>Meet git</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
 		<link rel="stylesheet" href="css/theme.css">
@@ -14,11 +14,59 @@
 					<h1>Meet Git</h1>
 					<h3>Git is awesome !</h3>
 					<p>
-						<small>Crée par <a href="https://baptiste-leduc.now.sh/" target="_blank">Baptiste Leduc</a> pour <a href="https://weglot.com/" target="_blank">Weglot</a></small>
+						<small>Created by <a href="https://baptiste-leduc.now.sh/" target="_blank">Baptiste Leduc</a> for <a href="https://weglot.com/" target="_blank">Weglot</a></small>
 					</p>
 				</section>
 				<section>
-					<h1>aaaa</h1>
+					<h1>1. What is git ?</h1>
+					<h3>Git basics</h3>
+				</section>
+				<section>
+					<img src="images/working-staging-repository.png" height="300px" />
+					<ul>
+						<li><b>Working</b>: You modify files in your working tree.</li>
+						<li><b>Staging</b>: You selectively stage just those changes you want to be part of your next commit.</li>
+						<li><b>Repository</b>: You do a commit.</li>
+					</ul>
+				</section>
+				<section>
+					<p>Your local git is a <u>repository</u></p>
+					<p>Distant git is a <u>repository</u> (and you can have multiple distant git, for example when using forks)</p>
+					<hr/>
+					<p>Each <u>repository</u> have their own branches, you won't recover them by simply fetching a repository</p>
+				</section>
+				<section>
+					<h1>2. Usage</h1>
+					<br/>
+					<img src="images/git-logo.png" height="200px" />
+				</section>
+				<section>
+					<section>
+						<h1>Logs !</h1>
+					</section>
+					<section>
+						<h2>Ugly logs</h2>
+						<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">git log</code></pre>
+						<img src="images/git-log-ugly.png" height="400px" />
+					</section>
+					<section>
+						<h2>Pretty logs ?</h2>
+						<p>Quite easy:</p>
+						<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">git log --pretty=format:"%h %s" --graph</code></pre>
+						<img src="images/git-log-pretty.png" height="400px" />
+					</section>
+					<section>
+						<h2>Usefull logs !</h2>
+						<p>git <u>reflog</u> is decoupled from HEAD and repository. It's just a local history of git.</p>
+						<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">git reflog</code></pre>
+						<img src="images/git-log-usefull.png" height="400px" />
+					</section>
+				</section>
+				<section>
+					<h1>Links</h1>
+					<ul>
+						<li><a href="https://git-scm.com/book/en/v2/Getting-Started-Git-Basics" target="_blank">Getting Started - Git Basics</a></li>
+					</ul>
 				</section>
 			</div>
 		</div>

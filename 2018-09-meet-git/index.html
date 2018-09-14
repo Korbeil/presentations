@@ -116,6 +116,30 @@
 					</section>
 				</section>
 				<section>
+					<section>
+						<h1>git reset</h1>
+						<h2>git reset --soft [...]</h2>
+						<p>It will move HEAD location (last commit in branch) and keep changes.</p>
+						<h2><i class="fas fa-exclamation-triangle"></i> git reset --hard [...]</h2>
+						<p>Will move HEAD location and remove changes.</p>
+					</section>
+					<section>
+						<h1>[...] what ?</h1>
+						<p>Based on HEAD: "HEAD~..."</p>
+						<p>Based on commit: "c14809fa" (commit hash)</p>
+						<h2>Examples:</h2>
+						<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">
+							git reset --soft HEAD~0
+							git reset --soft c14809fa
+						</code></pre>
+					</section>
+				</section>
+				<section>
+					<h1>git commit</h1>
+					<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">git commit -m "message"</code></pre>
+					<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">git commit --amend</code></pre>
+				</section>
+				<section>
 					<h1>Links</h1>
 					<ul>
 						<li><a href="https://git-scm.com/book/en/v2/Getting-Started-Git-Basics" target="_blank">Getting Started - Git Basics</a></li>

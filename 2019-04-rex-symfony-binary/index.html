@@ -1,0 +1,144 @@
+<html>
+	<head>
+		<title>REX Symfony Binary</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme.css">
+		<link rel="stylesheet" href="css/highlight.css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>REX Symfony Binary</h1>
+				</section>
+				<section>
+					<h2 class="no-caps">Baptiste Leduc</h2>
+
+					<p>
+						<img src="images/moi.jpg" alt="@Korbeil_"
+							 style="width: 5em; background-color: white; border: 5px solid white !important; display: inline-block; border-radius: 5px; padding: 0;margin: 0 auto;">
+
+						<img src="images/logo-noir.svg" alt="JoliCode" style="height: 2em; display: inline-block; margin-left: 1em;">
+					</p>
+					<div>
+						<ul>
+							<li>🐘 Développeur PHP ;</li>
+							<li> <img src="images/afup-icon-color.png" alt="AFUP" style="height: 40px; vertical-align: middle;"> AFUP ;</li>
+							<li>🏂 Wakeboard</li>
+						</ul>
+					</div>
+					<div style="margin-top: 20px; border: 1px solid black; border-radius: 4px; display: inline-block; padding: 3px;">
+						<ul style="font-size: 0.5em;">
+							<li><i class="fab fa-github"></i> github.com/Korbeil</li>
+							<li><i class="fab fa-twitter"></i> twitter.com/Korbeil_</li>
+						</ul>
+					</div>
+				</section>
+				<section>
+					<h2>Qu'est ce qu'il ce passe ?</h2>
+					<p>Docker, sur Mac, c'est lent.</p>
+					<img src="images/perfs-sloooooooow.png" alt="" />
+					<p>Et je compte pas le temps de build, composer install ...</p>
+				</section>
+				<section>
+					<h2>symfony/web-server-bundle 🤔</h2>
+					<ul>
+						<li>Pas de nom de domaines</li>
+						<li>Pas de https</li>
+						<li>...</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Le binaire Symfony ! 😎</h2>
+					<ul>
+						<li>(r)évolution du <u>symfony/web-server-bundle</u></li>
+						<li>Présenté à Lisbonne le 6 Décembre 2018</li>
+						<li>Closed-Source et écrit en Go</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Enfin un résultat agréable !</h2>
+					<img src="images/perfs-such-wow.png" alt="" />
+				</section>
+				<section>
+					<h2>Et moi j'utilisais .test avant !</h2>
+					<p style="margin-bottom: -35px;">On peut changer ça dans le fichier <strong>~/.symfony/proxy.json</strong></p>
+					<img src="images/symfony-proxy-tld.png" alt="">
+				</section>
+				<section>
+					<h2>PHP en local</h2>
+					<ul>
+						<li>Devoir gérer sa version de PHP</li>
+						<li>Installer les extensions !</li>
+						<li>⚠ <strong>php-xdebug</strong></li>
+					</ul>
+				</section>
+				<section>
+					<h2>Et si j'ai plusieurs versions ?</h2>
+					<ul>
+						<li><strong>symfony local:php:list</strong></li>
+						<li>Fichier <strong>.php_version</strong> à la racine du projet</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Mon API elle fait comment ?</h2>
+					<p><a href="https://github.com/Korbeil/pomdok">https://github.com/Korbeil/pomdok</a> 🍏</p>
+					<ul>
+						<li>Vérification de la compatibilité / installation</li>
+						<li>Met à jour la configuration</li>
+						<li>Start/stop de vos applications</li>
+						<li>Gère le proxy</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Mais du coup ...</h2>
+					<p>Il faut indiquer aux apps qu'on passe</p>
+					<p>par un proxy: <strong>.env.local</strong></p>
+					<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">
+						HTTP_PROXY=http://127.0.0.1:7080/
+						HTTPS_PROXY=http://127.0.0.1:7080/
+					</code></pre>
+				</section>
+				<section>
+					<h1>lien avec docker 😢 pas fou, on met les noms des containers dans le /etc/hosts …</h1>
+				</section>
+				<section>
+					<h2>Conclusion</h2>
+					<ul>
+						<li>On a toujours Docker pour les services</li>
+						<li>Docker reste présent pour Linux/CI</li>
+						<li>Mais la qualité de vie a été grandement améliorée !</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Aller plus loin ...</h2>
+					<ul>
+						<li><a href="https://jolicode.com/blog/mon-serveur-local-avec-le-binaire-symfony">https://jolicode.com/blog/mon-serveur-local-avec-le-binaire-symfony</a></li>
+						<li><a href="https://symfony.com/doc/current/setup/symfony_server.html">https://symfony.com/doc/current/setup/symfony_server.html</a></li>
+						<li><a href="https://github.com/Korbeil/pomdok">https://github.com/Korbeil/pomdok</a></li>
+					</ul>
+				</section>
+				<section>
+					<h1>Questions 🎙</h1>
+					<img alt="" src="https://media.giphy.com/media/3oKIPnbKgN3bXeVpvy/giphy.gif" />
+				</section>
+			</div>
+		</div>
+
+		<div id="footer-left">REX Symfony Binary - @Korbeil_ - 2019 </div>
+
+		<script src="js/head.js"></script>
+		<script src="js/reveal.js"></script>
+		<script>
+            Reveal.initialize({
+				dependencies: [
+                    // Syntax highlight for <code> elements
+                    { src: 'js/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                ]
+			});
+            Reveal.configure({ slideNumber: 'c/t' });
+		</script>
+	</body>
+</html>

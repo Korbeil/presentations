@@ -1,0 +1,206 @@
+<html>
+	<head>
+		<title>Meet git</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme.css">
+		<link rel="stylesheet" href="css/highlight.css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Meet Git</h1>
+					<h3>Git is awesome !</h3>
+					<p>
+						<small>Created by <a href="https://baptiste-leduc.now.sh/" target="_blank">Baptiste Leduc</a> for <a href="https://jolicode.com/" target="_blank">JoliCode</a></small>
+					</p>
+				</section>
+				<section>
+					<h1>1. What is git ?</h1>
+					<h3>Git basics</h3>
+				</section>
+				<section>
+					<img src="images/working-staging-repository.png" height="300px" />
+					<ul>
+						<li><b>Working</b>: You modify files in your working tree.</li>
+						<li><b>Staging</b>: You selectively stage just those changes you want to be part of your next commit.</li>
+						<li><b>Repository</b>: You do a commit.</li>
+					</ul>
+				</section>
+				<section>
+					<p>Your local git is a <u>repository</u></p>
+					<p>Distant git is a <u>repository</u> (and you can have multiple distant git, for example when using forks)</p>
+					<hr/>
+					<p>Each <u>repository</u> have their own branches, you won't recover them by simply fetching a repository</p>
+				</section>
+				<section>
+					<section>
+						<h1>References</h1>
+						<p>A lot in theses !</p>
+					</section>
+					<section>
+						<h2>HEAD</h2>
+						<p>You always have a HEAD when on a branch</p>
+						<p>It contains a reference to the last commit of that branch</p>
+					</section>
+					<section>
+						<h2>Tag</h2>
+						<p>Points to a commit with some details:</p>
+						<p>name, author, date, description</p>
+					</section>
+					<section>
+						<h2>Remote</h2>
+						<p>It store, for each branch, the last commit you pushed to them.</p>
+					</section>
+				</section>
+				<section>
+					<h1>2. Usage</h1>
+					<br/>
+					<img src="images/git-logo.png" height="200px" />
+				</section>
+				<section>
+					<h1>git fetch</h1>
+					<p>Pulling changes from distant remote for all branches. It's updating references for this remote & all related branches.</p>
+				</section>
+				<section>
+					<h1><i class="fas fa-exclamation-triangle"></i> git pull</h1>
+					<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">git pull</code></pre>
+					<h2>Correspond to:</h2>
+					<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">
+						git fetch
+						git merge
+					</code></pre>
+				</section>
+				<section>
+					<h1><i class="fas fa-exclamation-triangle"></i> git merge</h1>
+					<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">git merge</code></pre>
+					<h2>When ?</h2>
+					<p>To merge a final branch to a develop/master branch</p>
+				</section>
+				<section>
+					<h1>git rebase</h1>
+					<h2>How to:</h2>
+					<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">
+						git fetch [remote]
+						git rebase [remote]/[branch]
+					</code></pre>
+				</section>
+				<section>
+					<h1>git add</h1>
+					<p>Adding one by one is ... borring !</p>
+					<h2>Git add - Patch mode !</h2>
+					<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">git add -p</code></pre>
+				</section>
+				<section>
+					<section>
+						<h1>Logs !</h1>
+					</section>
+					<section>
+						<h2>Ugly logs</h2>
+						<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">git log</code></pre>
+						<img src="images/git-log-ugly.png" height="400px" />
+					</section>
+					<section>
+						<h2>Pretty logs ?</h2>
+						<p>Quite easy:</p>
+						<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">git log --graph --date=relative --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ad)%Creset'</code></pre>
+						<img src="images/git-log-pretty.png" height="400px" />
+					</section>
+					<section>
+						<h2>History logs !</h2>
+						<p>git <u>reflog</u> is decoupled from HEAD and repository. It's just a local history of git.</p>
+						<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">git reflog</code></pre>
+						<img src="images/git-log-usefull.png" height="400px" />
+					</section>
+				</section>
+				<section>
+					<section>
+						<h1>git reset</h1>
+						<h2>git reset --soft [...]</h2>
+						<p>It will move HEAD location (last commit in branch) and keep changes.</p>
+						<h2><i class="fas fa-exclamation-triangle"></i> git reset --hard [...]</h2>
+						<p>Will move HEAD location and remove changes.</p>
+					</section>
+					<section>
+						<h1>[...] what ?</h1>
+						<p>Based on HEAD: "HEAD~..."</p>
+						<p>Based on commit: "c14809fa" (commit hash)</p>
+						<h2>Examples:</h2>
+						<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">
+							git reset --soft HEAD~0
+							git reset --soft c14809fa
+						</code></pre>
+					</section>
+				</section>
+				<section>
+					<h1>git commit</h1>
+					<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">git commit -m "message"</code></pre>
+					<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">git commit --amend</code></pre>
+				</section>
+				<section>
+					<h1>3. Tips</h1>
+					<br/>
+					<img src="images/git-logo.png" height="200px" />
+				</section>
+				<section>
+					<section>
+						<h1>Aliases !</h1>
+					</section>
+					<section>
+						<h1>Status</h1>
+						<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">git s</code></pre>
+						<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">git st</code></pre>
+						<p>...</p>
+					</section>
+					<section>
+						<h1>Oops 🤫</h1>
+						<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">git oops</code></pre>
+						<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">git commit --amend --no-edit</code></pre>
+					</section>
+					<section>
+						<h1>Rebase</h1>
+						<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">git rc</code></pre>
+						<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">git rebase --continue</code></pre>
+						<p>&amp;</p>
+						<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">git rs</code></pre>
+						<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">git rebase --skip</code></pre>
+					</section>
+				</section>
+				<section>
+					<h1>pull rebase 🐳</h1>
+					<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">
+						[pull]
+						rebase = preserve
+					</code></pre>
+				</section>
+				<section>
+					<h1>rerere</h1>
+					<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">
+						[rerere]
+						enabled = true
+					</code></pre>
+					<img src="images/mindblown.webp" height="300px" />
+				</section>
+				<section>
+					<h1>Links</h1>
+					<ul>
+						<li><a href="https://git-scm.com/book/en/v2/Getting-Started-Git-Basics" target="_blank">Getting Started - Git Basics</a></li>
+					</ul>
+				</section>
+			</div>
+		</div>
+		<script src="js/head.js"></script>
+		<script src="js/reveal.js"></script>
+		<script>
+            Reveal.initialize({
+				dependencies: [
+                    // Syntax highlight for <code> elements
+                    { src: 'js/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                ]
+			});
+            Reveal.configure({ slideNumber: 'c/t' });
+		</script>
+	</body>
+</html>

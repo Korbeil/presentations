@@ -47,12 +47,9 @@
 					</section>
 					<section>
 						<h2>Tag</h2>
-						<p>Points to a commit with some details:</p>
-						<p>name, author, date, description</p>
-					</section>
-					<section>
-						<h2>Remote</h2>
-						<p>It store, for each branch, the last commit you pushed to them.</p>
+						<p>Points to a commit with some metadatas:</p>
+						<p>name, description</p>
+						<p>author & date are already embed with commits</p>
 					</section>
 				</section>
 				<section>
@@ -70,7 +67,7 @@
 					<h2>Correspond to:</h2>
 					<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">
 						git fetch
-						git merge
+						git merge FETCH_HEAD
 					</code></pre>
 				</section>
 				<section>
@@ -167,6 +164,11 @@
 						<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">git rs</code></pre>
 						<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">git rebase --skip</code></pre>
 					</section>
+					<section>
+						<h1>Logs ! 🎉</h1>
+						<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">git lg</code></pre>
+						<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">git log --graph --date=relative --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ad)%Creset'</code></pre>
+					</section>
 				</section>
 				<section>
 					<h1>pull rebase 🐳</h1>
@@ -183,6 +185,15 @@
 					</code></pre>
 					<img src="images/mindblown.webp" height="300px" />
 					<pre class="notranslate"><code data-trim data-noescape class="bash" style="max-height: none;">git rerere [diff]</code></pre>
+				</section>
+				<section>
+					<h1>Things you should watch</h1>
+					<ul>
+						<li>core.editor</li>
+						<li>help.autocorrect</li>
+						<li>commit.gpgsign</li>
+						<li>...</li>
+					</ul>
 				</section>
 				<section>
 					<h1>Links</h1>

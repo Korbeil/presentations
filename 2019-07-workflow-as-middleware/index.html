@@ -1,0 +1,136 @@
+<html>
+	<head>
+		<title>Développer votre application autour du composant Workflow</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme.css">
+		<link rel="stylesheet" href="css/highlight.css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h2>Développer votre application autour du composant Workflow</h2>
+					<h4>Workflow as middleware</h4>
+					<p>
+						<small>Created by <a href="https://baptiste-leduc.now.sh/" target="_blank">Baptiste Leduc</a> for AFSY 2019-07</small>
+					</p>
+				</section>
+				<section>
+					<h2 class="no-caps">Baptiste Leduc</h2>
+
+					<p>
+						<img src="images/moi.jpg" alt="@Korbeil_"
+							 style="width: 5em; background-color: white; border: 5px solid white !important; display: inline-block; border-radius: 5px; padding: 0;margin: 0 auto;">
+
+						<img src="images/logo-noir.svg" alt="JoliCode" style="height: 2em; display: inline-block; margin-left: 1em;">
+					</p>
+					<div>
+						<ul>
+							<li>🐘 Développeur PHP ;</li>
+							<li> <img src="images/afup-icon-color.png" alt="AFUP" style="height: 40px; vertical-align: middle;"> AFUP ;</li>
+							<li>🏂 Wakeboard ;</li>
+						</ul>
+					</div>
+					<div style="margin-top: 20px; border: 1px solid black; border-radius: 4px; display: inline-block; padding: 3px;">
+						<ul style="font-size: 0.5em;">
+							<li><i class="fab fa-github"></i> github.com/Korbeil</li>
+							<li><i class="fab fa-twitter"></i> twitter.com/Korbeil_</li>
+						</ul>
+					</div>
+				</section>
+				<section>
+					<section>
+						<h1>1. Symfony Workflow</h1>
+						<h3>C'est quoi ?</h3>
+					</section>
+					<section>
+						<p>
+							Le composant workflow permet de définir un processus ou un cycle de vie grâce à la programmation orientée objet.<br />
+							Chaque étape du processus est appelée une place.<br />
+							Les actions permettant de passer d'une place à une autre sont appelées des transitions.
+						</p>
+					</section>
+					<section>
+						<h3>Votre workflow, dans un YAML</h3>
+						<pre class="notranslate"><code data-trim data-noescape class="yaml" style="max-height: none;">
+workflow:
+  workflows:
+    pull_request:
+      marking_store:
+        type: multiple_state
+      arguments:
+        - state
+      supports:
+        - App\Entity\PullRequest
+      places:
+        - opened
+        - closed
+        - needs_review
+        - reviewed
+        - merged
+
+[...]
+						</code></pre>
+					</section>
+					<section>
+						<pre class="notranslate"><code data-trim data-noescape class="yaml" style="max-height: none;">
+[...]
+
+transitions:
+  feedback:
+    from: opened
+    to:   needs_review
+  review:
+    from: [opened, needs_review]
+    to:   reviewed
+  merge:
+    from: reviewed
+    to:   merged
+  close:
+    from: [opened, needs_review, reviewed]
+    to:   closed
+						</code></pre>
+					</section>
+					<section>
+						<h3>Schema</h3>
+						<img src="images/state_machine.pull_request.svg" alt="">
+					</section>
+				</section>
+				<section>
+					<h3></h3>
+					<p></p>
+				</section>
+				<section>
+					<h1>2. Workflow as Middleware</h1>
+					<h3>Et comment utiliser ça ?</h3>
+				</section>
+				<section>
+					<h1>3. Aller plus loin ...</h1>
+					<h3>Toujours plus !</h3>
+				</section>
+
+				<section>
+					<h1>4. Conclusion</h1>
+					<h3>Les workflows c'est cool !</h3>
+				</section>
+				<section>
+					<h1>5.Questions ?</h1>
+					<img src="images/mic.gif" alt="">
+				</section>
+			</div>
+		</div>
+		<script src="js/head.js"></script>
+		<script src="js/reveal.js"></script>
+		<script>
+            Reveal.initialize({
+				dependencies: [
+                    // Syntax highlight for <code> elements
+                    { src: 'js/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                ]
+			});
+            Reveal.configure({ slideNumber: 'c/t' });
+		</script>
+	</body>
+</html>

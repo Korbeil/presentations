@@ -47,9 +47,9 @@
 					</section>
 					<section>
 						<p>
-							Le composant workflow permet de définir un processus ou un cycle de vie grâce à la programmation orientée objet.<br />
-							Chaque étape du processus est appelée une place.<br />
-							Les actions permettant de passer d'une place à une autre sont appelées des transitions.
+							Le composant <b>workflow</b> permet de définir un processus ou un <b>cycle de vie</b> grâce à la programmation orientée objet.<br />
+							Chaque étape du processus est appelée une <b>place</b>.<br />
+							Les actions permettant de passer d'une place à une autre sont appelées des <b>transitions</b>.
 						</p>
 					</section>
 					<section>
@@ -58,49 +58,31 @@
 workflow:
   workflows:
     pull_request:
-      marking_store:
-        type: multiple_state
-      arguments:
-        - state
-      supports:
-        - App\Entity\PullRequest
       places:
         - opened
         - closed
         - needs_review
         - reviewed
         - merged
-
-[...]
-						</code></pre>
-					</section>
-					<section>
-						<pre class="notranslate"><code data-trim data-noescape class="yaml" style="max-height: none;">
-[...]
-
-transitions:
-  feedback:
-    from: opened
-    to:   needs_review
-  review:
-    from: [opened, needs_review]
-    to:   reviewed
-  merge:
-    from: reviewed
-    to:   merged
-  close:
-    from: [opened, needs_review, reviewed]
-    to:   closed
+      transitions:
+        feedback:
+          from: opened
+          to:   needs_review
+        review:
+          from: [opened, needs_review]
+          to:   reviewed
+        merge:
+          from: reviewed
+          to:   merged
+        close:
+          from: [opened, needs_review, reviewed]
+          to:   closed
 						</code></pre>
 					</section>
 					<section>
 						<h3>Schema</h3>
 						<img src="images/state_machine.pull_request.svg" alt="">
 					</section>
-				</section>
-				<section>
-					<h3></h3>
-					<p></p>
 				</section>
 				<section>
 					<h1>2. Workflow as Middleware</h1>

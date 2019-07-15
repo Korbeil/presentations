@@ -85,8 +85,44 @@ workflow:
 					</section>
 				</section>
 				<section>
-					<h1>2. Workflow as Middleware</h1>
-					<h3>Et comment utiliser ça ?</h3>
+					<section>
+						<h1>2. Workflow as Middleware</h1>
+						<h3>Et comment utiliser ça ?</h3>
+					</section>
+					<section>
+						<p>Pour compléter notre Workflow orienté <b>middleware</b> il nous manque deux choses:</p>
+						<ul>
+							<li><b>Action</b>: Le lien entre transitions et services</li>
+							<li><b>Subscriber</b>: permet de déclencher vos actions lorsqu'une transition passe</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Votre YAML, avec des actions</h3>
+						<pre class="notranslate"><code data-trim data-noescape class="yaml" style="max-height: none;">
+workflow:
+  workflows:
+    pull_request:
+      places:
+        # ...
+      metadata:
+        actions:
+          - 'Workflow\Action\Doctrine\Flush'
+      transitions:
+        merge:
+          from: reviewed
+          to:   merged
+          metadata:
+            actions:
+              - 'Workflow\Action\PullRequest\Merge'
+        # ...
+						</code></pre>
+					</section>
+					<section>
+						<h3>Action</h3>
+					</section>
+					<section>
+						<h3>Subscriber</h3>
+					</section>
 				</section>
 				<section>
 					<section>
@@ -98,13 +134,13 @@ workflow:
 						<h5>Votre ressource API Platform</h5>
 						<pre class="notranslate"><code data-trim data-noescape class="yaml" style="max-height: none;">
 							resources:
-							  Entity\Order:
+							  Entity\PullRequest:
 							    itemOperations:
 							      get: ~
 							      transition:
 							        method: 'PUT'
-							        path: '/workflow/order/{id}/{transition}'
-							        controller: 'Controller\OrderTransition'
+							        path: '/workflow/pull-request/{id}/{transition}'
+							        controller: 'Controller\PullRequestTransition'
 							        defaults:
 							          _api_receive: false
 						</code></pre>
@@ -136,15 +172,15 @@ workflow:
 						<h3>Endpoint API</h3>
 						<h5>Votre <b>vrai</b> controller</h5>
 						<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
-class OrderTransition extends WorkflowController
+class PullRequestTransition extends WorkflowController
 {
-    public function __invoke(Request $request, Order $order, string $transition)
+    public function __invoke(Request $request, PullRequest $pullRequest, string $transition)
     {
         return $this->applyTransition(
-          $order,
+          $pullRequest,
           $transition,
           $request,
-          OrderTransitionData::class
+          PullRequestTransitionData::class
         );
     }
 }

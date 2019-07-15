@@ -58,12 +58,7 @@
 workflow:
   workflows:
     pull_request:
-      places:
-        - opened
-        - closed
-        - needs_review
-        - reviewed
-        - merged
+      places: [opened, closed, needs_review, reviewed, merged]
       transitions:
         feedback:
           from: opened
@@ -118,59 +113,20 @@ workflow:
 						</code></pre>
 					</section>
 					<section>
-						<h3>Action</h3>
-						<h5>Interface</h5>
-						<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
-interface ActionTransitionInterface
-{
-    public function transition(WorkflowStoreInterface $entity, string $transition);
-}
-						</code></pre>
-						<h5>Configuration</h5>
-						<pre class="notranslate"><code data-trim data-noescape class="yaml" style="max-height: none;">
-    _instanceof:
-        Workflow\Action\ActionTransitionInterface:
-            tags: ['workflow.action']
-						</code></pre>
-					</section>
-					<section>
-						<h3>Action</h3>
-						<h5>Classe</h5>
-						<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
-class Merge implements ActionTransitionInterface
-{
-    public function transition(WorkflowStoreInterface $entity, string $transition)
-    {
-      // ma logique ici 👋
-    }
-}
-						</code></pre>
-						<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
-class Flush implements ActionTransitionInterface
-{
-    public function transition(WorkflowStoreInterface $entity, string $transition)
-    {
-        $this->entityManager->persist($entity);
-        $this->entityManager->flush();
-    }
-}
-						</code></pre>
-					</section>
-					<section>
 						<h3>Subscriber</h3>
 						<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
     public function handleTransition(Event $event)
     {
         $subject = $event->getSubject();
+        $transition = $event->getTransition();
         $store = $event->getWorkflow()->getMetadataStore();
 
-        $transition = $event->getTransition();
         $actions = \array_merge(
             $store->getMetadata('actions', $transition) ?? [],
-            $store->getMetadata('actions') ?? [] // global metadata always AFTER transition ones.
+            $store->getMetadata('actions') ?? []
         );
 
-        // Validation ~
+        // Validation ~ Slide suivante 😉
 
         if (\is_array($actions)) {
             foreach ($actions as $action) {
@@ -217,6 +173,45 @@ class Flush implements ActionTransitionInterface
     }
 						</code></pre>
 					</section>
+					<section>
+						<h3>Action</h3>
+						<h5>Interface</h5>
+						<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
+interface ActionTransitionInterface
+{
+    public function transition(WorkflowStoreInterface $entity, string $transition);
+}
+						</code></pre>
+						<h5>Configuration</h5>
+						<pre class="notranslate"><code data-trim data-noescape class="yaml" style="max-height: none;">
+    _instanceof:
+        Workflow\Action\ActionTransitionInterface:
+            tags: ['workflow.action']
+						</code></pre>
+					</section>
+					<section>
+						<h3>Action</h3>
+						<h5>Implémentation</h5>
+						<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
+class Merge implements ActionTransitionInterface
+{
+    public function transition(WorkflowStoreInterface $entity, string $transition)
+    {
+      // ma logique ici 👋
+    }
+}
+						</code></pre>
+						<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
+class Flush implements ActionTransitionInterface
+{
+    public function transition(WorkflowStoreInterface $entity, string $transition)
+    {
+        $this->entityManager->persist($entity);
+        $this->entityManager->flush();
+    }
+}
+						</code></pre>
+					</section>
 				</section>
 				<section>
 					<section>
@@ -253,10 +248,10 @@ class Flush implements ActionTransitionInterface
 
         if (null !== $dataClass) {
             $transitionData = $this->serializer->deserialize($request->getContent() ?: '{}', $dataClass, 'json');
-            $entity->setTransitionData($transitionData);
+        	$workflow->apply($entity, ['data' => $transitionData]);
+        } else {
+            $workflow->apply($entity);
         }
-
-        $workflow->apply($entity, $transition);
 
         return $entity;
     }

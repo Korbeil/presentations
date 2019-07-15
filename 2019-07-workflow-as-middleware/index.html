@@ -89,8 +89,91 @@ workflow:
 					<h3>Et comment utiliser ça ?</h3>
 				</section>
 				<section>
-					<h1>3. Aller plus loin ...</h1>
-					<h3>Toujours plus !</h3>
+					<section>
+						<h1>3. Aller plus loin ...</h1>
+						<h3>Toujours plus !</h3>
+					</section>
+					<section>
+						<h3>Endpoint API</h3>
+						<h5>Votre ressource API Platform</h5>
+						<pre class="notranslate"><code data-trim data-noescape class="yaml" style="max-height: none;">
+							resources:
+							  Entity\Order:
+							    itemOperations:
+							      get: ~
+							      transition:
+							        method: 'PUT'
+							        path: '/workflow/order/{id}/{transition}'
+							        controller: 'Controller\OrderTransition'
+							        defaults:
+							          _api_receive: false
+						</code></pre>
+					</section>
+					<section>
+						<h3>Endpoint API</h3>
+						<h5>Votre controller</h5>
+						<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
+    public function applyTransition(WorkflowStoreInterface $entity, string $transition, Request $request, string $dataClass = null): WorkflowStoreInterface
+    {
+        $workflow = $this->workflows->get($entity);
+
+        if (!$workflow->can($entity, $transition)) {
+            throw new BadRequestHttpException('transition_failed');
+        }
+
+        if (null !== $dataClass) {
+            $transitionData = $this->serializer->deserialize($request->getContent() ?: '{}', $dataClass, 'json');
+            $entity->setTransitionData($transitionData);
+        }
+
+        $workflow->apply($entity, $transition);
+
+        return $entity;
+    }
+						</code></pre>
+					</section>
+					<section>
+						<h3>Endpoint API</h3>
+						<h5>Votre <b>vrai</b> controller</h5>
+						<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
+class OrderTransition extends WorkflowController
+{
+    public function __invoke(Request $request, Order $order, string $transition)
+    {
+        return $this->applyTransition(
+          $order,
+          $transition,
+          $request,
+          OrderTransitionData::class
+        );
+    }
+}
+						</code></pre>
+					</section>
+					<section>
+						<h3>Des logs ?</h3>
+						<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
+    private function transitionHistory(Event $event)
+    {
+        /** @var WorkflowStoreInterface $workflowSubject */
+        $workflowSubject = $event->getSubject(); // a remplacer par le context (depuis SF 4.3)
+
+        $transitionEntry = new TransitionEntry();
+        $transitionEntry->setWorkflow($event->getWorkflow()->getName());
+        $transitionEntry->setSubject($workflowSubject);
+        $transitionEntry->setClass(\get_class($workflowSubject));
+        $transitionEntry->setReference($workflowSubject->getId() ?? 0);
+        $transitionEntry->setTransition($event->getTransition()->getName());
+        $transitionEntry->setAdmin('system');
+        $transitionEntry->setDate(new \DateTime());
+
+        $transitionEntry->setPreviousMarking($this->rebuildPreviousMarking($event));
+        $transitionEntry->setNextMarking($workflowSubject->getMarking());
+
+        $this->entityManager->persist($transitionEntry);
+    }
+						</code></pre>
+					</section>
 				</section>
 
 				<section>

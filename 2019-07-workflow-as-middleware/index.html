@@ -119,9 +119,103 @@ workflow:
 					</section>
 					<section>
 						<h3>Action</h3>
+						<h5>Interface</h5>
+						<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
+interface ActionTransitionInterface
+{
+    public function transition(WorkflowStoreInterface $entity, string $transition);
+}
+						</code></pre>
+						<h5>Configuration</h5>
+						<pre class="notranslate"><code data-trim data-noescape class="yaml" style="max-height: none;">
+    _instanceof:
+        Workflow\Action\ActionTransitionInterface:
+            tags: ['workflow.action']
+						</code></pre>
+					</section>
+					<section>
+						<h3>Action</h3>
+						<h5>Classe</h5>
+						<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
+class Merge implements ActionTransitionInterface
+{
+    public function transition(WorkflowStoreInterface $entity, string $transition)
+    {
+      // ma logique ici 👋
+    }
+}
+						</code></pre>
+						<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
+class Flush implements ActionTransitionInterface
+{
+    public function transition(WorkflowStoreInterface $entity, string $transition)
+    {
+        $this->entityManager->persist($entity);
+        $this->entityManager->flush();
+    }
+}
+						</code></pre>
 					</section>
 					<section>
 						<h3>Subscriber</h3>
+						<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
+    public function handleTransition(Event $event)
+    {
+        $subject = $event->getSubject();
+        $store = $event->getWorkflow()->getMetadataStore();
+
+        $transition = $event->getTransition();
+        $actions = \array_merge(
+            $store->getMetadata('actions', $transition) ?? [],
+            $store->getMetadata('actions') ?? [] // global metadata always AFTER transition ones.
+        );
+
+        // Validation ~
+
+        if (\is_array($actions)) {
+            foreach ($actions as $action) {
+                $actionObject = $this->actions[$action];
+                $actionObject->transition($subject, $transition->getName());
+            }
+        }
+    }
+						</code></pre>
+					</section>
+					<section>
+						<h3>Subscriber</h3>
+						<h5>Validation</h5>
+						<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
+        $data = $subject->getTransitionData();
+
+        if ($data instanceof TransitionDataInterface) {
+            $violations = $this->validator->validate($data, null, $transition->getName());
+            if ($violations instanceof ConstraintViolationList && $violations->count() > 0) {
+                throw new ValidationException($violations);
+            }
+        }
+						</code></pre>
+					</section>
+					<section>
+						<h3>Subscriber</h3>
+						<h5>Configuration</h5>
+						<pre class="notranslate"><code data-trim data-noescape class="yaml" style="max-height: none;">
+    Workflow\Subscriber\WorkflowSubscriber:
+        arguments:
+            - !tagged workflow.action
+            - '@Symfony\Component\Validator\Validator\ValidatorInterface'
+						</code></pre>
+						<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
+    public function __construct(iterable $actions, ValidatorInterface $validator)
+    {
+        $array = [];
+        foreach ($actions as $action) {
+            $array[\get_class($action)] = $action;
+        }
+        $this->actions = $array;
+
+        $this->validator = $validator;
+    }
+						</code></pre>
 					</section>
 				</section>
 				<section>
@@ -214,7 +308,26 @@ class PullRequestTransition extends WorkflowController
 
 				<section>
 					<h1>4. Conclusion</h1>
-					<h3>Les workflows c'est cool !</h3>
+					<pre class="notranslate"><code data-trim data-noescape class="yaml" style="max-height: none;">
+workflow:
+  workflows:
+    order:
+      metadata:
+        actions:
+          - 'Workflow\Action\Doctrine\Flush'
+      transitions:
+        pay:
+          from: [with_billing, with_shipping, with_user]
+          to:   paid
+          metadata:
+            actions:
+              - 'Workflow\Action\Order\DoPayment'
+              - 'Workflow\Action\Order\IsPreorder'
+              - 'Workflow\Action\Order\IsFirstOrder'
+              - 'Workflow\Action\Order\Invoice\Create'
+              - 'Workflow\Action\Order\Invoice\Pdf'
+              - 'Workflow\Action\Order\SendValidationEmail'
+						</code></pre>
 				</section>
 				<section>
 					<h1>5.Questions ?</h1>

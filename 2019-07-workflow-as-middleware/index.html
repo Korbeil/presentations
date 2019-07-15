@@ -41,20 +41,24 @@
 					</div>
 				</section>
 				<section>
-					<section>
-						<h1>1. Symfony Workflow</h1>
-						<h3>C'est quoi ?</h3>
-					</section>
-					<section>
-						<p>
-							Le composant <b>workflow</b> permet de définir un processus ou un <b>cycle de vie</b> grâce à la programmation orientée objet.<br />
-							Chaque étape du processus est appelée une <b>place</b>.<br />
-							Les actions permettant de passer d'une place à une autre sont appelées des <b>transitions</b>.
-						</p>
-					</section>
-					<section>
-						<h3>Votre workflow, dans un YAML</h3>
-						<pre class="notranslate"><code data-trim data-noescape class="yaml" style="max-height: none;">
+					<h1>1. Symfony Workflow</h1>
+					<h3>C'est quoi ?</h3>
+				</section>
+				<section>
+					<p>
+						Le composant <b>workflow</b> permet de définir un <b>cycle de vie</b>.<br />
+						Chaque étape du processus est appelée une <b>place</b>.<br />
+					</p>
+				</section>
+				<section>
+					<p>
+						Les actions permettant de passer d'une (ou plusieurs) places à une autre (ou des autres) places via des <b>transitions</b>.<br/>
+						Pour passer une transition il faut que votre objet soit dans <b>toutes</b> les places en amont.
+					</p>
+				</section>
+				<section>
+					<h3>Votre workflow, dans un YAML</h3>
+					<pre class="notranslate"><code data-trim data-noescape class="yaml" style="max-height: none;">
 workflow:
   workflows:
     pull_request:
@@ -72,28 +76,26 @@ workflow:
         close:
           from: [opened, needs_review, reviewed]
           to:   closed
-						</code></pre>
-					</section>
-					<section>
-						<h3>Schema</h3>
-						<img src="images/state_machine.pull_request.svg" alt="">
-					</section>
+					</code></pre>
 				</section>
 				<section>
-					<section>
-						<h1>2. Workflow as Middleware</h1>
-						<h3>Et comment utiliser ça ?</h3>
-					</section>
-					<section>
-						<p>Pour compléter notre Workflow orienté <b>middleware</b> il nous manque deux choses:</p>
-						<ul>
-							<li><b>Action</b>: Le lien entre transitions et services</li>
-							<li><b>Subscriber</b>: permet de déclencher vos actions lorsqu'une transition passe</li>
-						</ul>
-					</section>
-					<section>
-						<h3>Votre YAML, avec des actions</h3>
-						<pre class="notranslate"><code data-trim data-noescape class="yaml" style="max-height: none;">
+					<h3>Schema</h3>
+					<img src="images/state_machine.pull_request.svg" alt="">
+				</section>
+				<section>
+					<h1>2. Workflow as Middleware</h1>
+					<h3>Et comment utiliser ça ?</h3>
+				</section>
+				<section>
+					<p>Pour compléter notre Workflow orienté <b>middleware</b> il nous manque deux choses:</p>
+					<ul>
+						<li><b>Action</b>: Le lien entre transitions et services</li>
+						<li><b>Subscriber</b>: permet de déclencher vos actions lorsqu'une transition passe</li>
+					</ul>
+				</section>
+				<section>
+					<h3>Votre YAML, avec des actions</h3>
+					<pre class="notranslate"><code data-trim data-noescape class="yaml" style="max-height: none;">
 workflow:
   workflows:
     pull_request:
@@ -110,38 +112,36 @@ workflow:
             actions:
               - 'Workflow\Action\PullRequest\Merge'
         # ...
-						</code></pre>
-					</section>
-					<section>
-						<h3>Subscriber</h3>
-						<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
-    public function handleTransition(Event $event)
+					</code></pre>
+				</section>
+				<section>
+					<h3>Subscriber</h3>
+					<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
+    public function handleTransition(TransitionEvent $event)
     {
         $subject = $event->getSubject();
         $transition = $event->getTransition();
         $store = $event->getWorkflow()->getMetadataStore();
 
-        $actions = \array_merge(
+        $actions = array_merge(
             $store->getMetadata('actions', $transition) ?? [],
             $store->getMetadata('actions') ?? []
         );
 
         // Validation ~ Slide suivante 😉
 
-        if (\is_array($actions)) {
-            foreach ($actions as $action) {
-                $actionObject = $this->actions[$action];
-                $actionObject->transition($subject, $transition->getName());
-            }
+        foreach ($actions as $action) {
+            $actionObject = $this->actions[$action];
+            $actionObject->transition($subject, $transition->getName());
         }
     }
-						</code></pre>
-					</section>
-					<section>
-						<h3>Subscriber</h3>
-						<h5>Validation</h5>
-						<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
-        $data = $subject->getTransitionData();
+					</code></pre>
+				</section>
+				<section>
+					<h3>Subscriber</h3>
+					<h5>Validation</h5>
+					<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
+        $data = $event->getContext()['data'];
 
         if ($data instanceof TransitionDataInterface) {
             $violations = $this->validator->validate($data, null, $transition->getName());
@@ -149,18 +149,18 @@ workflow:
                 throw new ValidationException($violations);
             }
         }
-						</code></pre>
-					</section>
-					<section>
-						<h3>Subscriber</h3>
-						<h5>Configuration</h5>
-						<pre class="notranslate"><code data-trim data-noescape class="yaml" style="max-height: none;">
+					</code></pre>
+				</section>
+				<section>
+					<h3>Subscriber</h3>
+					<h5>Configuration</h5>
+					<pre class="notranslate"><code data-trim data-noescape class="yaml" style="max-height: none;">
     Workflow\Subscriber\WorkflowSubscriber:
         arguments:
             - !tagged workflow.action
             - '@Symfony\Component\Validator\Validator\ValidatorInterface'
-						</code></pre>
-						<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
+					</code></pre>
+					<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
     public function __construct(iterable $actions, ValidatorInterface $validator)
     {
         $array = [];
@@ -171,57 +171,55 @@ workflow:
 
         $this->validator = $validator;
     }
-						</code></pre>
-					</section>
-					<section>
-						<h3>Action</h3>
-						<h5>Interface</h5>
-						<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
+					</code></pre>
+				</section>
+				<section>
+					<h3>Action</h3>
+					<h5>Interface</h5>
+					<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
 interface ActionTransitionInterface
 {
-    public function transition(WorkflowStoreInterface $entity, string $transition);
+    public function transition(Entity $entity, string $transitionName);
 }
-						</code></pre>
-						<h5>Configuration</h5>
-						<pre class="notranslate"><code data-trim data-noescape class="yaml" style="max-height: none;">
+					</code></pre>
+					<h5>Configuration</h5>
+					<pre class="notranslate"><code data-trim data-noescape class="yaml" style="max-height: none;">
     _instanceof:
         Workflow\Action\ActionTransitionInterface:
             tags: ['workflow.action']
-						</code></pre>
-					</section>
-					<section>
-						<h3>Action</h3>
-						<h5>Implémentation</h5>
-						<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
+					</code></pre>
+				</section>
+				<section>
+					<h3>Action</h3>
+					<h5>Implémentation</h5>
+					<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
 class Merge implements ActionTransitionInterface
 {
-    public function transition(WorkflowStoreInterface $entity, string $transition)
+    public function transition(Entity $entity, string $transitionName)
     {
       // ma logique ici 👋
     }
 }
-						</code></pre>
-						<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
+					</code></pre>
+					<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
 class Flush implements ActionTransitionInterface
 {
-    public function transition(WorkflowStoreInterface $entity, string $transition)
+    public function transition(Entity $entity, string $transitionName)
     {
         $this->entityManager->persist($entity);
         $this->entityManager->flush();
     }
 }
-						</code></pre>
-					</section>
+					</code></pre>
 				</section>
 				<section>
-					<section>
-						<h1>3. Aller plus loin ...</h1>
-						<h3>Toujours plus !</h3>
-					</section>
-					<section>
-						<h3>Endpoint API</h3>
-						<h5>Votre ressource API Platform</h5>
-						<pre class="notranslate"><code data-trim data-noescape class="yaml" style="max-height: none;">
+					<h1>3. Aller plus loin ...</h1>
+					<h3>Toujours plus !</h3>
+				</section>
+				<section>
+					<h3>Endpoint API</h3>
+					<h5>Votre ressource API Platform</h5>
+					<pre class="notranslate"><code data-trim data-noescape class="yaml" style="max-height: none;">
 							resources:
 							  Entity\PullRequest:
 							    itemOperations:
@@ -232,13 +230,13 @@ class Flush implements ActionTransitionInterface
 							        controller: 'Controller\PullRequestTransition'
 							        defaults:
 							          _api_receive: false
-						</code></pre>
-					</section>
-					<section>
-						<h3>Endpoint API</h3>
-						<h5>Votre controller</h5>
-						<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
-    public function applyTransition(WorkflowStoreInterface $entity, string $transition, Request $request, string $dataClass = null): WorkflowStoreInterface
+					</code></pre>
+				</section>
+				<section>
+					<h3>Endpoint API</h3>
+					<h5>Votre controller</h5>
+					<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
+    public function applyTransition(Entity $entity, string $transitionName, Request $request, string $dataClass = null): WorkflowStoreInterface
     {
         $workflow = $this->workflows->get($entity);
 
@@ -255,12 +253,12 @@ class Flush implements ActionTransitionInterface
 
         return $entity;
     }
-						</code></pre>
-					</section>
-					<section>
-						<h3>Endpoint API</h3>
-						<h5>Votre <b>vrai</b> controller</h5>
-						<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
+					</code></pre>
+				</section>
+				<section>
+					<h3>Endpoint API</h3>
+					<h5>Votre <b>vrai</b> controller</h5>
+					<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
 class PullRequestTransition extends WorkflowController
 {
     public function __invoke(Request $request, PullRequest $pullRequest, string $transition)
@@ -273,34 +271,31 @@ class PullRequestTransition extends WorkflowController
         );
     }
 }
-						</code></pre>
-					</section>
-					<section>
-						<h3>Des logs ?</h3>
-						<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
+					</code></pre>
+				</section>
+				<section>
+					<h3>Audit trail</h3>
+					<pre class="notranslate"><code data-trim data-noescape class="php" style="max-height: none;">
     private function transitionHistory(Event $event)
     {
-        /** @var WorkflowStoreInterface $workflowSubject */
-        $workflowSubject = $event->getSubject(); // a remplacer par le context (depuis SF 4.3)
+        $subject = $event->getSubject();
 
-        $transitionEntry = new TransitionEntry();
-        $transitionEntry->setWorkflow($event->getWorkflow()->getName());
-        $transitionEntry->setSubject($workflowSubject);
-        $transitionEntry->setClass(\get_class($workflowSubject));
-        $transitionEntry->setReference($workflowSubject->getId() ?? 0);
-        $transitionEntry->setTransition($event->getTransition()->getName());
-        $transitionEntry->setAdmin('system');
-        $transitionEntry->setDate(new \DateTime());
+        $entry = new TransitionEntry();
+        $entry->setWorkflow($event->getWorkflow()->getName());
+        $entry->setSubject($workflowSubject);
+        $entry->setClass(\get_class($workflowSubject));
+        $entry->setReference($workflowSubject->getId() ?? 0);
+        $entry->setTransition($event->getTransition()->getName());
+        $entry->setAdmin('system');
+        $entry->setDate(new \DateTime());
 
-        $transitionEntry->setPreviousMarking($this->rebuildPreviousMarking($event));
-        $transitionEntry->setNextMarking($workflowSubject->getMarking());
+        $entry->setPreviousMarking($this->rebuildPreviousMarking($event));
+        $entry->setNextMarking($workflowSubject->getMarking());
 
-        $this->entityManager->persist($transitionEntry);
+        $this->entityManager->persist($entry);
     }
-						</code></pre>
-					</section>
+					</code></pre>
 				</section>
-
 				<section>
 					<h1>4. Conclusion</h1>
 					<pre class="notranslate"><code data-trim data-noescape class="yaml" style="max-height: none;">
@@ -325,7 +320,10 @@ workflow:
 						</code></pre>
 				</section>
 				<section>
-					<h1>5.Questions ?</h1>
+					<h1>5. Merci ! 🎉</h1>
+				</section>
+				<section>
+					<h1>6. Questions ?</h1>
 					<img src="images/mic.gif" alt="">
 				</section>
 			</div>

@@ -46,14 +46,14 @@
 				</section>
 				<section>
 					<p>
-						Le composant <b>workflow</b> permet de définir un <b>cycle de vie</b>.<br />
+						Le composant <b>workflow</b> permet de définir un <b>cycle de vie</b> d'un objet.<br />
 						Chaque étape du processus est appelée une <b>place</b>.<br />
 					</p>
 				</section>
 				<section>
 					<p>
 						Les actions permettant de passer d'une (ou plusieurs) places à une autre (ou des autres) places via des <b>transitions</b>.<br/>
-						Pour passer une transition il faut que votre objet soit dans <b>toutes</b> les places en amont.
+						Pour passer une transition, il faut que votre objet soit dans <b>toutes</b> les places en amont.
 					</p>
 				</section>
 				<section>
@@ -84,13 +84,13 @@ workflow:
 				</section>
 				<section>
 					<h1>2. Workflow as Middleware</h1>
-					<h3>Et comment utiliser ça ?</h3>
+					<h3>Comment utiliser ça ?</h3>
 				</section>
 				<section>
-					<p>Pour compléter notre Workflow orienté <b>middleware</b> il nous manque deux choses:</p>
+					<p>Pour compléter notre Workflow orienté <b>middleware</b>, il nous manque deux choses:</p>
 					<ul>
-						<li><b>Action</b>: Le lien entre transitions et services</li>
-						<li><b>Subscriber</b>: permet de déclencher vos actions lorsqu'une transition passe</li>
+						<li><b>Subscriber</b> : permet de déclencher vos actions lorsqu'une transition passe</li>
+						<li><b>Action(s)</b> : permet le lien entre votre transition et vos services</li>
 					</ul>
 				</section>
 				<section>
@@ -213,7 +213,7 @@ class Flush implements ActionTransitionInterface
 					</code></pre>
 				</section>
 				<section>
-					<h1>3. Aller plus loin ...</h1>
+					<h1>3. Aller plus loin...</h1>
 					<h3>Toujours plus !</h3>
 				</section>
 				<section>

@@ -1,4 +1,5 @@
 ## Presentations
+- [2019-05] [Développer votre application autour du composant Workflow](./2019-07-workflow-as-middleware)
 - [2019-05] [Meet git v2](./2019-05-meet-git-v2)
 - [2019-04] [REX Symfony Binary](./2019-04-rex-symfony-binary)
 - [2018-09] [Meet git](./2018-09-meet-git)

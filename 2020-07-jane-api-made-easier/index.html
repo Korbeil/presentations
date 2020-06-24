@@ -1,0 +1,1277 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>Avec Jane, simplifiez-vous la consommation d'API... et bien plus !</title>
+
+        <link rel="stylesheet" href="dist/reset.css">
+        <link rel="stylesheet" href="dist/reveal.css">
+        <link rel="stylesheet" href="dist/theme/jolicode-light.css" id="theme">
+        <link rel="stylesheet" href="dist/fontawesome/css/all.css">
+
+        <!-- Theme used for syntax highlighted code -->
+        <link rel="stylesheet" href="plugin/highlight/darcula.css" id="highlight-theme">
+    </head>
+
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h1>Jane</h1>
+                    <h3>Simplifiez-vous la consommation d'API... et bien plus !</h3>
+
+                    <aside class="notes">
+                        Coucou, toi qui lis ces notes 👋
+                    </aside>
+                </section>
+
+                <section>
+                    <h3 class="no-caps">Baptiste Leduc</h3>
+
+                    <p>
+                        <img src="img/moi.jpg" alt="@Korbeil_"
+                             style="width: 5em; background-color: white; border: 5px solid white !important; display: inline-block; border-radius: 5px; padding: 0;margin: 0 auto;">
+                        <img src="img/logo-fond-blanc.svg" alt="JoliCode" style="height: 2em; display: inline-block; margin-left: 1em; margin-bottom: 60px;">
+                    </p>
+
+                    <div style="display: flex;">
+                        <div style="width: 100%;">
+                            <ul>
+                                <li>🐘 Développeur PHP</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div style="display: flex;">
+                        <div style="width: 50%;">
+                            <ul>
+                                <li> <img src="img/afup-icon-color.png" alt="AFUP" style="height: 40px; vertical-align: middle; margin: auto;">&nbsp;&nbsp;AFUP</li>
+                                <li>🏄‍️ Wakeboard</li>
+                            </ul>
+                        </div>
+
+                        <div style="width: 50%;">
+                            <ul>
+                                <li><i class="fab fa-github"></i> github.com/Korbeil</li>
+                                <li><i class="fab fa-twitter"></i> twitter.com/Korbeil_</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Un peu de contexte ...</h2>
+
+                    <aside class="notes">
+                        - La Docker engine API avait une spec OpenAPI et Joel a donc crée Jane pour générer un client pour celle-ci.<br/>
+                        - Le nom: Generator / JoliCode => Janerator => Jane
+                    </aside>
+                </section>
+
+                <section>
+                    <h2 class="no-caps">JSON Schema</h2>
+
+                    <a href="https://json-schema.org/specification.html"><i class="fa fa-link"></i> 2019-09</a>
+
+                    <aside class="notes">
+                        - Avant de parler d'OpenAPI ou même de Jane => JSON Schema<br/>
+                        - Non je l'ai jamais cité avant<br/>
+                        - OpenAPI sans matières grasses (pas de notion "API")<br/>
+                        - La dernière version, c'est 2019-09
+                    </aside>
+                </section>
+
+                <section>
+                    <h2 class="no-caps">JSON Schema</h2>
+
+                    <ul>
+                        <li class="fragment">Description</li>
+                        <li class="fragment">Validation</li>
+                    </ul>
+
+                    <aside class="notes">
+                        - Comme son nom l'indique, ça permet de décrire des documents JSON<br/>
+                        - Description<br/>
+                        - Validation
+                    </aside>
+                </section>
+
+                <section>
+                    <section>
+                        <h2 class="no-caps">JSON Schema</h2>
+
+                        <pre><code class="javascript" data-trim data-noescape>
+{
+  "type": "object",
+  "properties": {
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "age": {
+      "type": "integer"
+    }
+  }
+}
+                        </code></pre>
+                    </section>
+
+                    <section>
+                        <h3>Validation</h3>
+
+                        <pre><code class="javascript" data-trim data-noescape data-line-numbers="6-10">
+{
+  "type": "object",
+  "properties": {
+    "firstName": {},
+    "lastName": {},
+    "age": {
+      "description": "Age in years which must be equal to or greater than zero.",
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}
+                        </code></pre>
+                    </section>
+
+                    <section>
+                        <h3>Tableau d'objets</h3>
+
+                        <pre><code class="javascript" data-trim data-noescape data-line-numbers="7-12">
+{
+  "type": "object",
+  "properties": {
+    "firstName": {},
+    "lastName": {},
+    "age": {},
+    "emails": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
+                        </code></pre>
+                    </section>
+
+                    <section>
+                        <h3>Plusieurs objets</h3>
+                        <h4>Avec des références</h4>
+
+                        <pre><code class="javascript" data-trim data-noescape data-line-numbers="6,10-15">
+{"definitions": {
+  "Document": {
+    "properties": {
+      "attributes": {
+        "type": "array",
+        "items": {"$ref": "#/definitions/Attributes"}
+      }
+    }
+  },
+  "Attributes": {
+    "properties": {
+      "name": {"type": "string"},
+      "value": {"type": "string"}
+    }
+  }
+}}
+                        </code></pre>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2 class="no-caps">OpenAPI</h2>
+
+                        <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md"><i class="far fa-hand-point-right"></i> actual: 3.0.3</a><br/>
+                        <a href="https://github.com/OAI/OpenAPI-Specification/issues/1466"><i class="far fa-hand-point-down"></i> next: 3.1.0</a>
+
+                        <aside class="notes">
+                            - Et maintenant OpenAPI<br/>
+                            - A la base l'idée c'était de suivre JSON Schema et d'ajouter la partie "API"<br/>
+                            - Ça s'est un peu séparé de JSON Schema avec le temps<br/>
+                            - Et justement ! La 3.1 se rattache à JSON Schema 2019-09 !
+                        </aside>
+                    </section>
+
+                    <section>
+                        <img src="img/jane-nullable.png" alt="How to manage nullable properties" />
+
+                        <aside class="notes">
+                            - C'est tellement le bazar entre JSON Schema / OpenAPI et ces différentes versions<br/>
+                            - Qu'on a une page dédié a comment BIEN gérer une propriété nulle selon le schéma utilisé ...
+                        </aside>
+                    </section>
+                </section>
+
+                <section>
+                    <h2 class="no-caps">OpenAPI</h2>
+
+                    <ul>
+                        <li class="fragment">JSON Schema</li>
+                        <li class="fragment">Endpoints</li>
+                        <li class="fragment">Authentification</li>
+                        <li class="fragment">...</li>
+                    </ul>
+
+                    <aside class="notes">
+                        - On reprends JSON Schema (quelques différences mais sera ISO à partir de OpenAPI 3.1)<br/>
+                        - Endpoints: paramètres / body / responses (200-400-500)<br/>
+                        - Authentification: header / query / oauth<br/>
+                        - Beaucoup plus permissif sur le format d'entrée: JSON, YAML
+                    </aside>
+                </section>
+
+                <section>
+                    <section>
+                        <h3 class="no-caps">OpenAPI</h3>
+                        <h4>Endpoint</h4>
+
+                        <pre><code class="yaml" data-trim data-noescape>
+paths:
+  /pets:
+    get:
+      summary: List all pets
+      operationId: listPets
+      tags:
+        - pets
+                        </code></pre>
+                    </section>
+
+                    <section>
+                        <h3>Paramètres</h3>
+
+                        <pre><code class="yaml" data-trim data-noescape data-line-numbers="8-15">
+paths:
+  /pets:
+    get:
+      summary: List all pets
+      operationId: listPets
+      tags:
+        - pets
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: A paged array of pets
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pets"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+                        </code></pre>
+                    </section>
+
+                    <section>
+                        <h3>Réponses</h3>
+
+                        <pre><code class="yaml" data-trim data-noescape data-line-numbers="17-27">
+paths:
+  /pets:
+    get:
+      summary: List all pets
+      operationId: listPets
+      tags:
+        - pets
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: A paged array of pets
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pets"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+                        </code></pre>
+                    </section>
+
+                    <section>
+                        <h3>Réponse par défaut</h3>
+
+                        <pre><code class="yaml" data-trim data-noescape data-line-numbers="28-33">
+paths:
+  /pets:
+    get:
+      summary: List all pets
+      operationId: listPets
+      tags:
+        - pets
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: A paged array of pets
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pets"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+                        </code></pre>
+                    </section>
+
+                    <section>
+                        <h3>Authentification</h3>
+
+                        <pre><code class="yaml" data-trim data-noescape data-line-numbers="1-2,9-12|16-25">
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    BearerAuth:
+      type: http
+      scheme: bearer
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    OpenID:
+      type: openIdConnect
+      openIdConnectUrl: https://example.com/.well-known/openid-configuration
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://example.com/oauth/authorize
+          tokenUrl: https://example.com/oauth/token
+          scopes:
+            read: Grants read access
+            write: Grants write access
+            admin: Grants access to admin operations
+                        </code></pre>
+
+                        <aside class="notes">
+                            - Authentification indiqué au niveau global<br/>
+                            - Ensuite on peut spécifier par endpoint quel auth choisir
+                        </aside>
+                    </section>
+                </section>
+
+                <section>
+                    <h2>Et Jane ?</h2>
+
+                    <aside class="notes">
+                        - Une bonne base !<br/>
+                        - Et Jane c'est quoi le rapport ?
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>Comment ça marche ?</h2>
+
+                    <ul>
+                        <li class="fragment">Extraction</li>
+                        <li class="fragment">Analyse</li>
+                        <li class="fragment">Génération</li>
+                    </ul>
+
+                    <aside class="notes">
+                        - On extrait les infos à partir d'un schéma<br/>
+                        - On analyse les données extraites<br/>
+                        - Enfin, on génère !<br/>
+                        <br/>
+                        Et on génère quoi du coup ... ?
+                    </aside>
+                </section>
+
+                <section>
+                    <h3>Génération</h3>
+                    <h3 class="no-caps">Avec JSON Schema</h3>
+
+                    <a href="https://github.com/janephp/json-schema"><i class="fab fa-github"></i> janephp/json-schema</a>
+
+                    <div style="margin-top: 1em;">
+                        <ul>
+                            <li class="fragment">Modèles</li>
+                            <li class="fragment">Normalizers</li>
+                        </ul>
+                    </div>
+
+                    <aside class="notes">
+                        - Modèles: Un DTO avec les propriétés<br/>
+                        - Normalizers: Permet la transformation d'un array en objet ou l'inverse<br/>
+                        - Les classes générés sont optimisées pour prendre le moins de temps possible !
+                    </aside>
+                </section>
+
+                <section>
+                    <h3>Génération</h3>
+                    <h3 class="no-caps">Avec OpenAPI</h3>
+
+                    <a href="https://github.com/janephp/open-api-2"><i class="fab fa-github"></i> janephp/open-api-2</a><br/>
+                    <a href="https://github.com/janephp/open-api-3"><i class="fab fa-github"></i> janephp/open-api-3</a>
+
+                    <div style="margin-top: 1em;">
+                        <ul>
+                            <li class="fragment">JSON Schema</li>
+                            <li class="fragment">Client</li>
+                            <li class="fragment">Endpoints</li>
+                            <li class="fragment">Réponse (et exceptions)</li>
+                            <li class="fragment">Authentification</li>
+                        </ul>
+                    </div>
+
+                    <aside class="notes">
+                        - Client<br/>
+                        - Endpoints<br/>
+                        - Response: (Modèles pour les réponses + exceptions si 400/500)<br/>
+                        - Authentification: Middleware HTTP pour l'ajouter
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>Et dans nos applications ?</h2>
+
+                    <aside class="notes">
+                        - Jane ça peut s'utiliser en stand-alone<br/>
+                        - Mais aussi dans une application !<br/>
+                        - J'ai préparé quelques de cas pratiques que je vais vous présenter ...<br/>
+                        - Pour chaque cas on utilisera le framework Symfony comme base, avec une stack docker (via docker-starter)
+                    </aside>
+                </section>
+
+                <section>
+                    <h2 class="no-caps">Elasticsearch</h2>
+                    <h3>Via Elastically</h3>
+
+                    <a href="https://github.com/janephp/demo-with-elasticsearch"><i class="fab fa-github"></i> janephp/demo-with-elasticsearch</a>
+
+                    <aside class="notes">
+                        - Utilisation de JSON Schema avec ES<br/>
+                        - En utilisant Elastically (surcouche de Elastica, disponible sur l'org JoliCode)<br/>
+                        - C'est une application SF avec une base PostGres<br/>
+                        - J'utilise un jeu de données avec une entité "bière"
+                    </aside>
+                </section>
+
+                <section>
+                    <h3>Mon modèle</h3>
+
+                    <pre><code class="bash">project/config/jane/json-schema.json</code></pre>
+                    <pre><code class="javascript" data-trim data-noescape>
+{
+  "type": "object",
+  "properties": {
+    "name": { "type": "string" },
+    "brewer": { "type": "string" },
+    "style": { "type": "string" },
+    "volume": { "type": "integer" },
+    "alcohol": { "type": "integer" },
+    "country": { "type": "string" },
+    "color": { "type": "string" }
+  }
+}
+                    </code></pre>
+
+                    <aside class="notes">
+                        - Ici on a un JSON Schema qui corresponds à peu près à notre entité<br/>
+                        - On va l'utiliser pour générer un modèle et un normalizer via Jane
+                    </aside>
+                </section>
+
+                <section>
+                    <h3>Indexation</h3>
+
+                    <pre><code class="bash">project/src/Command/IndexCommand.php</code></pre>
+                    <pre><code class="php" data-trim data-noescape>
+$indexBuilder = $elastically->getIndexBuilder();
+$index = $indexBuilder->createIndex(self::BEERS_INDEX);
+$indexBuilder->markAsLive($index, self::BEERS_INDEX);
+$indexer = $elastically->getIndexer();
+
+$beers = $this->beerRepository->findAll();
+foreach ($beers as $beer) {
+    $model = $this->autoMapper->map($beer, \Generated\Model\Beer::class);
+    $document = new \Elastica\Document($beer->getId(), $model);
+    $indexer->scheduleIndex(self::BEERS_INDEX, $document);
+}
+
+$indexer->flush();
+$indexer->refresh(self::BEERS_INDEX);
+                    </code></pre>
+
+                    <aside class="notes">
+                        - On aura configuré Elastically au préalable (host, mapping ES)<br/>
+                        - On boucle sur nos entités pour les transformers en notre modèle<br/>
+                        - Et on envoit ce modèle à ES<br/>
+                        <br/>
+                        Ici on utilise l'AutoMapper pour la transformation d'entité à modèle, j'y reviendrais à la fin de la conférence.<br/>
+                        Mais en gros, ça me permet d'éviter de faire un new et des set/get pour chaque attributs.
+                    </aside>
+                </section>
+
+                <section>
+                    <h3>Récupération</h3>
+
+                    <pre><code class="bash">project/src/Controller/BeerController.php</code></pre>
+                    <pre><code class="php" data-trim data-noescape>
+$index = $elastically->getIndex(self::BEERS_INDEX);
+$resultSet = $index->search();
+$results = $resultSet->getResults();
+
+$output = ['beers' => []];
+foreach ($results as $result) {
+    $output['beers'][] = $result->getModel();
+}
+
+return $this->json($output);
+                    </code></pre>
+
+                    <aside class="notes">
+                        - Ici on récupère l'index ES qui contiens nos bières<br/>
+                        - Grâce à Elastically, notre résultat est passé dans le Serializer Symfony<br/>
+                        - Il va alors trouver le Normalizer qui a été généré par Jane<br/>
+                        - Et du coup on aura une liste de modèles qu'on peut revoyer soit directement, traiter ou donner à Twig
+                    </aside>
+                </section>
+
+                <section>
+                    <h3>Rendu</h3>
+
+                    <img src="img/demo-elasticsearch.png" alt="Rendu démo - Elasticsearch" />
+                </section>
+
+                <section>
+                    <h2 class="no-caps">API Platform</h2>
+
+                    <a href="https://github.com/janephp/demo-with-apiplatform"><i class="fab fa-github"></i> janephp/demo-with-apiplatform</a>
+
+                    <aside class="notes">
+                        - Utilisation de JSON Schema avec un output DTO<br/>
+                        - Toujours une application SF avec une base PostGres<br/>
+                        - J'utilise un jeu de données avec une entité "bière"
+                    </aside>
+                </section>
+
+                <section>
+                    <h3>Mon modèle</h3>
+
+                    <pre><code class="bash">project/config/jane/json-schema.json</code></pre>
+                    <pre><code class="javascript" data-trim data-noescape>
+{
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "brewer": {
+      "type": "string"
+    }
+  }
+}
+                    </code></pre>
+
+                    <aside class="notes">
+                        - Ici on a un JSON Schema qui corresponds aux champs que l'on veut en sortie de notre entité<br/>
+                        - On va l'utiliser pour générer un modèle et un normalizer via Jane
+                    </aside>
+                </section>
+
+                <section>
+                    <h3>Configuration</h3>
+
+                    <pre><code class="bash">project/config/api_platform/resources.yaml</code></pre>
+                    <pre><code class="yaml" data-trim data-noescape>
+resources:
+  App\Entity\Beer:
+    attributes:
+      output: Generated\Model\BeerOutpu
+                    </code></pre>
+
+                    <aside class="notes">
+                        - Configuration d'une resource APIP pour notre entité Beer<br/>
+                        - On lui indique qu'on aura un DTO de sortie "BeerOutput" qui sera configuré comme nom de notre modèle dans la config Jane
+                    </aside>
+                </section>
+
+                <section>
+                    <section>
+                        <h3>Transformation</h3>
+                        <h4>Match</h4>
+
+                        <pre><code class="bash" style="overflow-x: hidden;">project/src/DataTransformer/BeerOutputDataTransformer.php</code></pre>
+                        <pre><code class="php" data-trim data-noescape data-line-numbers="15-20">
+class BeerOutputDataTransformer implements DataTransformerInterface
+{
+    private AutoMapperInterface $autoMapper;
+
+    public function __construct(AutoMapperInterface $autoMapper)
+    {
+        $this->autoMapper = $autoMapper;
+    }
+
+    public function transform($data, string $to, array $context = [])
+    {
+        return $this->autoMapper->map($data, BeerOutput::class, $context);
+    }
+
+    public function supportsTransformation($data, string $to, array $context = []): bool
+    {
+        return
+            BeerOutput::class === $to &&
+            $data instanceof App\Entity\Beer;
+    }
+}
+                        </code></pre>
+
+                        <aside class="notes">
+                            - On match les entités Beer<br/>
+                            - Avec comme format ciblé le DTO BeerOutput
+                        </aside>
+                    </section>
+
+                    <section>
+                        <h4>Transformation</h4>
+                        
+                        <pre><code class="php" data-trim data-noescape data-line-numbers="10-13">
+class BeerOutputDataTransformer implements DataTransformerInterface
+{
+    private AutoMapperInterface $autoMapper;
+
+    public function __construct(AutoMapperInterface $autoMapper)
+    {
+        $this->autoMapper = $autoMapper;
+    }
+
+    public function transform($data, string $to, array $context = [])
+    {
+        return $this->autoMapper->map($data, BeerOutput::class, $context);
+    }
+
+    public function supportsTransformation($data, string $to, array $context = []): bool
+    {
+        return BeerOutput::class === $to && $data instanceof App\Entity\Beer;
+    }
+}
+                        </code></pre>
+
+                        <aside class="notes">
+                            - Et on transforme notre entité en DTO ...<br/>
+                            - On retrouve l'utilisation de l'AutoMapper pour éviter 40 lignes de get/set ;)<br/>
+                            - Plus rapide (promis je vous reparle de l'AutoMapper plus tard)
+                        </aside>
+                    </section>
+                </section>
+
+                <section>
+                    <h3>Rendu</h3>
+
+                    <img src="img/demo-api-platform.png" alt="Rendu démo - API Platform" />
+                </section>
+
+                <section>
+                    <h2 class="no-caps">API externe</h2>
+
+                    <a href="https://github.com/janephp/demo-external-api"><i class="fab fa-github"></i> janephp/demo-external-api</a>
+
+                    <aside class="notes">
+                        - Toujours une application SF<br/>
+                        - Objectif: contacter une API externe, sans utiliser son client, souvent trop lourd et parfois s'intégrant mal avec nos framework (Stripe / Slack ...)
+                    </aside>
+                </section>
+
+                <section>
+                    <section>
+                        <h3 class="no-caps">Schéma OpenAPI</h3>
+                        <h4>Endpoint</h4>
+
+                        <pre><code class="bash">project/config/jane/open-api.yaml</code></pre>
+                        <pre><code class="yaml" data-trim data-noescape data-line-numbers="7-17">
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: 'CatFacts API'
+servers:
+  - url: https://cat-fact.herokuapp.com
+paths:
+  /facts/random:
+    get:
+      operationId: randomFact
+      responses:
+        200:
+          description: 'Get a random `Fact`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fact'
+components:
+  schemas:
+    Fact:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: 'Unique ID for the `Fact`'
+        __v:
+          type: integer
+          description: 'Version number of the `Fact`'
+        user:
+          type: string
+          description: 'ID of the `User` who added the `Fact`'
+        text:
+          type: string
+          description: 'The `Fact` itself'
+        updatedAt:
+          type: string
+          format: date-time
+          description: 'Date in which `Fact` was last modified'
+        sendDate:
+          type: string
+          description: 'If the `Fact` is meant for one time use, this is the date that it is used'
+        deleted:
+          type: boolean
+          description: 'Weather or not the `Fact` has been deleted (Soft deletes are used)'
+        source:
+          type: string
+          description: 'Can be `user` or `api`, indicates who added the fact to the DB'
+        used:
+          type: boolean
+          description: 'Weather or not the `Fact` has been sent by the CatBot. This value is reset each time every `Fact` is used'
+        type:
+          type: string
+          description: 'Type of animal the `Fact` describes (e.g. ‘cat’, ‘dog’, ‘horse’)'
+                        </code></pre>
+
+                        <aside class="notes">
+                            - Un endpoint<br/>
+                            - On notera le champ "operationId", il va correspondre au nom de la méthode du Client généré pour cet endpoint (si pas de "operationId", on se base sur le path et l'operation [GET/POST/PUT/...])
+                        </aside>
+                    </section>
+
+                    <section>
+                        <h4>Modèle</h4>
+
+                        <pre><code class="yaml" data-trim data-noescape data-line-numbers="20-32">
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: 'CatFacts API'
+servers:
+  - url: https://cat-fact.herokuapp.com
+paths:
+  /facts/random:
+    get:
+      operationId: randomFact
+      responses:
+        200:
+          description: 'Get a random `Fact`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fact'
+components:
+  schemas:
+    Fact:
+      type: object
+      properties:
+        _id: { type: string }
+        __v: { type: integer }
+        user: { type: string }
+        text: { type: string }
+        updatedAt: { type: string, format: date-time }
+        sendDate: { type: string }
+        deleted: { type: boolean }
+        source: { type: string }
+        used: { type: boolean }
+        type: { type: string }
+                        </code></pre>
+
+                        <aside class="notes">
+                            - Le modèle correspondant a l'endpoint
+                        </aside>
+                    </section>
+                </section>
+
+                <section>
+                    <h3>Configuration de la génération</h3>
+
+                    <pre><code class="bash">project/config/jane/open_api.php</code></pre>
+                    <pre><code class="php" data-trim data-noescape>
+return [
+    'openapi-file' => __DIR__ . '/open-api.yaml',
+    'namespace' => 'CatFacts\Api',
+    'directory' => __DIR__ . '/../../generated',
+    'date-format' => \DateTimeInterface::RFC3339_EXTENDED,
+];
+                    </code></pre>
+
+                    <aside class="notes">
+                        - L'emplacement de notre schéma OpenAPI<br/>
+                        - Un joli namespace<br/>
+                        - Le dossier de sortie de la génération<br/>
+                        - Notre API utilise un format de date particulier (paramètre optionel ici)
+                    </aside>
+                </section>
+
+                <section>
+                    <h3>Configuration des services</h3>
+
+                    <pre><code class="bash">project/config/packages/jane.yaml</code></pre>
+                    <pre><code class="yaml" data-trim data-noescape data-line-numbers="6-10">
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    CatFacts\Api\Normalizer\JaneObjectNormalizer: ~
+
+    CatFacts\Api\Client:
+        factory: ['CatFacts\Api\Client', 'create']
+        lazy: true
+                    </code></pre>
+
+                    <aside class="notes">
+                        - On va ajouter le Normalizer de Jane (avec l'autoconfigure, les Normalizer seront utilisé dans le Serializer SF)<br/>
+                        - Et on crée un service pour le Client API généré par Jane (via une factory et en lazy)
+                    </aside>
+                </section>
+
+                <section>
+                    <h3>Controller</h3>
+
+                    <pre><code class="bash" data-trim data-noescape>project/src/Controller/FactController.php</code></pre>
+                    <pre><code class="php" data-trim data-noescape>
+class FactController extends AbstractController
+{
+    public function index(CatFacts\Api\Client $client)
+    {
+        return $this->render('fact.html.twig', [
+            'fact' => $client->randomFact(),
+        ]);
+    }
+}
+                    </code></pre>
+
+                    <aside class="notes">
+                        - On récupère le Client généré par Jane et donné comme service à SF via l'autowire<br/>
+                        - Et on utilise notre endpoint qui va renvoyer un modèle Fact à Twig
+                    </aside>
+                </section>
+
+                <section>
+                    <h3>Rendu</h3>
+
+                    <img src="img/demo-external-api.png" alt="Rendu démo - API Externe" />
+                </section>
+
+                <section>
+                    <h2 class="no-caps">Entre deux applications</h2>
+
+                    <a href="https://github.com/janephp/demo-between-two-apps"><i class="fab fa-github"></i> janephp/demo-between-two-apps</a>
+
+                    <aside class="notes">
+                        - Deux applications SF: API & Front<br/>
+                        - L'idée ici est de montrer les interractions entre et les deux apps <br/>
+                        - Et en quoi Jane peut rendre ça beaucoup plus simple
+                    </aside>
+                </section>
+
+                <section>
+                    <section>
+                        <h3>Un contrat commun</h3>
+                        <h4>Endpoint API</h4>
+
+                        <pre><code class="yaml" data-trim data-noescape data-line-numbers="8-21">
+openapi: '3.0.2'
+info:
+  title: Between two apps
+  description: Simple OpenAPI
+  version: 1.0.0
+servers:
+  - url: 'http://api/'
+paths:
+  /beers:
+    get:
+      summary: Get beers
+      operationId: getBeers
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Beer'
+components:
+  schemas:
+    Beer:
+      type: object
+      properties:
+        name:
+          type: string
+        brewer:
+          type: string
+        style:
+          type: string
+        color:
+          type: string
+        alcohol:
+          type: integer
+                        </code></pre>
+
+                        <aside class="notes">
+                            - L'endpoint corresponds à un controlleur dans notre API
+                        </aside>
+                    </section>
+
+                    <section>
+                        <h4>Modèle</h4>
+
+                        <pre><code class="yaml" data-trim data-noescape data-line-numbers="24-36">
+openapi: '3.0.2'
+info:
+  title: Between two apps
+  description: Simple OpenAPI
+  version: 1.0.0
+servers:
+  - url: 'http://api/'
+paths:
+  /beers:
+    get:
+      summary: Get beers
+      operationId: getBeers
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Beer'
+components:
+  schemas:
+    Beer:
+      type: object
+      properties:
+        name:
+          type: string
+        brewer:
+          type: string
+        style:
+          type: string
+        color:
+          type: string
+        alcohol:
+          type: integer
+                        </code></pre>
+
+                        <aside class="notes">
+                            - Et un modèle qui corresponds à ce qu'on veut envoyer via l'API de note bière (et donc recevoir côté Front)
+                        </aside>
+                    </section>
+                </section>
+
+                <section>
+                    <h3>API Controller</h3>
+
+                    <pre><code class="bash" data-trim data-noescape>project/api/src/Controller/BeerController.php</code></pre>
+                    <pre><code class="php" data-trim data-noescape>
+class BeerController extends AbstractController
+{
+    public function list(BeerRepository $beerRepository, AutoMapperInterface $autoMapper, NormalizerInterface $normalizer)
+    {
+        $beers = $beerRepository->findAll();
+        $callback = function (\App\Entity\Beer $beer) use ($autoMapper) {
+            return $autoMapper->map($beer, \Generated\Model\Beer::class);
+        };
+        $beerModels = \array_map($callback, $beers);
+
+        return new JsonResponse($normalizer->normalize($beerModels));
+    }
+}
+                    </code></pre>
+
+                    <aside class="notes">
+                        - Controller côté API<br/>
+                        - Le routing est configuré dans le YAML<br/>
+                        - On récupère toutes nos entités avec le repository<br/>
+                        - On transforme nos entités nos entités en modèles Jane (promis je vous en reparle TRÈS bientôt de l'AutoMapper)<br/>
+                        - Et on renvois ça via une JsonReponse !
+                    </aside>
+                </section>
+
+                <section>
+                    <h3>Front Configuration</h3>
+
+                    <pre><code class="bash" data-trim data-noescape>project/front/config/packages/jane.yaml</code></pre>
+                    <pre><code class="yaml" data-trim data-noescape data-line-numbers="6-10">
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  Generated\Normalizer\JaneObjectNormalizer: ~
+
+  Generated\Client:
+    factory: ['Generated\Client', 'create']
+    lazy: true
+                    </code></pre>
+
+                    <aside class="notes">
+                        - Comme vu dans la configuration des services de l'exemple API externe<br/>
+                        - On va donc ajouter le Normalizer de Jane (autoconfigure -> Serializer SF)<br/>
+                        - Et on crée un service pour le Client API généré par Jane (via une factory et en lazy)
+                    </aside>
+                </section>
+
+                <section>
+                    <h3>Front Controller</h3>
+
+                    <pre><code class="bash" data-trim data-noescape>project/front/src/Controller/HomeController.php</code></pre>
+                    <pre><code class="php" data-trim data-noescape data-line-numbers="3-8">
+class HomeController extends AbstractController
+{
+    public function index(Client $client)
+    {
+        return $this->render('home.html.twig', [
+            'beers' => $client->getBeers()
+        ]);
+    }
+}
+                    </code></pre>
+
+                    <aside class="notes">
+                        - On récupère le Client généré par Jane et donné comme service à SF<br/>
+                        - Et on utilise notre endpoint qui va renvoyer une liste de bière à Twig
+                    </aside>
+                </section>
+
+                <section>
+                    <h3>Rendu</h3>
+
+                    <img src="img/demo-between-two-apps.png" alt="Rendu démo - Entre deux applications" />
+                </section>
+
+                <section>
+                    <h2>Démos</h2>
+
+                    <a href="https://github.com/janephp"><i class="fab fa-github"></i> janephp</a>
+
+                    <aside class="notes">
+                        - Comme indiqué, toutes les démos sont disponibles sur l'org janephp<br/>
+                        - Avec un README détaillé sur comment le projet fonctionne et les spécificités<br/>
+                        - Remerciments: <i>docker-starter</i> (permet de gérer la stack de dev de chacunes des démos)
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>AutoMapper</h2>
+
+                    <a href="https://github.com/janephp/automapper"><i class="fab fa-github"></i> janephp/automapper</a>
+
+                    <aside class="notes">
+                        - Pour finir ! L'AutoMapper !<br/>
+                    </aside>
+                </section>
+
+                <section>
+                    <section>
+                        <h3>C'est quoi ?</h3>
+                        <h4>Serializer Symfony</h4>
+
+                        <img src="img/symfony.png" alt="Schéma Symfony" style="margin-top: 1em;" />
+
+                        <aside class="notes">
+                            - Dans Symfony, quand on fait une Denormalization, on va transformer un Objet en array<br/>
+                            - Pour faire ça on utilise principalement l'ObjectNormalizer<br/>
+                            - Le soucis c'est que l'ObjectNormalizer utilise la Reflection pour mapper les propriétés de notre objet<br/>
+                            - Et la Reflection c'est lourd !
+                        </aside>
+                    </section>
+
+                    <section>
+                        <h4>Jane</h4>
+
+                        <img src="img/automapper.png" alt="Schéma Jane AutoMapper" style="margin-top: 1em;" />
+
+                        <aside class="notes">
+                            - Et c'est là que l'AutoMapper vient<br/>
+                            - Il va lui aussi utiliser la Reflection pour récupérer les propriétés à normalizer<br/>
+                            - Mais la différence c'est qu'on va générer un Transformer pour faire la normalization<br/>
+                            - Du coup, la création du Transformer ne se fera qu'une fois, puis ensuite on utilise le Transformer<br/>
+                            - Et donc, la Reflection ne sera appellé qu'une seule fois !<br/>
+                            - Ce Transformer est uni-latéral<br/>
+                            - Entièrement compatible avec le Serializer symfony (toutes les features sont présentes !)<br/>
+                            - On peut faire: Object -> Array, Array -> Object, Object -> Object, Array -> Array
+                        </aside>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h3>Et en pratique ?</h3>
+                        <h4>Un utilisateur</h4>
+
+                        <pre><code class="php" data-trim data-noescape style="max-height: 450px;">
+class User
+{
+    private int $id;
+    public string $name;
+    public int $age;
+
+    public function __construct(int $id, string $name, int $age)
+    {
+        $this->id = $id;
+        $this->name = $name;
+        $this->age = $age;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+}
+                        </code></pre>
+
+                        <aside class="notes">
+                            - Un objet pour nos exemples !
+                        </aside>
+                    </section>
+
+                    <section>
+                        <h4>Un utilisateur (simplifié)</h4>
+
+                        <pre><code class="php" data-trim data-noescape style="max-height: 450px;">
+class UserName
+{
+    public string $name;
+}
+                        </code></pre>
+
+                        <aside class="notes">
+                            - Et un autre objet (c'est le dernier)
+                        </aside>
+                    </section>
+
+                    <section>
+                        <h4>Depuis un tableau</h4>
+
+                        <pre><code class="php" data-trim data-noescape>
+$source = [
+  'id' => 42,
+  'name' => 'Bastien',
+  'age' => 30,
+];
+
+$target = $automapper->map($source, User::class);
+$target = new UserName();
+$target = $automapper->map($source, $target);
+                        </code></pre>
+
+                        <aside class="notes">
+                            - A partir d'un array on peut transformer en object<br/>
+                            - En donnant la classe de l'objet voulu<br/>
+                            - En donnant un objet déjà existant !<br/>
+                        </aside>
+                    </section>
+
+                    <section>
+                        <h4>Vers un tableau</h4>
+
+                        <pre><code class="php" data-trim data-noescape>
+$source = new User(42, 'Bastien', 30);
+$target = $automapper->map($source, 'array');
+                        </code></pre>
+
+                        <aside class="notes">
+                            - A partir d'un objet on peut transformer en array
+                        </aside>
+                    </section>
+
+                    <section>
+                        <h4>D'un objet vers un objet</h4>
+
+                        <pre><code class="php" data-trim data-noescape>
+$source = new User(42, 'Bastien', 30);
+$target = $automapper->map($source, UserName::class);
+                        </code></pre>
+
+                        <aside class="notes">
+                            - A partir d'un objet on peut transformer en ... objet !
+                        </aside>
+                    </section>
+                </section>
+
+                <section>
+                    <h1>Merci</h1>
+
+                    <h3>Des questions ?</h3>
+                </section>
+            </div>
+        </div>
+
+        <footer class="joli">
+            Jane, simplifiez-vous la consommation d'API... et bien plus ! - <img src="img/logo-fond-blanc.svg" style="height:1em; vertical-align: text-bottom;"/> 2020
+        </footer>
+
+        <script src="dist/reveal.js"></script>
+        <script src="plugin/notes/notes.js"></script>
+        <script src="plugin/markdown/markdown.js"></script>
+        <script src="plugin/highlight/highlight.js"></script>
+
+        <script>
+            Reveal.initialize({
+                hash: true,
+                slideNumber: true,
+
+                plugins: [RevealHighlight, RevealNotes]
+            });
+        </script>
+    </body>
+</html>

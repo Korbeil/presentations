@@ -163,23 +163,25 @@
                         <h3>Plusieurs objets</h3>
                         <h4>Avec des références</h4>
 
-                        <pre><code class="javascript" data-trim data-noescape data-line-numbers="6,10-15">
-{"definitions": {
-  "Document": {
-    "properties": {
-      "attributes": {
-        "type": "array",
-        "items": {"$ref": "#/definitions/Attributes"}
+                        <pre><code class="javascript" data-trim data-noescape data-line-numbers="2|7,11-16">
+{
+  "definitions": {
+    "Document": {
+      "properties": {
+        "attributes": {
+          "type": "array",
+          "items": {"$ref": "#/definitions/Attributes"}
+        }
+      }
+    },
+    "Attributes": {
+      "properties": {
+        "name": {"type": "string"},
+        "value": {"type": "string"}
       }
     }
-  },
-  "Attributes": {
-    "properties": {
-      "name": {"type": "string"},
-      "value": {"type": "string"}
-    }
   }
-}}
+}
                         </code></pre>
                     </section>
                 </section>
@@ -629,7 +631,7 @@ return $this->json($output);
 resources:
   App\Entity\Beer:
     attributes:
-      output: Generated\Model\BeerOutpu
+      output: Generated\Model\BeerOutput
                     </code></pre>
 
                     <aside class="notes">
@@ -1077,7 +1079,7 @@ services:
                     <pre><code class="php" data-trim data-noescape data-line-numbers="3-8">
 class HomeController extends AbstractController
 {
-    public function index(Client $client)
+    public function index(\Generated\Client $client)
     {
         return $this->render('home.html.twig', [
             'beers' => $client->getBeers()
@@ -1128,7 +1130,7 @@ class HomeController extends AbstractController
                         <img src="img/symfony.png" alt="Schéma Symfony" style="margin-top: 1em;" />
 
                         <aside class="notes">
-                            - Dans Symfony, quand on fait une Denormalization, on va transformer un Objet en array<br/>
+                            - Dans Symfony, quand on fait une Normalization, on va transformer un Objet en array<br/>
                             - Pour faire ça on utilise principalement l'ObjectNormalizer<br/>
                             - Le soucis c'est que l'ObjectNormalizer utilise la Reflection pour mapper les propriétés de notre objet<br/>
                             - Et la Reflection c'est lourd !

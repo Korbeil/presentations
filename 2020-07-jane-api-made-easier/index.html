@@ -7,7 +7,7 @@
 
         <link rel="stylesheet" href="dist/reset.css">
         <link rel="stylesheet" href="dist/reveal.css">
-        <link rel="stylesheet" href="dist/theme/jolicode-light.css" id="theme">
+        <link rel="stylesheet" href="dist/theme/jolicode-dark.css" id="theme">
         <link rel="stylesheet" href="dist/fontawesome/css/all.css">
 
         <!-- Theme used for syntax highlighted code -->
@@ -32,7 +32,7 @@
                     <p>
                         <img src="img/moi.jpg" alt="@Korbeil_"
                              style="width: 5em; background-color: white; border: 5px solid white !important; display: inline-block; border-radius: 5px; padding: 0;margin: 0 auto;">
-                        <img src="img/logo-fond-blanc.svg" alt="JoliCode" style="height: 2em; display: inline-block; margin-left: 1em; margin-bottom: 60px;">
+                        <img src="img/logo-fond-noir.svg" alt="JoliCode" style="height: 2em; display: inline-block; margin-left: 1em; margin-bottom: 60px;">
                     </p>
 
                     <div style="display: flex;">
@@ -70,121 +70,736 @@
                 </section>
 
                 <section>
-                    <h2 class="no-caps">JSON Schema</h2>
+                  <img src="img/logo_jane_full.svg" alt="logo Jane" />
 
-                    <a href="https://json-schema.org/specification.html"><i class="fa fa-link"></i> 2019-09</a>
-
-                    <aside class="notes">
-                        - Avant de parler d'OpenAPI ou même de Jane => JSON Schema<br/>
-                        - Non je l'ai jamais cité avant<br/>
-                        - OpenAPI sans matières grasses (pas de notion "API")<br/>
-                        - La dernière version, c'est 2019-09
-                    </aside>
+                  <aside class="notes">
+                    - C'est notre logo, il est beau ?
+                  </aside>
                 </section>
 
                 <section>
-                    <h2 class="no-caps">JSON Schema</h2>
+                  <h2>Jane ?</h2>
 
-                    <ul>
-                        <li class="fragment">Description</li>
-                        <li class="fragment">Validation</li>
-                    </ul>
+                  <p> 🌱 Jane is a set of libraries to generate Models & API Clients based on JSON Schema / OpenAPI specs</p>
 
-                    <aside class="notes">
-                        - Comme son nom l'indique, ça permet de décrire des documents JSON<br/>
-                        - Description<br/>
-                        - Validation
-                    </aside>
+                  <aside class="notes">
+                    - Phrase cité de notre repo<br/>
+                    - Jane ça permet de générer des fichiers pour gagner du temps !<br/>
+                    - Ces fichiers permettent l'utilisation de DTO ou d'API
+                  </aside>
                 </section>
 
                 <section>
-                    <section>
-                        <h2 class="no-caps">JSON Schema</h2>
+                  <h2 class="no-caps">Elasticsearch</h2>
+                  <h3>Via Elastically</h3>
 
-                        <pre><code class="javascript" data-trim data-noescape>
+                  <a href="https://github.com/janephp/demo-with-elasticsearch"><i class="fab fa-github"></i> janephp/demo-with-elasticsearch</a>
+
+                  <aside class="notes">
+                    - Cas pratique avec Elasticsearch<br/>
+                    - En utilisant Elastically (surcouche de Elastica, disponible sur l'org JoliCode)<br/>
+                    - Je ne couvrirais pas la partie sur ElasticSearch (doc Elastica/Elastically)<br/>  
+                    - C'est une application SF avec une base PostGres<br/>
+                    - J'utilise un jeu de données avec une entité "bière"
+                  </aside>
+              </section>
+
+              <section>
+                  <h3>Mon modèle</h3>
+
+                  <pre><code class="bash">project/config/jane/json-schema.json</code></pre>
+                  <pre><code class="javascript" data-trim data-noescape>
 {
   "type": "object",
   "properties": {
-    "firstName": {
-      "type": "string"
-    },
-    "lastName": {
-      "type": "string"
-    },
-    "age": {
-      "type": "integer"
-    }
+    "name": { "type": "string" },
+    "brewer": { "type": "string" },
+    "style": { "type": "string" },
+    "volume": { "type": "integer" },
+    "alcohol": { "type": "integer" },
+    "country": { "type": "string" },
+    "color": { "type": "string" }
   }
 }
-                        </code></pre>
-                    </section>
+                  </code></pre>
 
-                    <section>
-                        <h3>Validation</h3>
+                  <aside class="notes">
+                    - Avant d'utiliser Jane, il faut représenter ma donnée<br/>
+                    - Ici on a un JSON Schema qui corresponds à peu près à notre entité<br/>
+                    - On va l'utiliser pour générer un modèle et un normalizer via Jane
+                  </aside>
+              </section>
 
-                        <pre><code class="javascript" data-trim data-noescape data-line-numbers="6-10">
+              <section>
+                <h2 class="no-caps">JSON Schema</h2>
+                <a href="https://json-schema.org/specification.html"><i class="fa fa-link"></i> 2019-09</a><br/>
+
+                <ul>
+                    <li class="fragment">Description</li>
+                    <li class="fragment">Validation</li>
+                </ul>
+
+                <aside class="notes">
+                    - Comme son nom l'indique, ça permet de décrire des documents JSON<br/>
+                    - Description<br/>
+                    - Validation<br/>
+                    - La dernière version, c'est 2019-09
+                </aside>
+            </section>
+
+            <section>
+                <section>
+                    <h2 class="no-caps">JSON Schema</h2>
+
+                    <pre><code class="javascript" data-trim data-noescape>
 {
   "type": "object",
   "properties": {
-    "firstName": {},
-    "lastName": {},
-    "age": {
-      "description": "Age in years which must be equal to or greater than zero.",
+    "name": { "type": "string" },
+    "brewer": { "type": "string" },
+    "style": { "type": "string" },
+    "volume": { "type": "integer" },
+    "alcohol": { "type": "integer" },
+    "country": { "type": "string" },
+    "color": { "type": "string" }
+  }
+}
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Validation</h3>
+
+                    <pre><code class="javascript" data-trim data-noescape data-line-numbers="7-10">
+{
+  "type": "object",
+  "properties": {
+    "name": { "type": "string" },
+    "brewer": { "type": "string" },
+    "style": { "type": "string" },
+    "volume": {
       "type": "integer",
       "minimum": 0
-    }
+    },
+    "alcohol": { "type": "integer" },
+    "country": { "type": "string" },
+    "color": { "type": "string" }
   }
 }
-                        </code></pre>
-                    </section>
+                    </code></pre>
+                </section>
 
-                    <section>
-                        <h3>Tableau d'objets</h3>
+                <section>
+                    <h3>Tableau d'objets</h3>
 
-                        <pre><code class="javascript" data-trim data-noescape data-line-numbers="7-12">
+                    <pre><code class="javascript" data-trim data-noescape data-line-numbers="4-9">
 {
   "type": "object",
   "properties": {
-    "firstName": {},
-    "lastName": {},
-    "age": {},
-    "emails": {
+    "names": { 
       "type": "array",
       "items": {
         "type": "string"
       }
-    }
+    },
+    "brewer": { "type": "string" },
+    "style": { "type": "string" },
+    "volume": { "type": "integer" },
+    "alcohol": { "type": "integer" },
+    "country": { "type": "string" },
+    "color": { "type": "string" }
   }
 }
-                        </code></pre>
-                    </section>
+                    </code></pre>
+                </section>
 
-                    <section>
-                        <h3>Plusieurs objets</h3>
-                        <h4>Avec des références</h4>
+                <section>
+                    <h3>Les références</h3>
 
-                        <pre><code class="javascript" data-trim data-noescape data-line-numbers="2|7,11-16">
+                    <pre><code class="javascript" data-trim data-noescape data-line-numbers="2|7,14-20">
 {
   "definitions": {
-    "Document": {
+    "Beer": {
+      "type": "object",
       "properties": {
-        "attributes": {
-          "type": "array",
-          "items": {"$ref": "#/definitions/Attributes"}
-        }
+        "name": { "type": "string" },
+        "brewer": { "$ref": "#/definitions/Brewer" },
+        "style": { "type": "string" },
+        "volume": { "type": "integer" },
+        "alcohol": { "type": "integer" },
+        "color": { "type": "string" }
       }
     },
-    "Attributes": {
+    "Brewer": {
+      "type": "object",
       "properties": {
-        "name": {"type": "string"},
-        "value": {"type": "string"}
+        "name": { "type": "string" },
+        "country": { "type": "string" }
       }
     }
   }
 }
-                        </code></pre>
-                    </section>
+                    </code></pre>
                 </section>
+            </section>
+
+            <section>
+              <h2>Configuration</h2>
+
+              <pre><code class="bash">project/config/jane/json_schema.php</code></pre>
+              <pre><code class="javascript" data-trim data-noescape>
+return [
+    'json-schema-file' => __DIR__ . '/json-schema.json',
+    'root-class' => 'Beer',
+    'namespace' => 'Generated',
+    'directory' => __DIR__ . '/../../generated',
+];
+              </code></pre>
+
+              <aside class="notes">
+                - Configuration Jane<br/>
+                - "json-schema-file" -> Schéma source<br/>
+                - "root-class" -> Permet de donner le nom de la classe "root" si elle existe<br/>
+                - "namespace" -> Namespace PHP<br/>
+                - "directory" -> dossier de sortie des fichiers générés
+              </aside>
+            </section>
+
+            <section>
+              <h2>Génération</h2>
+
+              <pre><code class="bash" data-trim data-noescape>
+vendor/bin/jane generate -c config/jane/json_schema.php
+              </code></pre>
+
+              <aside class="notes">
+                - On envoit notre configuration a Jane qui va générer nos fichiers<br/>
+                - Si vous utilisez Symfony, vous avez un recipe qui vous ajoutera un binaire pour faire ça plus simplement
+              </aside>
+            </section>
+
+              <section>
+                <h2>Fichiers générés</h2>
+                <h3>Modèles</h3>
+
+                <pre><code class="php" data-trim data-noescape data-line-numbers="1|8,14|50-53|61-65">
+class Beer
+{
+    /**
+     * 
+     *
+     * @var string
+     */
+    protected $name;
+    /**
+     * 
+     *
+     * @var string
+     */
+    protected $brewer;
+    /**
+     * 
+     *
+     * @var string
+     */
+    protected $style;
+    /**
+     * 
+     *
+     * @var int
+     */
+    protected $volume;
+    /**
+     * 
+     *
+     * @var int
+     */
+    protected $alcohol;
+    /**
+     * 
+     *
+     * @var string
+     */
+    protected $country;
+    /**
+     * 
+     *
+     * @var string
+     */
+    protected $color;
+    /**
+     * 
+     *
+     * @return string
+     */
+    public function getName() : string
+    {
+        return $this->name;
+    }
+    /**
+     * 
+     *
+     * @param string $name
+     *
+     * @return self
+     */
+    public function setName(string $name) : self
+    {
+        $this->name = $name;
+        return $this;
+    }
+    /**
+     * 
+     *
+     * @return string
+     */
+    public function getBrewer() : string
+    {
+        return $this->brewer;
+    }
+    /**
+     * 
+     *
+     * @param string $brewer
+     *
+     * @return self
+     */
+    public function setBrewer(string $brewer) : self
+    {
+        $this->brewer = $brewer;
+        return $this;
+    }
+    /**
+     * 
+     *
+     * @return string
+     */
+    public function getStyle() : string
+    {
+        return $this->style;
+    }
+    /**
+     * 
+     *
+     * @param string $style
+     *
+     * @return self
+     */
+    public function setStyle(string $style) : self
+    {
+        $this->style = $style;
+        return $this;
+    }
+    /**
+     * 
+     *
+     * @return int
+     */
+    public function getVolume() : int
+    {
+        return $this->volume;
+    }
+    /**
+     * 
+     *
+     * @param int $volume
+     *
+     * @return self
+     */
+    public function setVolume(int $volume) : self
+    {
+        $this->volume = $volume;
+        return $this;
+    }
+    /**
+     * 
+     *
+     * @return int
+     */
+    public function getAlcohol() : int
+    {
+        return $this->alcohol;
+    }
+    /**
+     * 
+     *
+     * @param int $alcohol
+     *
+     * @return self
+     */
+    public function setAlcohol(int $alcohol) : self
+    {
+        $this->alcohol = $alcohol;
+        return $this;
+    }
+    /**
+     * 
+     *
+     * @return string
+     */
+    public function getCountry() : string
+    {
+        return $this->country;
+    }
+    /**
+     * 
+     *
+     * @param string $country
+     *
+     * @return self
+     */
+    public function setCountry(string $country) : self
+    {
+        $this->country = $country;
+        return $this;
+    }
+    /**
+     * 
+     *
+     * @return string
+     */
+    public function getColor() : string
+    {
+        return $this->color;
+    }
+    /**
+     * 
+     *
+     * @param string $color
+     *
+     * @return self
+     */
+    public function setColor(string $color) : self
+    {
+        $this->color = $color;
+        return $this;
+    }
+}
+                </code></pre>
+              </section>
+
+              <section>
+                <h2>Serializer ?</h2>
+
+                <img src="img/serializer_workflow.svg" alt="Serializer" /><br/>
+
+                <a href="https://github.com/schmittjoh/serializer"><i class="fab fa-github"></i> symfony/serializer</a><br/>
+                <a href="https://github.com/schmittjoh/serializer"><i class="fab fa-github"></i> jms/serializer</a>
+
+                <aside class="notes">
+                  - Un Serializer, c'est une librairie qui permet de transformer un objet dans un format spécifique (XML, JSON, YAML, ...) et dans l'autre sens aussi ...<br/>
+                  <br/>
+                  As you can see in the picture above, an array is used as an intermediary between objects and serialized contents. This way, encoders will only deal with turning specific formats into arrays and vice versa. The same way, Normalizers will deal with turning specific objects into arrays and vice versa.
+                </aside>
+              </section>
+              
+              <section>
+                <h3>Normalizers</h3>
+
+                <pre><code class="php" data-trim data-noescape data-line-numbers="1|6-9|14,22-28|10-13|46,48-54">
+class BeerNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    public function supportsDenormalization($data, $type, $format = null)
+    {
+        return $type === 'Generated\\Model\\Beer';
+    }
+    public function supportsNormalization($data, $format = null)
+    {
+        return $data instanceof \Generated\Model\Beer;
+    }
+    public function denormalize($data, $class, $format = null, array $context = array())
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
+        }
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
+        }
+        $object = new \Generated\Model\Beer();
+        if (\array_key_exists('name', $data)) {
+            $object->setName($data['name']);
+        }
+        if (\array_key_exists('brewer', $data)) {
+            $object->setBrewer($data['brewer']);
+        }
+        if (\array_key_exists('style', $data)) {
+            $object->setStyle($data['style']);
+        }
+        if (\array_key_exists('volume', $data)) {
+            $object->setVolume($data['volume']);
+        }
+        if (\array_key_exists('alcohol', $data)) {
+            $object->setAlcohol($data['alcohol']);
+        }
+        if (\array_key_exists('country', $data)) {
+            $object->setCountry($data['country']);
+        }
+        if (\array_key_exists('color', $data)) {
+            $object->setColor($data['color']);
+        }
+        return $object;
+    }
+    public function normalize($object, $format = null, array $context = array())
+    {
+        $data = array();
+        if (null !== $object->getName()) {
+            $data['name'] = $object->getName();
+        }
+        if (null !== $object->getBrewer()) {
+            $data['brewer'] = $object->getBrewer();
+        }
+        if (null !== $object->getStyle()) {
+            $data['style'] = $object->getStyle();
+        }
+        if (null !== $object->getVolume()) {
+            $data['volume'] = $object->getVolume();
+        }
+        if (null !== $object->getAlcohol()) {
+            $data['alcohol'] = $object->getAlcohol();
+        }
+        if (null !== $object->getCountry()) {
+            $data['country'] = $object->getCountry();
+        }
+        if (null !== $object->getColor()) {
+            $data['color'] = $object->getColor();
+        }
+        return $data;
+    }
+}
+                </code></pre>
+              </section>
+
+              <section>
+                  <h3>Indexation</h3>
+
+                  <pre><code class="bash">project/src/Command/IndexCommand.php</code></pre>
+                  <pre><code class="php" data-trim data-noescape data-line-numbers="3-12">
+// On va récupérer l'index Elasticsearch
+
+$beers = $this->beerRepository->findAll();
+foreach ($beers as $beer) {
+  $model = new \Generated\Beer();
+  $model->setName($beer->getName());
+  $model->setBrewer($beer->getBrewer());
+  $model->setStyle($beer->getStyle());
+  $model->setVolume($beer->getVolume());
+  $model->setAlcohol($beer->getAlcohol());
+  $model->setCountry($beer->getCountry());
+  $model->setColor($beer->getColor());
+
+  $document = new \Elastica\Document($beer->getId(), $model);
+  $indexer->scheduleIndex(self::BEERS_INDEX, $document);
+}
+
+// Puis on envoit les documents à Elasticsearch
+                  </code></pre>
+
+                  <aside class="notes">
+                      - On aura configuré Elasticsearch au préalable<br/>
+                      - On boucle sur nos entités pour les transformers en notre modèle<br/>
+                      - Et on envoit ce modèle à ES<br/>
+                      - Mais ... c'est chiant de faire ces set/get ...
+                  </aside>
+              </section>
+
+            <section>
+                <h2>AutoMapper</h2>
+
+                <a href="https://github.com/janephp/automapper"><i class="fab fa-github"></i> janephp/automapper</a>
+
+                <aside class="notes">
+                  - Pas seulement JSON Schema / OpenAPI chez Jane<br/>
+                  - Jane = génération de fichiers PHP grâce à l'AST<br/>
+                </aside>
+            </section>
+
+            <section>
+                <section>
+                    <h3>C'est quoi ?</h3>
+                    <h4>Serializer</h4>
+
+                    <div style="background-color: #FFF;">
+                      <img src="img/symfony.png" alt="Schéma Symfony" style="margin-top: 1em;" />
+                    </div>
+
+                    <aside class="notes">
+                      - Généralement, dans un Serializer, quand on fait une Denormalization, on va transformer un array en objet<br/>
+                      - Dans Symfony pour faire ça, on va passer par l'ObjectNormalizer<br/>
+                      - Le soucis c'est que l'ObjectNormalizer utilise la Reflection pour mapper les propriétés de notre objet (idem dans JMS)<br/>
+                      - Et la Reflection c'est lourd !
+                    </aside>
+                </section>
+
+                <section>
+                    <h4>Jane</h4>
+
+                    <div style="background-color: #FFF;">
+                      <img src="img/automapper.png" alt="Schéma Jane AutoMapper" style="margin-top: 1em;" />
+                    </div>
+
+                    <aside class="notes">
+                        - Et c'est là que l'AutoMapper vient<br/>
+                        - Il va lui aussi utiliser la Reflection pour récupérer les propriétés à normalizer<br/>
+                        - Mais la différence c'est qu'on va générer un Transformer pour faire la normalization<br/>
+                        - Du coup, la création du Transformer ne se fera qu'une fois, puis ensuite on utilise le Transformer<br/>
+                        - Et donc, la Reflection ne sera appellé qu'une seule fois !<br/>
+                        - Ce Transformer est uni-latéral<br/>
+                        - Entièrement compatible avec le Serializer symfony (toutes les features sont présentes !)<br/>
+                        - Permet aussi de faire de l'hydratation ou deep copy<br/>
+                        - On peut faire: Object -> Array, Array -> Object, Object -> Object, Array -> Array
+                    </aside>
+                </section>
+            </section>
+
+            <section>
+                <section>
+                    <h3>Et en pratique ?</h3>
+                    <h4>Un utilisateur</h4>
+
+                    <pre><code class="php" data-trim data-noescape style="max-height: 450px;">
+class User
+{
+  private int $id;
+  public string $name;
+  public int $age;
+
+  public function __construct(int $id, string $name, int $age)
+  {
+      $this->id = $id;
+      $this->name = $name;
+      $this->age = $age;
+  }
+
+  public function getId(): int
+  {
+      return $this->id;
+  }
+}
+                    </code></pre>
+
+                    <aside class="notes">
+                        - Un objet pour nos exemples !
+                    </aside>
+                </section>
+
+                <section>
+                    <h4>Un utilisateur (simplifié)</h4>
+
+                    <pre><code class="php" data-trim data-noescape style="max-height: 450px;">
+class UserName
+{
+  public string $name;
+}
+                    </code></pre>
+
+                    <aside class="notes">
+                        - Et un autre objet (c'est le dernier)
+                    </aside>
+                </section>
+
+                <section>
+                    <h4>Depuis un tableau</h4>
+
+                    <pre><code class="php" data-trim data-noescape>
+$source = [
+'id' => 42,
+'name' => 'Bastien',
+'age' => 30,
+];
+
+$target = $automapper->map($source, User::class);
+$target = new UserName();
+$target = $automapper->map($source, $target);
+                    </code></pre>
+
+                    <aside class="notes">
+                        - A partir d'un array on peut transformer en object<br/>
+                        - En donnant la classe de l'objet voulu<br/>
+                        - En donnant un objet déjà existant !<br/>
+                    </aside>
+                </section>
+
+                <section>
+                    <h4>Vers un tableau</h4>
+
+                    <pre><code class="php" data-trim data-noescape>
+$source = new User(42, 'Bastien', 30);
+$target = $automapper->map($source, 'array');
+                    </code></pre>
+
+                    <aside class="notes">
+                        - A partir d'un objet on peut transformer en array
+                    </aside>
+                </section>
+
+                <section>
+                    <h4>D'un objet vers un objet</h4>
+
+                    <pre><code class="php" data-trim data-noescape>
+$source = new User(42, 'Bastien', 30);
+$target = $automapper->map($source, UserName::class);
+                    </code></pre>
+
+                    <aside class="notes">
+                        - A partir d'un objet on peut transformer en ... objet !
+                    </aside>
+                </section>
+            </section>
+
+            <section>
+              <h3>Indexation</h3>
+
+              <pre><code class="bash">project/src/Command/IndexCommand.php</code></pre>
+              <pre><code class="php" data-trim data-noescape data-line-numbers="3-12">
+// On va récupérer l'index Elasticsearch
+
+$beers = $this->beerRepository->findAll();
+foreach ($beers as $beer) {
+  $model = $this->autoMapper->map($beer, \Generated\Beer::class);
+  $document = new \Elastica\Document($beer->getId(), $model);
+  $indexer->scheduleIndex(self::BEERS_INDEX, $document);
+}
+
+// Puis on envoit les documents à Elasticsearch
+              </code></pre>
+
+              <aside class="notes">
+                - Et maintenant avec l'AutoMapper :)
+              </aside>
+          </section>
+
+              <section>
+                  <h3>Récupération</h3>
+
+                  <pre><code class="bash">project/src/Controller/BeerController.php</code></pre>
+                  <pre><code class="php" data-trim data-noescape>
+// On récupère tous les Document de notre index
+
+$output = ['beers' => []];
+foreach ($results as $result) {
+  $output['beers'][] = $result->getModel();
+}
+
+return $this->json($output);
+                  </code></pre>
+
+                  <aside class="notes">
+                      - Grâce à Elastically, notre résultat est passé dans le Serializer Symfony<br/>
+                      - Il va alors trouver le Normalizer qui a été généré par Jane<br/>
+                      - Et du coup on aura une liste de modèles qu'on peut revoyer soit directement, traiter ou donner à Twig
+                  </aside>
+              </section>
+
+              <section>
+                  <h3>Rendu</h3>
+
+                  <img src="img/demo-elasticsearch.png" alt="Rendu démo - Elasticsearch" />
+              </section>
+
+<!-- REORG -->
 
                 <section>
                   <h2 class="no-caps">OpenAPI</h2>
@@ -401,24 +1016,6 @@ components:
                 </section>
 
                 <section>
-                    <h2>Comment ça marche ?</h2>
-
-                    <ul>
-                        <li class="fragment">Extraction</li>
-                        <li class="fragment">Analyse</li>
-                        <li class="fragment">Génération</li>
-                    </ul>
-
-                    <aside class="notes">
-                        - On extrait les infos à partir d'un schéma<br/>
-                        - On analyse les données extraites<br/>
-                        - Enfin, on génère !<br/>
-                        <br/>
-                        Et on génère quoi du coup ... ?
-                    </aside>
-                </section>
-
-                <section>
                     <h3>Génération</h3>
                     <h3 class="no-caps">Avec JSON Schema</h3>
 
@@ -461,118 +1058,6 @@ components:
                         - Response: (Modèles pour les réponses + exceptions si 400/500)<br/>
                         - Authentification: Middleware HTTP pour l'ajouter
                     </aside>
-                </section>
-
-                <section>
-                    <h2>Et dans nos applications ?</h2>
-
-                    <aside class="notes">
-                        - Jane ça peut s'utiliser en stand-alone<br/>
-                        - Mais aussi dans une application !<br/>
-                        - J'ai préparé quelques de cas pratiques que je vais vous présenter ...<br/>
-                        - Pour chaque cas on utilisera le framework Symfony comme base, avec une stack docker (via docker-starter)
-                    </aside>
-                </section>
-
-                <section>
-                    <h2 class="no-caps">Elasticsearch</h2>
-                    <h3>Via Elastically</h3>
-
-                    <a href="https://github.com/janephp/demo-with-elasticsearch"><i class="fab fa-github"></i> janephp/demo-with-elasticsearch</a>
-
-                    <aside class="notes">
-                        - Utilisation de JSON Schema avec ES<br/>
-                        - En utilisant Elastically (surcouche de Elastica, disponible sur l'org JoliCode)<br/>
-                        - C'est une application SF avec une base PostGres<br/>
-                        - J'utilise un jeu de données avec une entité "bière"
-                    </aside>
-                </section>
-
-                <section>
-                    <h3>Mon modèle</h3>
-
-                    <pre><code class="bash">project/config/jane/json-schema.json</code></pre>
-                    <pre><code class="javascript" data-trim data-noescape>
-{
-  "type": "object",
-  "properties": {
-    "name": { "type": "string" },
-    "brewer": { "type": "string" },
-    "style": { "type": "string" },
-    "volume": { "type": "integer" },
-    "alcohol": { "type": "integer" },
-    "country": { "type": "string" },
-    "color": { "type": "string" }
-  }
-}
-                    </code></pre>
-
-                    <aside class="notes">
-                        - Ici on a un JSON Schema qui corresponds à peu près à notre entité<br/>
-                        - On va l'utiliser pour générer un modèle et un normalizer via Jane
-                    </aside>
-                </section>
-
-                <section>
-                    <h3>Indexation</h3>
-
-                    <pre><code class="bash">project/src/Command/IndexCommand.php</code></pre>
-                    <pre><code class="php" data-trim data-noescape>
-$indexBuilder = $elastically->getIndexBuilder();
-$index = $indexBuilder->createIndex(self::BEERS_INDEX);
-$indexBuilder->markAsLive($index, self::BEERS_INDEX);
-$indexer = $elastically->getIndexer();
-
-$beers = $this->beerRepository->findAll();
-foreach ($beers as $beer) {
-    $model = $this->autoMapper->map($beer, \Generated\Model\Beer::class);
-    $document = new \Elastica\Document($beer->getId(), $model);
-    $indexer->scheduleIndex(self::BEERS_INDEX, $document);
-}
-
-$indexer->flush();
-$indexer->refresh(self::BEERS_INDEX);
-                    </code></pre>
-
-                    <aside class="notes">
-                        - On aura configuré Elastically au préalable (host, mapping ES)<br/>
-                        - On boucle sur nos entités pour les transformers en notre modèle<br/>
-                        - Et on envoit ce modèle à ES<br/>
-                        <br/>
-                        Ici on utilise l'AutoMapper pour la transformation d'entité à modèle, j'y reviendrais à la fin de la conférence.<br/>
-                        Mais en gros, ça me permet d'éviter de faire un new et des set/get pour chaque attributs.
-                    </aside>
-                </section>
-
-                <section>
-                    <h3>Récupération</h3>
-
-                    <pre><code class="bash">project/src/Controller/BeerController.php</code></pre>
-                    <pre><code class="php" data-trim data-noescape>
-$index = $elastically->getIndex(self::BEERS_INDEX);
-$resultSet = $index->search();
-$results = $resultSet->getResults();
-
-$output = ['beers' => []];
-foreach ($results as $result) {
-    $output['beers'][] = $result->getModel();
-}
-
-return $this->json($output);
-                    </code></pre>
-
-                    <aside class="notes">
-                        - Ici on récupère l'index ES qui contiens nos bières<br/>
-                        - Grâce à Elastically, notre résultat est passé dans le Serializer Symfony<br/>
-                        - Il va alors trouver le Normalizer qui a été généré par Jane<br/>
-                        - Et du coup on aura une liste de modèles qu'on peut revoyer soit directement, traiter ou donner à Twig
-                    </aside>
-                </section>
-
-                <section>
-                    <h3>Rendu</h3>
-
-                    <img src="img/demo-elasticsearch.png" alt="Rendu démo - Elasticsearch" />
                 </section>
 
                 <section>
@@ -861,12 +1346,11 @@ services:
 
     CatFacts\Api\Client:
         factory: ['CatFacts\Api\Client', 'create']
-        lazy: true
                     </code></pre>
 
                     <aside class="notes">
                         - On va ajouter le Normalizer de Jane (avec l'autoconfigure, les Normalizer seront utilisé dans le Serializer SF)<br/>
-                        - Et on crée un service pour le Client API généré par Jane (via une factory et en lazy)
+                        - Et on crée un service pour le Client API généré par Jane (via une factory)
                     </aside>
                 </section>
 
@@ -1050,13 +1534,12 @@ services:
 
   Generated\Client:
     factory: ['Generated\Client', 'create']
-    lazy: true
                     </code></pre>
 
                     <aside class="notes">
                         - Comme vu dans la configuration des services de l'exemple API externe<br/>
                         - On va donc ajouter le Normalizer de Jane (autoconfigure -> Serializer SF)<br/>
-                        - Et on crée un service pour le Client API généré par Jane (via une factory et en lazy)
+                        - Et on crée un service pour le Client API généré par Jane (via une factory)
                     </aside>
                 </section>
 
@@ -1101,153 +1584,17 @@ class HomeController extends AbstractController
                 </section>
 
                 <section>
-                    <h2>AutoMapper</h2>
-
-                    <a href="https://github.com/janephp/automapper"><i class="fab fa-github"></i> janephp/automapper</a>
-
-                    <aside class="notes">
-                        - Pour finir ! L'AutoMapper !<br/>
-                    </aside>
-                </section>
-
-                <section>
-                    <section>
-                        <h3>C'est quoi ?</h3>
-                        <h4>Serializer Symfony</h4>
-
-                        <img src="img/symfony.png" alt="Schéma Symfony" style="margin-top: 1em;" />
-
-                        <aside class="notes">
-                            - Dans Symfony, quand on fait une Normalization, on va transformer un Objet en array<br/>
-                            - Pour faire ça on utilise principalement l'ObjectNormalizer<br/>
-                            - Le soucis c'est que l'ObjectNormalizer utilise la Reflection pour mapper les propriétés de notre objet<br/>
-                            - Et la Reflection c'est lourd !
-                        </aside>
-                    </section>
-
-                    <section>
-                        <h4>Jane</h4>
-
-                        <img src="img/automapper.png" alt="Schéma Jane AutoMapper" style="margin-top: 1em;" />
-
-                        <aside class="notes">
-                            - Et c'est là que l'AutoMapper vient<br/>
-                            - Il va lui aussi utiliser la Reflection pour récupérer les propriétés à normalizer<br/>
-                            - Mais la différence c'est qu'on va générer un Transformer pour faire la normalization<br/>
-                            - Du coup, la création du Transformer ne se fera qu'une fois, puis ensuite on utilise le Transformer<br/>
-                            - Et donc, la Reflection ne sera appellé qu'une seule fois !<br/>
-                            - Ce Transformer est uni-latéral<br/>
-                            - Entièrement compatible avec le Serializer symfony (toutes les features sont présentes !)<br/>
-                            - On peut faire: Object -> Array, Array -> Object, Object -> Object, Array -> Array
-                        </aside>
-                    </section>
-                </section>
-
-                <section>
-                    <section>
-                        <h3>Et en pratique ?</h3>
-                        <h4>Un utilisateur</h4>
-
-                        <pre><code class="php" data-trim data-noescape style="max-height: 450px;">
-class User
-{
-    private int $id;
-    public string $name;
-    public int $age;
-
-    public function __construct(int $id, string $name, int $age)
-    {
-        $this->id = $id;
-        $this->name = $name;
-        $this->age = $age;
-    }
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
-}
-                        </code></pre>
-
-                        <aside class="notes">
-                            - Un objet pour nos exemples !
-                        </aside>
-                    </section>
-
-                    <section>
-                        <h4>Un utilisateur (simplifié)</h4>
-
-                        <pre><code class="php" data-trim data-noescape style="max-height: 450px;">
-class UserName
-{
-    public string $name;
-}
-                        </code></pre>
-
-                        <aside class="notes">
-                            - Et un autre objet (c'est le dernier)
-                        </aside>
-                    </section>
-
-                    <section>
-                        <h4>Depuis un tableau</h4>
-
-                        <pre><code class="php" data-trim data-noescape>
-$source = [
-  'id' => 42,
-  'name' => 'Bastien',
-  'age' => 30,
-];
-
-$target = $automapper->map($source, User::class);
-$target = new UserName();
-$target = $automapper->map($source, $target);
-                        </code></pre>
-
-                        <aside class="notes">
-                            - A partir d'un array on peut transformer en object<br/>
-                            - En donnant la classe de l'objet voulu<br/>
-                            - En donnant un objet déjà existant !<br/>
-                        </aside>
-                    </section>
-
-                    <section>
-                        <h4>Vers un tableau</h4>
-
-                        <pre><code class="php" data-trim data-noescape>
-$source = new User(42, 'Bastien', 30);
-$target = $automapper->map($source, 'array');
-                        </code></pre>
-
-                        <aside class="notes">
-                            - A partir d'un objet on peut transformer en array
-                        </aside>
-                    </section>
-
-                    <section>
-                        <h4>D'un objet vers un objet</h4>
-
-                        <pre><code class="php" data-trim data-noescape>
-$source = new User(42, 'Bastien', 30);
-$target = $automapper->map($source, UserName::class);
-                        </code></pre>
-
-                        <aside class="notes">
-                            - A partir d'un objet on peut transformer en ... objet !
-                        </aside>
-                    </section>
-                </section>
-
-                <section>
                     <h1>Merci</h1>
+                </section>
 
-                    <h3>Des questions ?</h3>
+                <section>
+                  <h3>Des questions ?</h3>
                 </section>
             </div>
         </div>
 
         <footer class="joli">
-            Jane, simplifiez-vous la consommation d'API... et bien plus ! - <img src="img/logo-fond-blanc.svg" style="height:1em; vertical-align: text-bottom;"/> 2020
+            Jane, simplifiez-vous la consommation d'API... et bien plus ! - <img src="img/logo-fond-noir.svg" style="height:1em; vertical-align: text-bottom;"/> 2020
         </footer>
 
         <script src="dist/reveal.js"></script>

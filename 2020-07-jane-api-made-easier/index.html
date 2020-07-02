@@ -792,782 +792,402 @@ return $this->json($output);
                   <img src="img/demo-elasticsearch.png" alt="Rendu démo - Elasticsearch" />
               </section>
 
-<!-- REORG -->
+              <section>
+                <h2 class="no-caps">API externe</h2>
 
-                <section>
-                  <h2 class="no-caps">OpenAPI</h2>
+                <a href="https://github.com/janephp/demo-external-api"><i class="fab fa-github"></i> janephp/demo-external-api</a>
 
-                  <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md"><i class="far fa-hand-point-right"></i> actual: 3.0.3</a><br/>
-                  <a href="https://github.com/OAI/OpenAPI-Specification/issues/1466"><i class="far fa-hand-point-down"></i> next: 3.1.0</a>
+                <aside class="notes">
+                    - Toujours une application SF<br/>
+                    - Objectif: contacter une API externe, sans utiliser son client, souvent trop lourd et parfois s'intégrant mal avec nos framework (Stripe / Slack ...)
+                </aside>
+            </section>
+
+            <section>
+              <h2 class="no-caps">OpenAPI</h2>
+
+              <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md"><i class="far fa-hand-point-right"></i> actual: 3.0.3</a><br/>
+              <a href="https://github.com/OAI/OpenAPI-Specification/issues/1466"><i class="far fa-hand-point-right"></i> next: 3.1.0</a><br/>
+
+              <ul>
+                  <li class="fragment">Endpoints</li>
+                  <li class="fragment">Authentification</li>
+              </ul>
+
+              <aside class="notes">
+                  - On reprends JSON Schema (quelques différences mais sera ISO à partir de OpenAPI 3.1)<br/>
+                  - Endpoints: paramètres / body / responses (200-400-500)<br/>
+                  - Authentification: header / query / oauth<br/>
+                  - Beaucoup plus permissif sur le format d'entrée: JSON, YAML
+              </aside>
+          </section>
+
+          <section>
+              <section>
+                  <h3 class="no-caps">OpenAPI</h3>
+                  <h4>Endpoint</h4>
+
+                  <pre><code class="yaml" data-trim data-noescape>
+paths:
+/pets:
+get:
+summary: List all pets
+operationId: listPets
+tags:
+  - pets
+                  </code></pre>
+              </section>
+
+              <section>
+                  <h3>Paramètres</h3>
+
+                  <pre><code class="yaml" data-trim data-noescape data-line-numbers="8-15">
+paths:
+/pets:
+get:
+summary: List all pets
+operationId: listPets
+tags:
+  - pets
+parameters:
+  - name: limit
+    in: query
+    description: How many items to return at one time (max 100)
+    required: false
+    schema:
+      type: integer
+      format: int32
+responses:
+  '200':
+    description: A paged array of pets
+    headers:
+      x-next:
+        description: A link to the next page of responses
+        schema:
+          type: string
+    content:
+      application/json:
+        schema:
+          $ref: "#/components/schemas/Pets"
+  default:
+    description: unexpected error
+    content:
+      application/json:
+        schema:
+          $ref: "#/components/schemas/Error"
+                  </code></pre>
+              </section>
+
+              <section>
+                  <h3>Réponses</h3>
+
+                  <pre><code class="yaml" data-trim data-noescape data-line-numbers="17-27">
+paths:
+/pets:
+get:
+summary: List all pets
+operationId: listPets
+tags:
+  - pets
+parameters:
+  - name: limit
+    in: query
+    description: How many items to return at one time (max 100)
+    required: false
+    schema:
+      type: integer
+      format: int32
+responses:
+  '200':
+    description: A paged array of pets
+    headers:
+      x-next:
+        description: A link to the next page of responses
+        schema:
+          type: string
+    content:
+      application/json:
+        schema:
+          $ref: "#/components/schemas/Pets"
+  default:
+    description: unexpected error
+    content:
+      application/json:
+        schema:
+          $ref: "#/components/schemas/Error"
+                  </code></pre>
+              </section>
+
+              <section>
+                  <h3>Réponse par défaut</h3>
+
+                  <pre><code class="yaml" data-trim data-noescape data-line-numbers="28-33">
+paths:
+/pets:
+get:
+summary: List all pets
+operationId: listPets
+tags:
+  - pets
+parameters:
+  - name: limit
+    in: query
+    description: How many items to return at one time (max 100)
+    required: false
+    schema:
+      type: integer
+      format: int32
+responses:
+  '200':
+    description: A paged array of pets
+    headers:
+      x-next:
+        description: A link to the next page of responses
+        schema:
+          type: string
+    content:
+      application/json:
+        schema:
+          $ref: "#/components/schemas/Pets"
+  default:
+    description: unexpected error
+    content:
+      application/json:
+        schema:
+          $ref: "#/components/schemas/Error"
+                  </code></pre>
+              </section>
+
+              <section>
+                  <h3>Authentification</h3>
+
+                  <pre><code class="yaml" data-trim data-noescape data-line-numbers="1-2,9-12|16-25">
+components:
+securitySchemes:
+BasicAuth:
+type: http
+scheme: basic
+BearerAuth:
+type: http
+scheme: bearer
+ApiKeyAuth:
+type: apiKey
+in: header
+name: X-API-Key
+OpenID:
+type: openIdConnect
+openIdConnectUrl: https://example.com/.well-known/openid-configuration
+OAuth2:
+type: oauth2
+flows:
+  authorizationCode:
+    authorizationUrl: https://example.com/oauth/authorize
+    tokenUrl: https://example.com/oauth/token
+    scopes:
+      read: Grants read access
+      write: Grants write access
+      admin: Grants access to admin operations
+                  </code></pre>
 
                   <aside class="notes">
-                      - Et maintenant OpenAPI<br/>
-                      - A la base l'idée c'était de suivre JSON Schema et d'ajouter la partie "API"<br/>
-                      - Ça s'est un peu séparé de JSON Schema avec le temps<br/>
-                      - Et justement ! La 3.1 se rattache à JSON Schema 2019-09 !
+                      - Authentification indiqué au niveau global<br/>
+                      - Ensuite on peut spécifier par endpoint quel auth choisir
                   </aside>
-                </section>
+              </section>
+          </section>
 
+            <section>
                 <section>
-                    <h2 class="no-caps">OpenAPI</h2>
+                    <h3 class="no-caps">Schéma OpenAPI</h3>
+                    <h4>Endpoint</h4>
 
-                    <ul>
-                        <li class="fragment">JSON Schema</li>
-                        <li class="fragment">Endpoints</li>
-                        <li class="fragment">Authentification</li>
-                    </ul>
-
-                    <aside class="notes">
-                        - On reprends JSON Schema (quelques différences mais sera ISO à partir de OpenAPI 3.1)<br/>
-                        - Endpoints: paramètres / body / responses (200-400-500)<br/>
-                        - Authentification: header / query / oauth<br/>
-                        - Beaucoup plus permissif sur le format d'entrée: JSON, YAML
-                    </aside>
-                </section>
-
-                <section>
-                    <section>
-                        <h3 class="no-caps">OpenAPI</h3>
-                        <h4>Endpoint</h4>
-
-                        <pre><code class="yaml" data-trim data-noescape>
-paths:
-  /pets:
-    get:
-      summary: List all pets
-      operationId: listPets
-      tags:
-        - pets
-                        </code></pre>
-                    </section>
-
-                    <section>
-                        <h3>Paramètres</h3>
-
-                        <pre><code class="yaml" data-trim data-noescape data-line-numbers="8-15">
-paths:
-  /pets:
-    get:
-      summary: List all pets
-      operationId: listPets
-      tags:
-        - pets
-      parameters:
-        - name: limit
-          in: query
-          description: How many items to return at one time (max 100)
-          required: false
-          schema:
-            type: integer
-            format: int32
-      responses:
-        '200':
-          description: A paged array of pets
-          headers:
-            x-next:
-              description: A link to the next page of responses
-              schema:
-                type: string
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Pets"
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-                        </code></pre>
-                    </section>
-
-                    <section>
-                        <h3>Réponses</h3>
-
-                        <pre><code class="yaml" data-trim data-noescape data-line-numbers="17-27">
-paths:
-  /pets:
-    get:
-      summary: List all pets
-      operationId: listPets
-      tags:
-        - pets
-      parameters:
-        - name: limit
-          in: query
-          description: How many items to return at one time (max 100)
-          required: false
-          schema:
-            type: integer
-            format: int32
-      responses:
-        '200':
-          description: A paged array of pets
-          headers:
-            x-next:
-              description: A link to the next page of responses
-              schema:
-                type: string
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Pets"
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-                        </code></pre>
-                    </section>
-
-                    <section>
-                        <h3>Réponse par défaut</h3>
-
-                        <pre><code class="yaml" data-trim data-noescape data-line-numbers="28-33">
-paths:
-  /pets:
-    get:
-      summary: List all pets
-      operationId: listPets
-      tags:
-        - pets
-      parameters:
-        - name: limit
-          in: query
-          description: How many items to return at one time (max 100)
-          required: false
-          schema:
-            type: integer
-            format: int32
-      responses:
-        '200':
-          description: A paged array of pets
-          headers:
-            x-next:
-              description: A link to the next page of responses
-              schema:
-                type: string
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Pets"
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-                        </code></pre>
-                    </section>
-
-                    <section>
-                        <h3>Authentification</h3>
-
-                        <pre><code class="yaml" data-trim data-noescape data-line-numbers="1-2,9-12|16-25">
-components:
-  securitySchemes:
-    BasicAuth:
-      type: http
-      scheme: basic
-    BearerAuth:
-      type: http
-      scheme: bearer
-    ApiKeyAuth:
-      type: apiKey
-      in: header
-      name: X-API-Key
-    OpenID:
-      type: openIdConnect
-      openIdConnectUrl: https://example.com/.well-known/openid-configuration
-    OAuth2:
-      type: oauth2
-      flows:
-        authorizationCode:
-          authorizationUrl: https://example.com/oauth/authorize
-          tokenUrl: https://example.com/oauth/token
-          scopes:
-            read: Grants read access
-            write: Grants write access
-            admin: Grants access to admin operations
-                        </code></pre>
-
-                        <aside class="notes">
-                            - Authentification indiqué au niveau global<br/>
-                            - Ensuite on peut spécifier par endpoint quel auth choisir
-                        </aside>
-                    </section>
-                </section>
-
-                <section>
-                    <h2>Et Jane ?</h2>
-
-                    <aside class="notes">
-                        - Une bonne base !<br/>
-                        - Et Jane c'est quoi le rapport ?
-                    </aside>
-                </section>
-
-                <section>
-                    <h3>Génération</h3>
-                    <h3 class="no-caps">Avec JSON Schema</h3>
-
-                    <a href="https://github.com/janephp/json-schema"><i class="fab fa-github"></i> janephp/json-schema</a>
-
-                    <div style="margin-top: 1em;">
-                        <ul>
-                            <li class="fragment">Modèles</li>
-                            <li class="fragment">Normalizers</li>
-                        </ul>
-                    </div>
-
-                    <aside class="notes">
-                        - Modèles: Un DTO avec les propriétés<br/>
-                        - Normalizers: Permet la transformation d'un array en objet ou l'inverse<br/>
-                        - Les classes générés sont optimisées pour prendre le moins de temps possible !
-                    </aside>
-                </section>
-
-                <section>
-                    <h3>Génération</h3>
-                    <h3 class="no-caps">Avec OpenAPI</h3>
-
-                    <a href="https://github.com/janephp/open-api-2"><i class="fab fa-github"></i> janephp/open-api-2</a><br/>
-                    <a href="https://github.com/janephp/open-api-3"><i class="fab fa-github"></i> janephp/open-api-3</a>
-
-                    <div style="margin-top: 1em;">
-                        <ul>
-                            <li class="fragment">JSON Schema</li>
-                            <li class="fragment">Client</li>
-                            <li class="fragment">Endpoints</li>
-                            <li class="fragment">Réponse (et exceptions)</li>
-                            <li class="fragment">Authentification</li>
-                        </ul>
-                    </div>
-
-                    <aside class="notes">
-                        - Client<br/>
-                        - Endpoints<br/>
-                        - Response: (Modèles pour les réponses + exceptions si 400/500)<br/>
-                        - Authentification: Middleware HTTP pour l'ajouter
-                    </aside>
-                </section>
-
-                <section>
-                    <h2 class="no-caps">API Platform</h2>
-
-                    <a href="https://github.com/janephp/demo-with-apiplatform"><i class="fab fa-github"></i> janephp/demo-with-apiplatform</a>
-
-                    <aside class="notes">
-                        - Utilisation de JSON Schema avec un output DTO<br/>
-                        - Toujours une application SF avec une base PostGres<br/>
-                        - J'utilise un jeu de données avec une entité "bière"
-                    </aside>
-                </section>
-
-                <section>
-                    <h3>Mon modèle</h3>
-
-                    <pre><code class="bash">project/config/jane/json-schema.json</code></pre>
-                    <pre><code class="javascript" data-trim data-noescape>
-{
-  "type": "object",
-  "properties": {
-    "name": {
-      "type": "string"
-    },
-    "brewer": {
-      "type": "string"
-    }
-  }
-}
-                    </code></pre>
-
-                    <aside class="notes">
-                        - Ici on a un JSON Schema qui corresponds aux champs que l'on veut en sortie de notre entité<br/>
-                        - On va l'utiliser pour générer un modèle et un normalizer via Jane
-                    </aside>
-                </section>
-
-                <section>
-                    <h3>Configuration</h3>
-
-                    <pre><code class="bash">project/config/api_platform/resources.yaml</code></pre>
-                    <pre><code class="yaml" data-trim data-noescape>
-resources:
-  App\Entity\Beer:
-    attributes:
-      output: Generated\Model\BeerOutput
-                    </code></pre>
-
-                    <aside class="notes">
-                        - Configuration d'une resource APIP pour notre entité Beer<br/>
-                        - On lui indique qu'on aura un DTO de sortie "BeerOutput" qui sera configuré comme nom de notre modèle dans la config Jane
-                    </aside>
-                </section>
-
-                <section>
-                    <section>
-                        <h3>Transformation</h3>
-                        <h4>Match</h4>
-
-                        <pre><code class="bash" style="overflow-x: hidden;">project/src/DataTransformer/BeerOutputDataTransformer.php</code></pre>
-                        <pre><code class="php" data-trim data-noescape data-line-numbers="15-20">
-class BeerOutputDataTransformer implements DataTransformerInterface
-{
-    private AutoMapperInterface $autoMapper;
-
-    public function __construct(AutoMapperInterface $autoMapper)
-    {
-        $this->autoMapper = $autoMapper;
-    }
-
-    public function transform($data, string $to, array $context = [])
-    {
-        return $this->autoMapper->map($data, BeerOutput::class, $context);
-    }
-
-    public function supportsTransformation($data, string $to, array $context = []): bool
-    {
-        return
-            BeerOutput::class === $to &&
-            $data instanceof App\Entity\Beer;
-    }
-}
-                        </code></pre>
-
-                        <aside class="notes">
-                            - On match les entités Beer<br/>
-                            - Avec comme format ciblé le DTO BeerOutput
-                        </aside>
-                    </section>
-
-                    <section>
-                        <h4>Transformation</h4>
-                        
-                        <pre><code class="php" data-trim data-noescape data-line-numbers="10-13">
-class BeerOutputDataTransformer implements DataTransformerInterface
-{
-    private AutoMapperInterface $autoMapper;
-
-    public function __construct(AutoMapperInterface $autoMapper)
-    {
-        $this->autoMapper = $autoMapper;
-    }
-
-    public function transform($data, string $to, array $context = [])
-    {
-        return $this->autoMapper->map($data, BeerOutput::class, $context);
-    }
-
-    public function supportsTransformation($data, string $to, array $context = []): bool
-    {
-        return BeerOutput::class === $to && $data instanceof App\Entity\Beer;
-    }
-}
-                        </code></pre>
-
-                        <aside class="notes">
-                            - Et on transforme notre entité en DTO ...<br/>
-                            - On retrouve l'utilisation de l'AutoMapper pour éviter 40 lignes de get/set ;)<br/>
-                            - Plus rapide (promis je vous reparle de l'AutoMapper plus tard)
-                        </aside>
-                    </section>
-                </section>
-
-                <section>
-                    <h3>Rendu</h3>
-
-                    <img src="img/demo-api-platform.png" alt="Rendu démo - API Platform" />
-                </section>
-
-                <section>
-                    <h2 class="no-caps">API externe</h2>
-
-                    <a href="https://github.com/janephp/demo-external-api"><i class="fab fa-github"></i> janephp/demo-external-api</a>
-
-                    <aside class="notes">
-                        - Toujours une application SF<br/>
-                        - Objectif: contacter une API externe, sans utiliser son client, souvent trop lourd et parfois s'intégrant mal avec nos framework (Stripe / Slack ...)
-                    </aside>
-                </section>
-
-                <section>
-                    <section>
-                        <h3 class="no-caps">Schéma OpenAPI</h3>
-                        <h4>Endpoint</h4>
-
-                        <pre><code class="bash">project/config/jane/open-api.yaml</code></pre>
-                        <pre><code class="yaml" data-trim data-noescape data-line-numbers="7-17">
+                    <pre><code class="bash">project/config/jane/open-api.yaml</code></pre>
+                    <pre><code class="yaml" data-trim data-noescape data-line-numbers="7-17">
 openapi: 3.0.0
 info:
   version: 1.0.0
   title: 'CatFacts API'
 servers:
-  - url: https://cat-fact.herokuapp.com
+- url: https://cat-fact.herokuapp.com
 paths:
-  /facts/random:
-    get:
-      operationId: randomFact
-      responses:
-        200:
-          description: 'Get a random `Fact`'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Fact'
+/facts/random:
+get:
+  operationId: randomFact
+  responses:
+    200:
+      description: 'Get a random `Fact`'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Fact'
 components:
-  schemas:
-    Fact:
-      type: object
-      properties:
-        _id:
-          type: string
-          description: 'Unique ID for the `Fact`'
-        __v:
-          type: integer
-          description: 'Version number of the `Fact`'
-        user:
-          type: string
-          description: 'ID of the `User` who added the `Fact`'
-        text:
-          type: string
-          description: 'The `Fact` itself'
-        updatedAt:
-          type: string
-          format: date-time
-          description: 'Date in which `Fact` was last modified'
-        sendDate:
-          type: string
-          description: 'If the `Fact` is meant for one time use, this is the date that it is used'
-        deleted:
-          type: boolean
-          description: 'Weather or not the `Fact` has been deleted (Soft deletes are used)'
-        source:
-          type: string
-          description: 'Can be `user` or `api`, indicates who added the fact to the DB'
-        used:
-          type: boolean
-          description: 'Weather or not the `Fact` has been sent by the CatBot. This value is reset each time every `Fact` is used'
-        type:
-          type: string
-          description: 'Type of animal the `Fact` describes (e.g. ‘cat’, ‘dog’, ‘horse’)'
-                        </code></pre>
+schemas:
+Fact:
+  type: object
+  properties:
+    _id:
+      type: string
+      description: 'Unique ID for the `Fact`'
+    __v:
+      type: integer
+      description: 'Version number of the `Fact`'
+    user:
+      type: string
+      description: 'ID of the `User` who added the `Fact`'
+    text:
+      type: string
+      description: 'The `Fact` itself'
+    updatedAt:
+      type: string
+      format: date-time
+      description: 'Date in which `Fact` was last modified'
+    sendDate:
+      type: string
+      description: 'If the `Fact` is meant for one time use, this is the date that it is used'
+    deleted:
+      type: boolean
+      description: 'Weather or not the `Fact` has been deleted (Soft deletes are used)'
+    source:
+      type: string
+      description: 'Can be `user` or `api`, indicates who added the fact to the DB'
+    used:
+      type: boolean
+      description: 'Weather or not the `Fact` has been sent by the CatBot. This value is reset each time every `Fact` is used'
+    type:
+      type: string
+      description: 'Type of animal the `Fact` describes (e.g. ‘cat’, ‘dog’, ‘horse’)'
+                    </code></pre>
 
-                        <aside class="notes">
-                            - Un endpoint<br/>
-                            - On notera le champ "operationId", il va correspondre au nom de la méthode du Client généré pour cet endpoint (si pas de "operationId", on se base sur le path et l'operation [GET/POST/PUT/...])
-                        </aside>
-                    </section>
-
-                    <section>
-                        <h4>Modèle</h4>
-
-                        <pre><code class="yaml" data-trim data-noescape data-line-numbers="20-32">
-openapi: 3.0.0
-info:
-  version: 1.0.0
-  title: 'CatFacts API'
-servers:
-  - url: https://cat-fact.herokuapp.com
-paths:
-  /facts/random:
-    get:
-      operationId: randomFact
-      responses:
-        200:
-          description: 'Get a random `Fact`'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Fact'
-components:
-  schemas:
-    Fact:
-      type: object
-      properties:
-        _id: { type: string }
-        __v: { type: integer }
-        user: { type: string }
-        text: { type: string }
-        updatedAt: { type: string, format: date-time }
-        sendDate: { type: string }
-        deleted: { type: boolean }
-        source: { type: string }
-        used: { type: boolean }
-        type: { type: string }
-                        </code></pre>
-
-                        <aside class="notes">
-                            - Le modèle correspondant a l'endpoint
-                        </aside>
-                    </section>
+                    <aside class="notes">
+                        - Un endpoint<br/>
+                        - On notera le champ "operationId", il va correspondre au nom de la méthode du Client généré pour cet endpoint (si pas de "operationId", on se base sur le path et l'operation [GET/POST/PUT/...])
+                    </aside>
                 </section>
 
                 <section>
-                    <h3>Configuration de la génération</h3>
+                    <h4>Modèle</h4>
 
-                    <pre><code class="bash">project/config/jane/open_api.php</code></pre>
-                    <pre><code class="php" data-trim data-noescape>
+                    <pre><code class="yaml" data-trim data-noescape data-line-numbers="20-32">
+openapi: 3.0.0
+info:
+version: 1.0.0
+title: 'CatFacts API'
+servers:
+- url: https://cat-fact.herokuapp.com
+paths:
+/facts/random:
+get:
+  operationId: randomFact
+  responses:
+    200:
+      description: 'Get a random `Fact`'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Fact'
+components:
+schemas:
+Fact:
+  type: object
+  properties:
+    _id: { type: string }
+    __v: { type: integer }
+    user: { type: string }
+    text: { type: string }
+    updatedAt: { type: string, format: date-time }
+    sendDate: { type: string }
+    deleted: { type: boolean }
+    source: { type: string }
+    used: { type: boolean }
+    type: { type: string }
+                    </code></pre>
+
+                    <aside class="notes">
+                        - Le modèle correspondant a l'endpoint
+                    </aside>
+                </section>
+            </section>
+
+            <section>
+                <h3>Configuration de la génération</h3>
+
+                <pre><code class="bash">project/config/jane/open_api.php</code></pre>
+                <pre><code class="php" data-trim data-noescape>
 return [
-    'openapi-file' => __DIR__ . '/open-api.yaml',
-    'namespace' => 'CatFacts\Api',
-    'directory' => __DIR__ . '/../../generated',
-    'date-format' => \DateTimeInterface::RFC3339_EXTENDED,
+  'openapi-file' => __DIR__ . '/open-api.yaml',
+  'namespace' => 'CatFacts\Api',
+  'directory' => __DIR__ . '/../../generated',
+  'date-format' => \DateTimeInterface::RFC3339_EXTENDED,
 ];
-                    </code></pre>
+                </code></pre>
 
-                    <aside class="notes">
-                        - L'emplacement de notre schéma OpenAPI<br/>
-                        - Un joli namespace<br/>
-                        - Le dossier de sortie de la génération<br/>
-                        - Notre API utilise un format de date particulier (paramètre optionel ici)
-                    </aside>
-                </section>
+                <aside class="notes">
+                    - L'emplacement de notre schéma OpenAPI<br/>
+                    - Un joli namespace<br/>
+                    - Le dossier de sortie de la génération<br/>
+                    - Notre API utilise un format de date particulier (paramètre optionel ici)
+                </aside>
+            </section>
 
-                <section>
-                    <h3>Configuration des services</h3>
+            <section>
+                <h3>Configuration des services</h3>
 
-                    <pre><code class="bash">project/config/packages/jane.yaml</code></pre>
-                    <pre><code class="yaml" data-trim data-noescape data-line-numbers="6-10">
+                <pre><code class="bash">project/config/packages/jane.yaml</code></pre>
+                <pre><code class="yaml" data-trim data-noescape data-line-numbers="6-10">
 services:
-    _defaults:
-        autowire: true
-        autoconfigure: true
-
-    CatFacts\Api\Normalizer\JaneObjectNormalizer: ~
-
-    CatFacts\Api\Client:
-        factory: ['CatFacts\Api\Client', 'create']
-                    </code></pre>
-
-                    <aside class="notes">
-                        - On va ajouter le Normalizer de Jane (avec l'autoconfigure, les Normalizer seront utilisé dans le Serializer SF)<br/>
-                        - Et on crée un service pour le Client API généré par Jane (via une factory)
-                    </aside>
-                </section>
-
-                <section>
-                    <h3>Controller</h3>
-
-                    <pre><code class="bash" data-trim data-noescape>project/src/Controller/FactController.php</code></pre>
-                    <pre><code class="php" data-trim data-noescape>
-class FactController extends AbstractController
-{
-    public function index(CatFacts\Api\Client $client)
-    {
-        return $this->render('fact.html.twig', [
-            'fact' => $client->randomFact(),
-        ]);
-    }
-}
-                    </code></pre>
-
-                    <aside class="notes">
-                        - On récupère le Client généré par Jane et donné comme service à SF via l'autowire<br/>
-                        - Et on utilise notre endpoint qui va renvoyer un modèle Fact à Twig
-                    </aside>
-                </section>
-
-                <section>
-                    <h3>Rendu</h3>
-
-                    <img src="img/demo-external-api.png" alt="Rendu démo - API Externe" />
-                </section>
-
-                <section>
-                    <h2 class="no-caps">Entre deux applications</h2>
-
-                    <a href="https://github.com/janephp/demo-between-two-apps"><i class="fab fa-github"></i> janephp/demo-between-two-apps</a>
-
-                    <aside class="notes">
-                        - Deux applications SF: API & Front<br/>
-                        - L'idée ici est de montrer les interractions entre et les deux apps <br/>
-                        - Et en quoi Jane peut rendre ça beaucoup plus simple
-                    </aside>
-                </section>
-
-                <section>
-                    <section>
-                        <h3>Un contrat commun</h3>
-                        <h4>Endpoint API</h4>
-
-                        <pre><code class="yaml" data-trim data-noescape data-line-numbers="8-21">
-openapi: '3.0.2'
-info:
-  title: Between two apps
-  description: Simple OpenAPI
-  version: 1.0.0
-servers:
-  - url: 'http://api/'
-paths:
-  /beers:
-    get:
-      summary: Get beers
-      operationId: getBeers
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Beer'
-components:
-  schemas:
-    Beer:
-      type: object
-      properties:
-        name:
-          type: string
-        brewer:
-          type: string
-        style:
-          type: string
-        color:
-          type: string
-        alcohol:
-          type: integer
-                        </code></pre>
-
-                        <aside class="notes">
-                            - L'endpoint corresponds à un controlleur dans notre API
-                        </aside>
-                    </section>
-
-                    <section>
-                        <h4>Modèle</h4>
-
-                        <pre><code class="yaml" data-trim data-noescape data-line-numbers="24-36">
-openapi: '3.0.2'
-info:
-  title: Between two apps
-  description: Simple OpenAPI
-  version: 1.0.0
-servers:
-  - url: 'http://api/'
-paths:
-  /beers:
-    get:
-      summary: Get beers
-      operationId: getBeers
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Beer'
-components:
-  schemas:
-    Beer:
-      type: object
-      properties:
-        name:
-          type: string
-        brewer:
-          type: string
-        style:
-          type: string
-        color:
-          type: string
-        alcohol:
-          type: integer
-                        </code></pre>
-
-                        <aside class="notes">
-                            - Et un modèle qui corresponds à ce qu'on veut envoyer via l'API de note bière (et donc recevoir côté Front)
-                        </aside>
-                    </section>
-                </section>
-
-                <section>
-                    <h3>API Controller</h3>
-
-                    <pre><code class="bash" data-trim data-noescape>project/api/src/Controller/BeerController.php</code></pre>
-                    <pre><code class="php" data-trim data-noescape>
-class BeerController extends AbstractController
-{
-    public function list(BeerRepository $beerRepository, AutoMapperInterface $autoMapper, NormalizerInterface $normalizer)
-    {
-        $beers = $beerRepository->findAll();
-        $callback = function (\App\Entity\Beer $beer) use ($autoMapper) {
-            return $autoMapper->map($beer, \Generated\Model\Beer::class);
-        };
-        $beerModels = \array_map($callback, $beers);
-
-        return new JsonResponse($normalizer->normalize($beerModels));
-    }
-}
-                    </code></pre>
-
-                    <aside class="notes">
-                        - Controller côté API<br/>
-                        - Le routing est configuré dans le YAML<br/>
-                        - On récupère toutes nos entités avec le repository<br/>
-                        - On transforme nos entités nos entités en modèles Jane (promis je vous en reparle TRÈS bientôt de l'AutoMapper)<br/>
-                        - Et on renvois ça via une JsonReponse !
-                    </aside>
-                </section>
-
-                <section>
-                    <h3>Front Configuration</h3>
-
-                    <pre><code class="bash" data-trim data-noescape>project/front/config/packages/jane.yaml</code></pre>
-                    <pre><code class="yaml" data-trim data-noescape data-line-numbers="6-10">
-services:
-  _defaults:
+_defaults:
     autowire: true
     autoconfigure: true
 
-  Generated\Normalizer\JaneObjectNormalizer: ~
+CatFacts\Api\Normalizer\JaneObjectNormalizer: ~
 
-  Generated\Client:
-    factory: ['Generated\Client', 'create']
-                    </code></pre>
+CatFacts\Api\Client:
+    factory: ['CatFacts\Api\Client', 'create']
+                </code></pre>
 
-                    <aside class="notes">
-                        - Comme vu dans la configuration des services de l'exemple API externe<br/>
-                        - On va donc ajouter le Normalizer de Jane (autoconfigure -> Serializer SF)<br/>
-                        - Et on crée un service pour le Client API généré par Jane (via une factory)
-                    </aside>
-                </section>
+                <aside class="notes">
+                  - Spécifique à Symfony<br/>
+                  - On va ajouter le Normalizer de Jane (avec l'autoconfigure, les Normalizer seront utilisé dans le Serializer SF)<br/>
+                  - Et on crée un service pour le Client API généré par Jane (via une factory)
+                </aside>
+            </section>
 
-                <section>
-                    <h3>Front Controller</h3>
+            <section>
+                <h3>Controller</h3>
 
-                    <pre><code class="bash" data-trim data-noescape>project/front/src/Controller/HomeController.php</code></pre>
-                    <pre><code class="php" data-trim data-noescape data-line-numbers="3-8">
-class HomeController extends AbstractController
+                <pre><code class="bash" data-trim data-noescape>project/src/Controller/FactController.php</code></pre>
+                <pre><code class="php" data-trim data-noescape>
+class FactController extends AbstractController
 {
-    public function index(\Generated\Client $client)
-    {
-        return $this->render('home.html.twig', [
-            'beers' => $client->getBeers()
-        ]);
-    }
+  public function index(CatFacts\Api\Client $client)
+  {
+    return $this->render('fact.html.twig', [
+      'fact' => $client->randomFact(),
+    ]);
+  }
 }
-                    </code></pre>
+                </code></pre>
 
-                    <aside class="notes">
-                        - On récupère le Client généré par Jane et donné comme service à SF<br/>
-                        - Et on utilise notre endpoint qui va renvoyer une liste de bière à Twig
-                    </aside>
-                </section>
+                <aside class="notes">
+                    - On récupère le Client généré par Jane et donné comme service à SF via l'autowire<br/>
+                    - Et on utilise notre endpoint qui va renvoyer un modèle Fact à Twig
+                </aside>
+            </section>
 
-                <section>
-                    <h3>Rendu</h3>
+            <section>
+                <h3>Rendu</h3>
 
-                    <img src="img/demo-between-two-apps.png" alt="Rendu démo - Entre deux applications" />
-                </section>
+                <img src="img/demo-external-api.png" alt="Rendu démo - API Externe" />
+            </section>
 
                 <section>
                     <h2>Démos</h2>
 
-                    <a href="https://github.com/janephp"><i class="fab fa-github"></i> janephp</a>
+                    <a href="https://github.com/janephp"><i class="fab fa-github"></i> janephp</a><br/>
+                    <br/>
+                    <a href="https://github.com/janephp/demo-with-apiplatform"><i class="fab fa-github"></i> janephp/demo-with-apiplatform</a><br/>
+                    <a href="https://github.com/janephp/demo-between-two-apps"><i class="fab fa-github"></i> janephp/demo-between-two-apps</a><br/>
+
 
                     <aside class="notes">
                         - Comme indiqué, toutes les démos sont disponibles sur l'org janephp<br/>

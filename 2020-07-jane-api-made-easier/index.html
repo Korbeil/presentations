@@ -749,12 +749,14 @@ class UserName
 
                     <pre><code class="php" data-trim data-noescape>
 $source = [
-'id' => 42,
-'name' => 'Bastien',
-'age' => 30,
+  'id' => 42,
+  'name' => 'Bastien',
+  'age' => 30,
 ];
 
 $target = $automapper->map($source, User::class);
+
+// same as 👇
 $target = new UserName();
 $target = $automapper->map($source, $target);
                     </code></pre>
@@ -807,7 +809,7 @@ foreach ($beers as $beer) {
   $indexer->scheduleIndex(self::BEERS_INDEX, $document);
 }
 
-// Puis on envoit les documents à Elasticsearch
+// Puis on envoie les documents à Elasticsearch
               </code></pre>
 
               <aside class="notes">
@@ -888,12 +890,12 @@ return $this->json($beers);
 
                   <pre><code class="yaml" data-trim data-noescape>
 paths:
-/pets:
-get:
-summary: List all pets
-operationId: listPets
-tags:
-  - pets
+  /pets:
+    get:
+      summary: List all pets
+      operationId: listPets
+      tags:
+        - pets
                   </code></pre>
               </section>
 
@@ -902,38 +904,38 @@ tags:
 
                   <pre><code class="yaml" data-trim data-noescape data-line-numbers="8-15">
 paths:
-/pets:
-get:
-summary: List all pets
-operationId: listPets
-tags:
-  - pets
-parameters:
-  - name: limit
-    in: query
-    description: How many items to return at one time (max 100)
-    required: false
-    schema:
-      type: integer
-      format: int32
-responses:
-  '200':
-    description: A paged array of pets
-    headers:
-      x-next:
-        description: A link to the next page of responses
-        schema:
-          type: string
-    content:
-      application/json:
-        schema:
-          $ref: "#/components/schemas/Pets"
-  default:
-    description: unexpected error
-    content:
-      application/json:
-        schema:
-          $ref: "#/components/schemas/Error"
+  /pets:
+    get:
+      summary: List all pets
+      operationId: listPets
+      tags:
+        - pets
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: A paged array of pets
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pets"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
                   </code></pre>
               </section>
 
@@ -942,38 +944,38 @@ responses:
 
                   <pre><code class="yaml" data-trim data-noescape data-line-numbers="17-27">
 paths:
-/pets:
-get:
-summary: List all pets
-operationId: listPets
-tags:
-  - pets
-parameters:
-  - name: limit
-    in: query
-    description: How many items to return at one time (max 100)
-    required: false
-    schema:
-      type: integer
-      format: int32
-responses:
-  '200':
-    description: A paged array of pets
-    headers:
-      x-next:
-        description: A link to the next page of responses
-        schema:
-          type: string
-    content:
-      application/json:
-        schema:
-          $ref: "#/components/schemas/Pets"
-  default:
-    description: unexpected error
-    content:
-      application/json:
-        schema:
-          $ref: "#/components/schemas/Error"
+  /pets:
+    get:
+      summary: List all pets
+      operationId: listPets
+      tags:
+        - pets
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: A paged array of pets
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pets"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
                   </code></pre>
               </section>
 
@@ -982,38 +984,38 @@ responses:
 
                   <pre><code class="yaml" data-trim data-noescape data-line-numbers="28-33">
 paths:
-/pets:
-get:
-summary: List all pets
-operationId: listPets
-tags:
-  - pets
-parameters:
-  - name: limit
-    in: query
-    description: How many items to return at one time (max 100)
-    required: false
-    schema:
-      type: integer
-      format: int32
-responses:
-  '200':
-    description: A paged array of pets
-    headers:
-      x-next:
-        description: A link to the next page of responses
-        schema:
-          type: string
-    content:
-      application/json:
-        schema:
-          $ref: "#/components/schemas/Pets"
-  default:
-    description: unexpected error
-    content:
-      application/json:
-        schema:
-          $ref: "#/components/schemas/Error"
+  /pets:
+    get:
+      summary: List all pets
+      operationId: listPets
+      tags:
+        - pets
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: A paged array of pets
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pets"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
                   </code></pre>
               </section>
 

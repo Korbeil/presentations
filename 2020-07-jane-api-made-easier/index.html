@@ -72,7 +72,7 @@
                 <section>
                   <img src="img/logo_jane_full.svg" alt="logo Jane" />
 
-                  <p> 🌱 Jane is a set of libraries to generate Models & API Clients based on JSON Schema / OpenAPI specs</p>
+                  <p>🌱 Un ensemble de librairies pour générer des modèles et clients API basés sur les spécifications JSON Schema et OpenAPI</p>
 
                   <aside class="notes">
                     - C'est notre logo, il est beau ?<br/>
@@ -98,32 +98,6 @@
               </section>
 
               <section>
-                  <h3>Mon modèle</h3>
-
-                  <pre><code class="bash">project/config/jane/json-schema.json</code></pre>
-                  <pre><code class="javascript" data-trim data-noescape>
-{
-  "type": "object",
-  "properties": {
-    "name": { "type": "string" },
-    "brewer": { "type": "string" },
-    "style": { "type": "string" },
-    "volume": { "type": "integer" },
-    "alcohol": { "type": "integer" },
-    "country": { "type": "string" },
-    "color": { "type": "string" }
-  }
-}
-                  </code></pre>
-
-                  <aside class="notes">
-                    - Avant d'utiliser Jane, il faut représenter ma donnée<br/>
-                    - Ici on a un JSON Schema qui corresponds à peu près à notre entité<br/>
-                    - On va l'utiliser pour générer un modèle et un normalizer via Jane
-                  </aside>
-              </section>
-
-              <section>
                 <h2 class="no-caps">JSON Schema</h2>
                 <a href="https://json-schema.org/specification.html"><i class="fa fa-link"></i> 2019-09</a><br/>
 
@@ -133,10 +107,11 @@
                 </ul>
 
                 <aside class="notes">
-                    - Comme son nom l'indique, ça permet de décrire des documents JSON<br/>
-                    - Description<br/>
-                    - Validation<br/>
-                    - La dernière version, c'est 2019-09
+                  - Avant de vous continuer sur ma démo, j'ai besoin de vous expliquer c'est quoi JSON Schema<br/>
+                  - Comme son nom l'indique, ça permet de décrire des documents JSON<br/>
+                  - Description<br/>
+                  - Validation<br/>
+                  - La dernière version, c'est 2019-09
                 </aside>
             </section>
 
@@ -235,6 +210,32 @@
                     </code></pre>
                 </section>
             </section>
+
+              <section>
+                  <h3>Mon modèle</h3>
+
+                  <pre><code class="bash">project/config/jane/json-schema.json</code></pre>
+                  <pre><code class="javascript" data-trim data-noescape>
+{
+  "type": "object",
+  "properties": {
+    "name": { "type": "string" },
+    "brewer": { "type": "string" },
+    "style": { "type": "string" },
+    "volume": { "type": "integer" },
+    "alcohol": { "type": "integer" },
+    "country": { "type": "string" },
+    "color": { "type": "string" }
+  }
+}
+                  </code></pre>
+
+                  <aside class="notes">
+                    - Avant d'utiliser Jane, il faut représenter ma donnée<br/>
+                    - Ici on a un JSON Schema qui corresponds à peu près à notre entité<br/>
+                    - On va l'utiliser pour générer un modèle et un normalizer via Jane
+                  </aside>
+              </section>
 
             <section>
               <h2>Configuration</h2>
@@ -591,10 +592,11 @@ foreach ($beers as $beer) {
                   </code></pre>
 
                   <aside class="notes">
-                      - On aura configuré Elasticsearch au préalable<br/>
-                      - On boucle sur nos entités pour les transformers en notre modèle<br/>
-                      - Et on envoit ce modèle à ES<br/>
-                      - Mais ... c'est chiant de faire ces set/get ...
+                    - Maintenant qu'on a vu les fichiers qui sont générés par Jane, continuons notre exemple ...<br/>
+                    - On aura configuré Elasticsearch au préalable<br/>
+                    - On boucle sur nos entités pour les transformers en notre modèle<br/>
+                    - Et on envoit ce modèle à ES<br/>
+                    - Mais ... c'est chiant de faire ces set/get ...
                   </aside>
               </section>
 
@@ -645,6 +647,55 @@ foreach ($beers as $beer) {
                         - On peut faire: Object -> Array, Array -> Object, Object -> Object, Array -> Array
                     </aside>
                 </section>
+            </section>
+
+            <section>
+              <h2>Transformer</h2>
+
+              <pre><code class="php" data-trim data-noescape data-line-numbers="1,3|7|12-15|16-21">
+final class Mapper_App_Entity_Beer_Generated_Model_Beer extends \Jane\AutoMapper\Mapper
+{
+    protected $hash = '15937785381593778538';
+    public function __construct()
+    {
+    }
+    public function &map($value, \Jane\AutoMapper\Context $context)
+    {
+        if (null === $value) {
+            return $value;
+        }
+        $result = $context->getObjectToPopulate();
+        if (null === $result) {
+            $result = new \Generated\Model\Beer();
+        }
+        if ($context->isAllowedAttribute('style')) {
+            $result->setstyle($value->getstyle());
+        }
+        if ($context->isAllowedAttribute('volume')) {
+            $result->setvolume($value->getvolume());
+        }
+        if ($context->isAllowedAttribute('alcohol')) {
+            $result->setalcohol($value->getalcohol());
+        }
+        if ($context->isAllowedAttribute('name')) {
+            $result->setname($value->getname());
+        }
+        if ($context->isAllowedAttribute('brewer')) {
+            $result->setbrewer($value->getbrewer());
+        }
+        if ($context->isAllowedAttribute('country')) {
+            $result->setcountry($value->getcountry());
+        }
+        if ($context->isAllowedAttribute('color')) {
+            $result->setcolor($value->getcolor());
+        }
+        return $result;
+    }
+    public function injectMappers(\Jane\AutoMapper\AutoMapperInterface $autoMapper)
+    {
+    }
+}
+              </code></pre>
             </section>
 
             <section>
@@ -765,18 +816,19 @@ foreach ($beers as $beer) {
           </section>
 
               <section>
+                <section>
                   <h3>Récupération</h3>
 
                   <pre><code class="bash">project/src/Controller/BeerController.php</code></pre>
                   <pre><code class="php" data-trim data-noescape>
 // On récupère tous les Document de notre index
 
-$output = ['beers' => []];
+$beers = [];
 foreach ($results as $result) {
-  $output['beers'][] = $result->getModel();
+  $beers[] = $result->getModel();
 }
 
-return $this->json($output);
+return $this->json($beers);
                   </code></pre>
 
                   <aside class="notes">
@@ -785,6 +837,13 @@ return $this->json($output);
                       - Et du coup on aura une liste de modèles qu'on peut revoyer soit directement, traiter ou donner à Twig
                   </aside>
               </section>
+
+                  <section>
+                    <h3>Model dump</h3>
+
+                    <img src="img/elasticsearch_model_dump.png" alt="Elasticsearch model dump" />
+                  </section>
+                </section>
 
               <section>
                   <h3>Rendu</h3>
@@ -963,30 +1022,30 @@ responses:
 
                   <pre><code class="yaml" data-trim data-noescape data-line-numbers="1-2,9-12|16-25">
 components:
-securitySchemes:
-BasicAuth:
-type: http
-scheme: basic
-BearerAuth:
-type: http
-scheme: bearer
-ApiKeyAuth:
-type: apiKey
-in: header
-name: X-API-Key
-OpenID:
-type: openIdConnect
-openIdConnectUrl: https://example.com/.well-known/openid-configuration
-OAuth2:
-type: oauth2
-flows:
-  authorizationCode:
-    authorizationUrl: https://example.com/oauth/authorize
-    tokenUrl: https://example.com/oauth/token
-    scopes:
-      read: Grants read access
-      write: Grants write access
-      admin: Grants access to admin operations
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    BearerAuth:
+      type: http
+      scheme: bearer
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    OpenID:
+      type: openIdConnect
+      openIdConnectUrl: https://example.com/.well-known/openid-configuration
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://example.com/oauth/authorize
+          tokenUrl: https://example.com/oauth/token
+          scopes:
+            read: Grants read access
+            write: Grants write access
+            admin: Grants access to admin operations
                   </code></pre>
 
                   <aside class="notes">
@@ -1010,52 +1069,52 @@ info:
 servers:
 - url: https://cat-fact.herokuapp.com
 paths:
-/facts/random:
-get:
-  operationId: randomFact
-  responses:
-    200:
-      description: 'Get a random `Fact`'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Fact'
+  /facts/random:
+    get:
+      operationId: randomFact
+      responses:
+        200:
+          description: 'Get a random `Fact`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fact'
 components:
-schemas:
-Fact:
-  type: object
-  properties:
-    _id:
-      type: string
-      description: 'Unique ID for the `Fact`'
-    __v:
-      type: integer
-      description: 'Version number of the `Fact`'
-    user:
-      type: string
-      description: 'ID of the `User` who added the `Fact`'
-    text:
-      type: string
-      description: 'The `Fact` itself'
-    updatedAt:
-      type: string
-      format: date-time
-      description: 'Date in which `Fact` was last modified'
-    sendDate:
-      type: string
-      description: 'If the `Fact` is meant for one time use, this is the date that it is used'
-    deleted:
-      type: boolean
-      description: 'Weather or not the `Fact` has been deleted (Soft deletes are used)'
-    source:
-      type: string
-      description: 'Can be `user` or `api`, indicates who added the fact to the DB'
-    used:
-      type: boolean
-      description: 'Weather or not the `Fact` has been sent by the CatBot. This value is reset each time every `Fact` is used'
-    type:
-      type: string
-      description: 'Type of animal the `Fact` describes (e.g. ‘cat’, ‘dog’, ‘horse’)'
+  schemas:
+    Fact:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: 'Unique ID for the `Fact`'
+        __v:
+          type: integer
+          description: 'Version number of the `Fact`'
+        user:
+          type: string
+          description: 'ID of the `User` who added the `Fact`'
+        text:
+          type: string
+          description: 'The `Fact` itself'
+        updatedAt:
+          type: string
+          format: date-time
+          description: 'Date in which `Fact` was last modified'
+        sendDate:
+          type: string
+          description: 'If the `Fact` is meant for one time use, this is the date that it is used'
+        deleted:
+          type: boolean
+          description: 'Weather or not the `Fact` has been deleted (Soft deletes are used)'
+        source:
+          type: string
+          description: 'Can be `user` or `api`, indicates who added the fact to the DB'
+        used:
+          type: boolean
+          description: 'Weather or not the `Fact` has been sent by the CatBot. This value is reset each time every `Fact` is used'
+        type:
+          type: string
+          description: 'Type of animal the `Fact` describes (e.g. ‘cat’, ‘dog’, ‘horse’)'
                     </code></pre>
 
                     <aside class="notes">
@@ -1070,36 +1129,71 @@ Fact:
                     <pre><code class="yaml" data-trim data-noescape data-line-numbers="20-32">
 openapi: 3.0.0
 info:
-version: 1.0.0
-title: 'CatFacts API'
+  version: 1.0.0
+  title: 'CatFacts API'
 servers:
-- url: https://cat-fact.herokuapp.com
+  - url: https://cat-fact.herokuapp.com
 paths:
-/facts/random:
-get:
-  operationId: randomFact
-  responses:
-    200:
-      description: 'Get a random `Fact`'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Fact'
+  /facts/random:
+    get:
+      operationId: randomFact
+      responses:
+        200:
+          description: 'Get a random `Fact`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fact'
 components:
-schemas:
-Fact:
-  type: object
-  properties:
-    _id: { type: string }
-    __v: { type: integer }
-    user: { type: string }
-    text: { type: string }
-    updatedAt: { type: string, format: date-time }
-    sendDate: { type: string }
-    deleted: { type: boolean }
-    source: { type: string }
-    used: { type: boolean }
-    type: { type: string }
+  schemas:
+    Fact:
+      type: object
+      properties:
+        _id: { type: string }
+        __v: { type: integer }
+        user: { type: string }
+        text: { type: string }
+        updatedAt: { type: string, format: date-time }
+        sendDate: { type: string }
+        deleted: { type: boolean }
+        source: { type: string }
+        used: { type: boolean }
+        type: { type: string }
+                    </code></pre>
+
+                    <aside class="notes">
+                        - Le modèle correspondant a l'endpoint
+                    </aside>
+                </section>
+
+                <section>
+                    <h4>Modèle</h4>
+
+                    <pre><code class="yaml" data-trim data-noescape data-line-numbers="20-24">
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: 'CatFacts API'
+servers:
+  - url: https://cat-fact.herokuapp.com
+paths:
+  /facts/random:
+    get:
+      operationId: randomFact
+      responses:
+        200:
+          description: 'Get a random `Fact`'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fact'
+components:
+  schemas:
+    Fact:
+      type: object
+      properties:
+        text: { type: string }
+        updatedAt: { type: string, format: date-time }
                     </code></pre>
 
                     <aside class="notes">
@@ -1153,6 +1247,7 @@ CatFacts\Api\Client:
             </section>
 
             <section>
+              <section>
                 <h3>Controller</h3>
 
                 <pre><code class="bash" data-trim data-noescape>project/src/Controller/FactController.php</code></pre>
@@ -1172,6 +1267,13 @@ class FactController extends AbstractController
                     - On récupère le Client généré par Jane et donné comme service à SF via l'autowire<br/>
                     - Et on utilise notre endpoint qui va renvoyer un modèle Fact à Twig
                 </aside>
+              </section>
+            
+                <section>
+                  <h3>Fact dump</h3>
+
+                  <img src="img/external_model_dump.png" alt="External API model dump" />
+                </section>
             </section>
 
             <section>

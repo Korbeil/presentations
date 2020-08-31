@@ -1,4 +1,5 @@
 ## Presentations
+- [2020-07] [Jane - API made easier](./2020-07-jane-api-made-easier) [[AFUP Day 2020](https://www.youtube.com/watch?v=qZSaiTInl6Q)]
 - [2019-05] [Développer votre application autour du composant Workflow](./2019-07-workflow-as-middleware)
 - [2019-05] [Meet git v2](./2019-05-meet-git-v2)
 - [2019-04] [REX Symfony Binary](./2019-04-rex-symfony-binary)

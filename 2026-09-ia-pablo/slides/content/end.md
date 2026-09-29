@@ -8,7 +8,10 @@ layout: two-cols
 
 > **I did not check less, I stopped checking by myself.**
 
-CI goes red at 11pm → the poller notices within 10 minutes → `ci-analyst` runs in the right worktree → by morning, the diagnosis is waiting.
+- <mdi-check-circle-outline class="text-[#e9ce37]"/> CI goes red at 11pm
+- <mdi-timer-outline class="text-[#e9ce37]"/> the poller notices within 10 minutes
+- <mdi-robot-outline class="text-[#e9ce37]"/> `ci-analyst` runs in the right worktree
+- <mdi-weather-sunset-up class="text-[#e9ce37]"/> by morning, the diagnosis is waiting
 
 A full task:
 
@@ -36,17 +39,4 @@ pablo task:start \
 
 <span class="text-sm opacity-70">PHP 8.4+ · <code>./bin/install.sh</code> · <code>pablo system:doctor</code></span>
 
-<br>
-<br>
-
-**Read the whole story**
-
-<div class="mb-2"><mdi-book-open-variant class="text-[#e9ce37]"/> <a href="https://jolicode.com/blog/the-agent-development-environment-a-new-unit-of-work">The ADE: A New Unit of Work</a></div>
-
-<div class="mb-2"><mdi-book-open-variant class="text-[#e9ce37]"/> <a href="https://jolicode.com/blog/from-an-ade-to-an-orchestrator-building-pablo">From an ADE to an Orchestrator: Building PABLO</a></div>
-
-</div>
-
-<div class="absolute bottom-10 right-16">
-<h2>Merci !</h2>
 </div>

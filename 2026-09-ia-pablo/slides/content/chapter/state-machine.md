@@ -18,7 +18,7 @@ Graph engineering? It is a **state machine** — a table in one class.
 
 </div>
 
-<div class="mt-2 rounded-lg bg-#2b2b2a text-white p-3 text-sm">
+<div class="mt-2 rounded-lg p-3 text-sm">
 <b>The golden rule:</b> every arrow <b>into <code>draft</code></b> is a command I typed. Every other arrow is the poller.<br>
 I decide when work leaves my hands; the machine handles the rest.
 </div>

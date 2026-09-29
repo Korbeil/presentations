@@ -38,3 +38,6 @@ src: ./content/chapter/lessons.md
 ---
 src: ./content/end.md
 ---
+---
+src: ./content/thanks.md
+---

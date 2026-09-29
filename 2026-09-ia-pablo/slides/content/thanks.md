@@ -18,6 +18,6 @@ layout: center
 
 </div>
 
-<img src="/images/qr-articles.png" class="h-56 rounded-lg bg-white p-1" alt="QR code to both articles" />
+<img src="/images/qr-ade-unit-of-work.png" class="h-56 rounded-lg bg-white p-1" alt="QR code to the article The ADE: A New Unit of Work" />
 
 </div>

@@ -1,5 +1,6 @@
 ---
 layout: two-cols
+layoutClass: gap-16
 ---
 
 # What actually changed

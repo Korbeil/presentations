@@ -15,7 +15,7 @@
 
 **A green CI is a policy, not a fact**
 
-```yaml
+```yaml {lines:false}
 ci:
   ignore_checks: ["approval"]
 ```
@@ -23,7 +23,7 @@ ci:
 <div class="mt-2 opacity-80">CircleCI publishes manual deployment gates as checks: they would hold "green" forever.</div>
 
 <div class="mt-4 rounded-lg bg-#f7e9a0 p-3">
-**The one exception:** `rebase-conflict-resolver` — the only agent allowed to write (`edit`, `write`, `git push`). Dry-run by default, pushes with `--force-with-lease`, prints `PABLO_CONFLICT_UNRESOLVABLE` when it should not touch anything. It may rewrite my branch, never merge, approve or comment as me.
+<b>The one exception:</b> <code>rebase-conflict-resolver</code> — the only agent allowed to write (<code>edit</code>, <code>write</code>, <code>git push</code>). Dry-run by default, pushes with <code>--force-with-lease</code>, prints <code>PABLO_CONFLICT_UNRESOLVABLE</code> when it should not touch anything. It may rewrite my branch, never merge, approve or comment as me.
 </div>
 
 </div>
@@ -31,5 +31,5 @@ ci:
 </div>
 
 <div class="mt-3 text-base opacity-80">
-"The dangerous permission was never `edit`; it was acting as me in front of other people."
+"The dangerous permission was never <code>edit</code>; it was acting as me in front of other people."
 </div>

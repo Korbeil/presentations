@@ -12,40 +12,41 @@ CI goes red at 11pm → the poller notices within 10 minutes → `ci-analyst` ru
 
 A full task:
 
-```bash
-pablo task:start https://acme.atlassian.net/browse/XXX-123
-# work with the agent
+```bash {lines:false}
+pablo task:start \
+  https://acme.atlassian.net/browse/XXX-123
+# …work with the agent
 /pablo-commit-and-pr
 # …stop thinking about it
 ```
 
-<div class="mt-4 rounded-lg bg-#2b2b2a text-white p-3">
-**Brain time is the resource.** PABLO is a cognitive shield: I stopped being a human router for my own tasks.
+<div class="mt-2 rounded-lg bg-#2b2b2a text-white p-3 text-sm">
+<b>Brain time is the resource.</b><br>PABLO is a cognitive shield: I stopped being a human router for my own tasks.
 </div>
 
 </div>
 
 ::right::
 
-<div class="mt-16 text-lg">
+<div class="mt-10 text-base">
 
 **PABLO is public** <mdi-github class="text-[#e9ce37]"/>
 
 <https://github.com/korbeil/pablo>
 
-<span class="text-sm opacity-70">PHP 8.4+ · `./bin/install.sh` · `pablo system:doctor`</span>
+<span class="text-sm opacity-70">PHP 8.4+ · <code>./bin/install.sh</code> · <code>pablo system:doctor</code></span>
 
 <br>
 <br>
 
 **Read the whole story**
 
-<mdi-book-open-variant class="text-[#e9ce37]"/> [The Agent Development Environment: A New Unit of Work](https://jolicode.com/blog/the-agent-development-environment-a-new-unit-of-work)
+<div class="mb-2"><mdi-book-open-variant class="text-[#e9ce37]"/> <a href="https://jolicode.com/blog/the-agent-development-environment-a-new-unit-of-work">The ADE: A New Unit of Work</a></div>
 
-<mdi-book-open-variant class="text-[#e9ce37]"/> [From an ADE to an Orchestrator: Building PABLO](https://jolicode.com/blog/from-an-ade-to-an-orchestrator-building-pablo)
+<div class="mb-2"><mdi-book-open-variant class="text-[#e9ce37]"/> <a href="https://jolicode.com/blog/from-an-ade-to-an-orchestrator-building-pablo">From an ADE to an Orchestrator: Building PABLO</a></div>
 
-<br>
+</div>
 
-# Merci !
-
+<div class="absolute bottom-10 right-16">
+<h2>Merci !</h2>
 </div>

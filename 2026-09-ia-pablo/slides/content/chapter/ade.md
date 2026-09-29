@@ -31,5 +31,5 @@ An **Agent Development Environment** is not "an IDE with an AI panel bolted on".
 </div>
 
 <div class="mt-4 text-base opacity-80">
-Nothing is lost: agents, commands, skills all carry over — the ADE stands **on top of that toolbox**.
+Nothing is lost: agents, commands, skills all carry over — the ADE stands <b>on top of that toolbox</b>.
 </div>

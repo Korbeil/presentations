@@ -22,7 +22,7 @@ Every few years, something changes what "writing code" means.
 | 2025 | Claude Code | agents delivering full features |
 
 <div class="mt-6 opacity-80">
-The unit of work changed again:<br>**from frameworks to features.**
+The unit of work changed again:<br><b>from frameworks to features.</b>
 </div>
 
 </div>

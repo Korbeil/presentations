@@ -23,5 +23,5 @@ Each item costs a **context switch** — the thing I spent a year eliminating.
 </div>
 
 <div class="absolute bottom-14 left-0 right-0 text-center text-xl">
-A dozen moving parts across three tools, and in that system, something has to poll. **It was me.**
+A dozen moving parts across three tools, and in that system, something has to poll. <b>It was me.</b>
 </div>

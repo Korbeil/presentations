@@ -8,7 +8,7 @@
 
 - <mdi-console class="text-[#e9ce37]"/> A **Symfony console application**: the `pablo` CLI, the console, and a read-only web dashboard (port **8321**)
 - <mdi-timer-outline class="text-[#e9ce37]"/> A **systemd / launchd scheduler** wakes it every **5 minutes** — state polling every 10, worktree sync every 12
-- <mdi-key-variant-remove class="text-[#e9ce37]"/> **No tokens stored**: everything through already-authenticated CLIs (`gh`, `acli`, `linear`, `openchamber`, `opencode`) — `pablo system:doctor` diagnoses what is missing
+- <mdi-key-remove class="text-[#e9ce37]"/> **No tokens stored**: everything through already-authenticated CLIs (`gh`, `acli`, `linear`, `openchamber`, `opencode`) — `pablo system:doctor` diagnoses what is missing
 - <mdi-swap-horizontal class="text-[#e9ce37]"/> `AgentLauncherInterface` keeps the **ADE swappable** — it already swapped Orca → OpenChamber
 
 </div>
@@ -27,7 +27,7 @@ One question, on a loop:
 …then it launches that agent through the ADE CLI,<br>in the right worktree, exactly as I would have.
 </div>
 
-```yaml
+```yaml {lines:false}
 # why PHP in 2026?
 # fastest language I think in,
 # and the only user is me.

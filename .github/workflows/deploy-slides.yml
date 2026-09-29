@@ -67,6 +67,10 @@ jobs:
             --exclude '_stage' \
             --exclude '_site' \
             ./ _site/
+          # Built Slidev output goes to the root of each presentation folder
+          if [ -d _stage ]; then
+            cp -a _stage/. _site/
+          fi
           while IFS= read -r slides_md; do
             talk="$(dirname "$(dirname "${slides_md#./}")")"
             rm -rf "_site/$talk/slides"

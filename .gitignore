@@ -1,2 +1,5 @@
 .idea/
 JoliCode/
+*/slides/dist/
+*/slides/node_modules/
+*.pdf

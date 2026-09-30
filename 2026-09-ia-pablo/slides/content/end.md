@@ -1,8 +1,10 @@
 # What actually changed
 
-<div class="mt-2 text-xl">> **I did not check less, I stopped checking by myself.**</div>
+<div class="mt-6 pl-4 border-l-4 border-[#e9ce37] text-xl">
+**I did not check less, I stopped checking by myself.**
+</div>
 
-<div class="mt-8 text-lg space-y-4">
+<div class="mt-10 text-lg space-y-4">
 
 - <mdi-check-circle-outline class="text-[#e9ce37]"/> CI goes red at 11pm
 - <mdi-timer-outline class="text-[#e9ce37]"/> the poller notices within 10 minutes

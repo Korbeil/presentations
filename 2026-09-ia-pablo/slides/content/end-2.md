@@ -1,19 +1,25 @@
 # PABLO is public
 
-<div class="mt-6 text-xl">
+<div class="mt-4 text-xl">
 
 <mdi-github class="text-[#e9ce37]"/> **PABLO is public** — <https://github.com/korbeil/pablo>
 
 </div>
 
-<div class="mt-2 text-sm opacity-70">PHP 8.4+ · <code>./bin/install.sh</code> · <code>pablo system:doctor</code></div>
+<div class="mt-4 text-sm opacity-70 space-y-1">
 
-<div class="mt-10 text-lg">A full task:</div>
+- PHP 8.4+
+- `./bin/install.sh`
+- `pablo system:doctor`
+
+</div>
+
+<div class="mt-8 text-lg">A full task:</div>
 
 ```bash {lines:false}
-pablo task:start \
-  https://acme.atlassian.net/browse/XXX-123
-# …work with the agent
+pablo task:start https://acme.atlassian.net/browse/XXX-123
+# …work with the agent, or send a free prompt:
+> Add a `status` column to the export table
 /pablo-commit-and-pr
 # …stop thinking about it
 ```

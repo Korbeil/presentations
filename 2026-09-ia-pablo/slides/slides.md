@@ -18,9 +18,6 @@ trainer: 'Baptiste Leduc'
 src: ./content/welcome.md
 ---
 ---
-src: ./content/chapter/unit-of-work.md
----
----
 src: ./content/chapter/unit-of-work-2.md
 ---
 ---

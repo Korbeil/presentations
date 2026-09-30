@@ -1,5 +1,6 @@
 .idea/
 JoliCode/
+.openchamber/
 */slides/dist/
 */slides/node_modules/
 *.pdf

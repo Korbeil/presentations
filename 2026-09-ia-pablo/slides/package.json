@@ -1,0 +1,18 @@
+{
+  "name": "ia-pablo-slides",
+  "private": true,
+  "scripts": {
+    "build": "slidev build --out dist --base /presentations/2026-09-ia-pablo/",
+    "dev": "slidev --open",
+    "export": "slidev export --output ../2026-09-ia-pablo.pdf --timeout 60000 --wait 10000"
+  },
+  "dependencies": {
+    "@iconify-json/mdi": "^1.1.66",
+    "@slidev/cli": "^52.0 <52.16 || >52.16",
+    "@slidev/theme-apple-basic": "^0.25.1",
+    "@slidev/theme-default": "latest",
+    "@slidev/theme-seriph": "latest",
+    "playwright-chromium": "^1.44.1",
+    "vue": "^3.4.27"
+  }
+}

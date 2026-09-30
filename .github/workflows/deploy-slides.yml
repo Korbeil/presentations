@@ -78,7 +78,9 @@ jobs:
           find _site -name '_redirects' -delete
           touch _site/.nojekyll
 
-      - name: Generate index.html from README.md
+      - name: Generate index.html and 404 fallback
+        env:
+          PROJECTS: ${{ steps.projects.outputs.projects }}
         run: |
           npx --yes marked@15 README.md > _site/readme.body.html
           {
@@ -94,6 +96,15 @@ jobs:
             echo '</body></html>'
           } > _site/index.html
           rm _site/readme.body.html
+          # SPA deep-link fallback: GitHub Pages only serves a root-level 404.html
+          {
+            echo '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Not found</title><script>'
+            for p in ${PROJECTS//,/ }; do
+              echo "  if (location.pathname.indexOf('/presentations/$p/') === 0) { location.replace('/presentations/$p/'); }"
+            done
+            echo '  else { location.replace("/presentations/"); }'
+            echo '</script><meta http-equiv="refresh" content="5;url=/presentations/"></head><body>Redirecting…</body></html>'
+          } > _site/404.html
 
       - uses: actions/upload-pages-artifact@v4
         with:

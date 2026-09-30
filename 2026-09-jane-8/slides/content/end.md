@@ -22,12 +22,6 @@ Baptiste Leduc · JoliCode
 
 </div>
 
-<div class="text-left text-xs opacity-60 pt-4">
-
-Slides &mdash; [github.com/Korbeil/presentations/tree/jane-8-slides/2026-09-jane-8](https://github.com/Korbeil/presentations/tree/jane-8-slides/2026-09-jane-8)
-
-</div>
-
 <div class="text-left pt-6 font-800 text-2xl">
 
 Merci ! <mdi-heart class="text-red-500" />
@@ -37,5 +31,19 @@ Merci ! <mdi-heart class="text-red-500" />
 <div class="absolute bottom-24 left-1/2 -translate-x-1/2">
 
 <img src="/images/jolicode.svg" alt="JoliCode" class="h-10" />
+
+</div>
+
+::right::
+
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
+
+<img src="/images/github-qrcode.png" alt="QR code to github.com/janephp/janephp" class="w-55 mx-auto" />
+
+<div class="text-sm pt-3">
+
+Scan it → **[github.com/janephp/janephp](https://github.com/janephp/janephp)**
+
+</div>
 
 </div>

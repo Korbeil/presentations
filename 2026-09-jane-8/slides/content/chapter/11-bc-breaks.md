@@ -13,7 +13,7 @@
 - PSR-7/18 + HTTPlug → **Symfony HttpClient**
 - `AddHostPlugin` + `AddPathPlugin` → one `ServerUrlHttpClient`
 - Auth: `authentication(Request)` → `decorate($method, $url, &$options)`
-- `$fetch` param, `FETCH_OBJECT`, `Result` removed
+- `$fetch` param and `FETCH_OBJECT` removed
 - `create(?HttpClientInterface, decorators, normalizers, applyServerPlugins)`
 - Runtime `Client` constructor now `final`
 

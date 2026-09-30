@@ -4,7 +4,7 @@ layout: statement
 
 # The ecosystem caught up
 
-## Jane 8 lowers the floor and raises the ceiling: `symfony/http-client` joins the runtime, PHP-Parser v5 drives the AST, Symfony gets a full matrix
+## `symfony/http-client` joins the runtime · PHP-Parser v5 · full Symfony matrix
 
 <div class="grid grid-cols-3 gap-8 pt-10 text-center">
 

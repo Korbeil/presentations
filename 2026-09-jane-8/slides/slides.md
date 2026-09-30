@@ -13,13 +13,8 @@ drawings:
     persist: false
 transition: slide-left
 mdc: true
+colorSchema: light
 ---
-
-# JanePHP 8.x
-
-<div class="pt-2 text-true-gray-400">
-A set of libraries to generate Models & API Clients based on JSON Schema / OpenAPI specs
-</div>
 
 ---
 src: ./content/welcome.md
@@ -55,6 +50,10 @@ src: ./content/chapter/07-lazy-ghost-proxies.md
 
 ---
 src: ./content/chapter/08-cleaner-api-surface.md
+---
+
+---
+src: ./content/chapter/08b-models-public-properties.md
 ---
 
 ---

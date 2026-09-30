@@ -40,7 +40,7 @@
 
 <v-clicks>
 
-<div class="text-sm pt-2 text-center bg-blue-500/10 rounded p-3">
+<div class="text-sm pt-2 text-center bg-blue-500/10 rounded p-3 mt-16">
 
 One transport abstraction instead of three — and it finally unlocks **per-operation fetch strategies**
 

@@ -15,9 +15,8 @@
         right: 3rem;
 
         img {
-            height: 11rem;
-            max-width: 24rem;
-            width: auto;
+            width: 24rem;
+            height: auto;
             border-radius: 1rem;
         }
     }
@@ -28,6 +27,16 @@
         left: 50%;
         transform: translate(-50%, -50%);
     }
+}
+
+/* Force light mode: everything on a white background. */
+html, body, #app {
+    background-color: #fff !important;
+}
+
+.slidev-layout {
+    background-color: #fff;
+    color: #1a202c;
 }
 
 /* Workaround: hide Slidev "go to" dialog when it opens unexpectedly. */

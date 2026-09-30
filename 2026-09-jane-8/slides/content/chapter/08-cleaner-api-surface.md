@@ -1,6 +1,6 @@
 # A cleaner API surface
 
-## `Result`, `FETCH_OBJECT` and the `$fetch` parameter are gone
+## `FETCH_OBJECT` and the `$fetch` parameter are gone
 
 <div class="grid grid-cols-2 gap-8 text-sm">
 
@@ -8,7 +8,6 @@
 
 <v-clicks>
 
-- `Result` wrapper (and `toObject()`, `await()`, `cancel()`) removed
 - `FETCH_RESPONSE` and the legacy `$fetch = 'response'` gone
 - Client methods **lost their trailing `$fetch` parameter** — they just return the model
 - State introspection now uses the PHP **reflection API**

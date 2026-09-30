@@ -1,35 +1,10 @@
 # Designing it taught me a few things
 
-<div class="grid grid-cols-2 gap-8 mt-2 text-base">
-
-<div>
+<div class="mt-8 text-lg space-y-7">
 
 - **Choosing what is *not* an event.** CI pending triggers nothing; CI red in `needs-testing` triggers nothing.
 - **Exactly one way back into `draft`**: an explicit command, never a raw `git push`. A command is a signal — a push is noise.
 - **Reviews, defined:** mine excluded, bots ignored unless whitelisted, latest review per reviewer wins, a non-approval beats every approval.
 - **Not everything deserves an LLM:** two LLM-powered prompts became plain PHP (`pablo show:prs` reads the poller's cache). The intelligence is in five markdown files; the rest is plumbing.
 
-</div>
-
-<div>
-
-**A green CI is a policy, not a fact**
-
-```yaml {lines:false}
-ci:
-  ignore_checks: ["approval"]
-```
-
-<div class="mt-2 opacity-80">CircleCI publishes manual deployment gates as checks: they would hold "green" forever.</div>
-
-<div class="mt-4 rounded-lg bg-#f7e9a0 p-3">
-<b>The one exception:</b> <code>rebase-conflict-resolver</code> — the only agent allowed to write (<code>edit</code>, <code>write</code>, <code>git push</code>). Dry-run by default, pushes with <code>--force-with-lease</code>, prints <code>PABLO_CONFLICT_UNRESOLVABLE</code> when it should not touch anything. It may rewrite my branch, never merge, approve or comment as me.
-</div>
-
-</div>
-
-</div>
-
-<div class="mt-3 text-base opacity-80">
-"The dangerous permission was never <code>edit</code>; it was acting as me in front of other people."
 </div>

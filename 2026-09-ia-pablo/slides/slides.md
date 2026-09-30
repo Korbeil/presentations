@@ -21,7 +21,13 @@ src: ./content/welcome.md
 src: ./content/chapter/unit-of-work.md
 ---
 ---
+src: ./content/chapter/unit-of-work-2.md
+---
+---
 src: ./content/chapter/ade.md
+---
+---
+src: ./content/chapter/ade-2.md
 ---
 ---
 src: ./content/chapter/brain.md
@@ -30,13 +36,22 @@ src: ./content/chapter/brain.md
 src: ./content/chapter/pablo.md
 ---
 ---
+src: ./content/chapter/pablo-2.md
+---
+---
 src: ./content/chapter/state-machine.md
 ---
 ---
 src: ./content/chapter/lessons.md
 ---
 ---
+src: ./content/chapter/lessons-2.md
+---
+---
 src: ./content/end.md
+---
+---
+src: ./content/end-2.md
 ---
 ---
 src: ./content/thanks.md

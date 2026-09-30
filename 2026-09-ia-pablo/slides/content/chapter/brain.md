@@ -1,7 +1,3 @@
----
-layout: quote
----
-
 # My agents got faster.<br>My brain did not.
 
 <div class="text-2xl mt-10 font-300">

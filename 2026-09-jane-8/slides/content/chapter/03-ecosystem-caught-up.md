@@ -16,7 +16,7 @@ layout: statement
 
 **PHP ^8.3**
 
-<span class="text-sm opacity-60">8.4 & 8.5 supported</span>
+<span class="text-sm text-gray-800">8.4 & 8.5 supported</span>
 
 </div>
 
@@ -26,7 +26,7 @@ layout: statement
 
 **PHP-Parser v5**
 
-<span class="text-sm opacity-60">nikic/php-parser ^5.1</span>
+<span class="text-sm text-gray-800">nikic/php-parser ^5.1</span>
 
 </div>
 
@@ -36,7 +36,7 @@ layout: statement
 
 **Symfony 6.4 · 7 · 8**
 
-<span class="text-sm opacity-60">console · serializer · http-client · event-dispatcher</span>
+<span class="text-sm text-gray-800">console · serializer · http-client · event-dispatcher</span>
 
 </div>
 

@@ -10,7 +10,7 @@
 
 Nightly, non-blocking CI run: generate a client per **real vendor spec**, pinned in `corpus/specs.json`
 
-<span class="text-[11px] opacity-70">Kubernetes · Docker · Slack · Netlify · GitHub 3.0/3.1 · Stripe · Plaid · Box · Twilio · Discord · OpenAI</span>
+<span class="text-[11px] text-gray-800">Kubernetes · Docker · Slack · Netlify · GitHub 3.0/3.1 · Stripe · Plaid · Box · Twilio · Discord · OpenAI</span>
 
 Generation must not crash, output must parse; Mago runs report-only.
 

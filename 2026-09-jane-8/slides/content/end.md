@@ -36,9 +36,9 @@ Merci ! <mdi-heart class="text-red-500" />
 
 ::right::
 
-<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
+<div class="absolute top-1/2 right-4 -translate-y-1/2 text-center">
 
-<img src="/images/github-qrcode.png" alt="QR code to github.com/janephp/janephp" class="w-55 mx-auto" />
+<img src="/images/github-qrcode.png" alt="QR code to github.com/janephp/janephp" class="w-50 mx-auto" />
 
 <div class="text-sm pt-3">
 

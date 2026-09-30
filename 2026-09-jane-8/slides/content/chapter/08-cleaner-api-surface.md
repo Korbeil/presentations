@@ -41,7 +41,7 @@ foreach ($apiClient->stream($raw) as $response => $chunk) {
 
 </div>
 
-<div class="grid grid-cols-2 gap-8 text-xs pt-2 opacity-80">
+<div class="grid grid-cols-2 gap-8 text-xs pt-2 text-gray-800">
 
 <v-clicks>
 

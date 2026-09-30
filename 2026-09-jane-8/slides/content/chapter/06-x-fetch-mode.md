@@ -38,13 +38,13 @@ Request registered immediately, progresses concurrently with other in-flight cal
 
 </div>
 
-<div class="pt-6 text-center text-sm opacity-70">
+<div class="pt-6 text-center text-sm text-gray-800">
 
 Mutating verbs (POST, PUT, PATCH…) are **always eager** — misuse fails generation with a clean error
 
 </div>
 
-<div class="pt-2 text-center text-xs opacity-60">
+<div class="pt-2 text-center text-xs text-gray-800">
 
 Resolution precedence: `x-fetch-mode` → `default-fetch-mode` option → `lazy`
 

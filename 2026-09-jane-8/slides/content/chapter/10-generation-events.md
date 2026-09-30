@@ -44,7 +44,7 @@ JaneOpenApi::build($options, $dispatcher);
 
 <v-clicks>
 
-<div class="text-xs opacity-60">
+<div class="text-xs text-gray-800">
 
 Throwing listener → generation aborts · programmatic only, no `.jane` config option yet
 

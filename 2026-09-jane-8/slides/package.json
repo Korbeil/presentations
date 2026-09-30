@@ -3,7 +3,7 @@
     "private": true,
     "scripts": {
         "dev": "slidev --open",
-        "build": "slidev build --out dist --base /2026-09-jane-8/",
+        "build": "slidev build --out dist --base /presentations/2026-09-jane-8/",
         "export": "slidev export --output ../2026-09-jane-8.pdf --timeout 60000 --wait 10000"
     },
     "dependencies": {

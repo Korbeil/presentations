@@ -5,23 +5,21 @@ An **Agent Development Environment** is not "an IDE with an AI panel bolted on".
 <div class="mt-6 text-xl space-y-6">
 
 <div>
+
 ### IDE
-<div class="list-tight">
 
 - Primitives: **files & buffers**
 - One developer, one working copy, one thread of work
 
 </div>
-</div>
 
 <div>
+
 ### ADE
-<div class="list-tight">
 
 - Primitives: **tasks, worktrees, agents**
 - You orchestrate **several at once**
 
-</div>
 </div>
 
 </div>

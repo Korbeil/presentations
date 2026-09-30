@@ -52,7 +52,7 @@ jobs:
             echo "Building $p"
             pushd "$p/slides"
             PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 yarn install --frozen-lockfile
-            npx slidev build --out "../../_stage/$p" --base "/$p/"
+            npx slidev build --out "../../_stage/$p" --base "/presentations/$p/"
             popd
             rm -f "_stage/$p/_redirects"
           done

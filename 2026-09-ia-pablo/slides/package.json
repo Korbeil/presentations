@@ -2,7 +2,7 @@
   "name": "ia-pablo-slides",
   "private": true,
   "scripts": {
-    "build": "slidev build --out dist --base /2026-09-ia-pablo/",
+    "build": "slidev build --out dist --base /presentations/2026-09-ia-pablo/",
     "dev": "slidev --open",
     "export": "slidev export --output ../2026-09-ia-pablo.pdf --timeout 60000 --wait 10000"
   },

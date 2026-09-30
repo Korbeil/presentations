@@ -1,0 +1,49 @@
+# The big one: goodbye PSR-7 / HTTPlug
+
+<div class="grid grid-cols-2 gap-8 mt-4 text-sm">
+
+<div>
+
+### Before (7.x)
+
+<v-clicks>
+
+- PSR-18 client + PSR-7 messages
+- PSR-17 factories to wire `Client::create()`
+- HTTPlug `PluginClient` + plugins
+- `nyholm/psr7` & friends in your dependency tree
+- Request/response juggling in userland
+
+</v-clicks>
+
+</div>
+
+<div>
+
+### After (8.x)
+
+<v-clicks>
+
+- `Symfony\Contracts\HttpClient\HttpClientInterface`
+- Native `string|resource|array` bodies
+- Plain `HttpClientInterface` decorators
+- Runtime requires `symfony/http-client ^6.4 || ^7 || ^8`
+- Zero `psr/*` / `php-http/*` dependencies left
+
+</v-clicks>
+
+</div>
+
+</div>
+
+## [ADR 0012](https://github.com/janephp/janephp/blob/next/docs/contributing/adrs/0012-symfony-httpclient-migration-x-fetch-mode.md) — the decision record
+
+<v-clicks>
+
+<div class="text-sm pt-2 text-center bg-blue-500/10 rounded p-3">
+
+One transport abstraction instead of three — and it finally unlocks **per-operation fetch strategies**
+
+</div>
+
+</v-clicks>

@@ -1,7 +1,36 @@
+.slidev-layout.cover {
+    h1 {
+        margin-top: 8rem;
+        padding-left: 2rem;
+    }
+
+    h2 {
+        margin-top: 2rem;
+        padding-left: 2rem;
+    }
+
+    .jane-logo {
+        position: absolute;
+        top: 4rem;
+        right: 3rem;
+
+        img {
+            width: 24rem;
+            height: auto;
+            border-radius: 1rem;
+        }
+    }
+
+    .jolicode-logo {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
 /* Force light mode: everything on a white background. */
-html,
-body,
-#app {
+html, body, #app {
     background-color: #fff !important;
 }
 

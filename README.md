@@ -1,6 +1,6 @@
 ## Presentations
 - [2026-09] [IA & PABLO](./2026-09-ia-pablo)
-- [2026-09] [JanePHP 8.x — API made easier, again](./2026-09-jane-8) *(in progress)*
+- [2026-09] [JanePHP 8.x — API made easier, again](./2026-09-jane-8)
 - [2020-07] [Jane - API made easier](./2020-07-jane-api-made-easier) [[AFUP Day 2020](https://www.youtube.com/watch?v=qZSaiTInl6Q)]
 - [2019-05] [Développer votre application autour du composant Workflow](./2019-07-workflow-as-middleware)
 - [2019-05] [Meet git v2](./2019-05-meet-git-v2)

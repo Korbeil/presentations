@@ -30,17 +30,25 @@ JaneOpenApi::build($options, $dispatcher);
 
 <div>
 
-<v-clicks>
+<v-click>
 
 ### Intercept the generator
 
 ([ADR 0013](https://github.com/janephp/janephp/blob/next/docs/contributing/adrs/0013-generation-events.md), experimental — [#859](https://github.com/janephp/janephp/issues/859))
 
+</v-click>
+
+<v-click>
+
 **Lifecycle events** — `Generation*`, `Schema*`, `Guessing*`, `Generating*`, `FileGenerated` — what console progress is built on
+
+</v-click>
+
+<v-click>
 
 **Mutation events** — `PropertyGuessedEvent` (types), `PropertyGeneratedEvent` / `ClassGeneratedEvent` (PhpParser AST: psalm tags, methods, traits…)
 
-</v-clicks>
+</v-click>
 
 <v-clicks>
 

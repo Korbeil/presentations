@@ -27,11 +27,15 @@ using `nullable: true` / `oneOf`.
 
 <div>
 
-<v-clicks>
+<v-click>
 
 ### Fail fast, fail well
 
 ([ADR 0002](https://github.com/janephp/janephp/blob/next/docs/contributing/adrs/0002-pre-generation-schema-validation.md))
+
+</v-click>
+
+<v-clicks at="2">
 
 - Generation **stops before any work** happens
 - **Every** violation is reported in one run

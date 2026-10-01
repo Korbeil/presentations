@@ -25,25 +25,29 @@ $reflector->initializeLazyObject($pet);
 
 <div>
 
-<v-clicks>
+<v-click>
 
 ### How it works
 
 `ReflectionClass::newLazyGhost()` — PHP **8.4 native lazy objects**
 ([PR #1089](https://github.com/janephp/janephp/pull/1089))
 
+</v-click>
+
+<v-click>
+
 - Initializer runs the endpoint's own status mapping: **4xx/5xx throw on first access**
 - Dropping an unconsumed proxy cancels the transfer (GC = drop-to-cancel)
 
-</v-clicks>
+</v-click>
 
-<v-clicks>
+<v-click>
 
 ### Graceful degradation
 
 Not a single-model response — arrays, maps, scalars, 204… — or PHP < 8.4 (`GhostFactory::canCreate()` = **PHP ≥ 8.4**: `symfony/var-exporter` & `proxy-manager-lts` considered but rejected): **deferred modes fall back to eager**
 
-</v-clicks>
+</v-click>
 
 </div>
 

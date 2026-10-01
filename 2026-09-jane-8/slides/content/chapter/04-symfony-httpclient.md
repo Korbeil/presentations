@@ -4,9 +4,9 @@
 
 <div>
 
-### Before (7.x)
+<v-click>
 
-<v-clicks>
+### Before (7.x)
 
 - PSR-18 client + PSR-7 messages
 - PSR-17 factories to wire `Client::create()`
@@ -14,15 +14,15 @@
 - `nyholm/psr7` & friends in your dependency tree
 - Request/response juggling in userland
 
-</v-clicks>
+</v-click>
 
 </div>
 
 <div>
 
-### After (8.x)
+<v-click>
 
-<v-clicks>
+### After (8.x)
 
 - `Symfony\Contracts\HttpClient\HttpClientInterface`
 - Native `string|resource|array` bodies
@@ -30,15 +30,15 @@
 - Runtime requires `symfony/http-client ^6.4 || ^7 || ^8`
 - Zero `psr/*` / `php-http/*` dependencies left
 
-</v-clicks>
+</v-click>
 
 </div>
 
 </div>
+
+<v-click>
 
 ## [ADR 0012](https://github.com/janephp/janephp/blob/next/docs/contributing/adrs/0012-symfony-httpclient-migration-x-fetch-mode.md) — the decision record
-
-<v-clicks>
 
 <div class="text-sm pt-2 text-center bg-blue-500/10 rounded p-3 mt-16">
 
@@ -46,4 +46,4 @@ One transport abstraction instead of three — and it finally unlocks **per-oper
 
 </div>
 
-</v-clicks>
+</v-click>

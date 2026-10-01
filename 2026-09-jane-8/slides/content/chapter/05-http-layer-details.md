@@ -31,9 +31,9 @@ $apiClient = Acme\Generated\Client::create(null, [
 
 <div>
 
-**Authentication — Symfony-style**
-
 <v-click>
+
+**Authentication — Symfony-style**
 
 ```php
 final class ApiKeyAuthentication
@@ -57,12 +57,3 @@ final class ApiKeyAuthentication
 
 </div>
 
-<v-click>
-
-<div class="text-[11px] text-base-content/70 mt-2">
-
-No-throw parity: the runtime consumes responses with `getHeaders(false)` / `getContent(false)` — status-code mapping stays in the generated code.
-
-</div>
-
-</v-click>

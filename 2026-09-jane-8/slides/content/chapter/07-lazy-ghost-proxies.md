@@ -32,10 +32,6 @@ $reflector->initializeLazyObject($pet);
 `ReflectionClass::newLazyGhost()` — PHP **8.4 native lazy objects**
 ([PR #1089](https://github.com/janephp/janephp/pull/1089))
 
-</v-click>
-
-<v-click>
-
 - Initializer runs the endpoint's own status mapping: **4xx/5xx throw on first access**
 - Dropping an unconsumed proxy cancels the transfer (GC = drop-to-cancel)
 

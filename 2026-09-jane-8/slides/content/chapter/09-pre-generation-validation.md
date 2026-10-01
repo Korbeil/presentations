@@ -27,13 +27,13 @@ using `nullable: true` / `oneOf`.
 
 <div>
 
-<v-click>
+<div v-click>
 
 ### Fail fast, fail well
 
 ([ADR 0002](https://github.com/janephp/janephp/blob/next/docs/contributing/adrs/0002-pre-generation-schema-validation.md))
 
-</v-click>
+</div>
 
 <v-clicks at="2">
 

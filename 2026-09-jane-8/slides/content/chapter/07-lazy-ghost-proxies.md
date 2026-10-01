@@ -25,7 +25,7 @@ $reflector->initializeLazyObject($pet);
 
 <div>
 
-<v-click>
+<div v-click>
 
 ### How it works
 
@@ -35,15 +35,15 @@ $reflector->initializeLazyObject($pet);
 - Initializer runs the endpoint's own status mapping: **4xx/5xx throw on first access**
 - Dropping an unconsumed proxy cancels the transfer (GC = drop-to-cancel)
 
-</v-click>
+</div>
 
-<v-click>
+<div v-click>
 
 ### Graceful degradation
 
 Not a single-model response — arrays, maps, scalars, 204… — or PHP < 8.4 (`GhostFactory::canCreate()` = **PHP ≥ 8.4**: `symfony/var-exporter` & `proxy-manager-lts` considered but rejected): **deferred modes fall back to eager**
 
-</v-click>
+</div>
 
 </div>
 

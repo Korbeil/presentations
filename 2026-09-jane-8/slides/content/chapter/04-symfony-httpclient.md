@@ -4,7 +4,7 @@
 
 <div>
 
-<v-click>
+<div v-click>
 
 ### Before (7.x)
 
@@ -14,13 +14,13 @@
 - `nyholm/psr7` & friends in your dependency tree
 - Request/response juggling in userland
 
-</v-click>
+</div>
 
 </div>
 
 <div>
 
-<v-click>
+<div v-click>
 
 ### After (8.x)
 
@@ -30,13 +30,13 @@
 - Runtime requires `symfony/http-client ^6.4 || ^7 || ^8`
 - Zero `psr/*` / `php-http/*` dependencies left
 
-</v-click>
-
 </div>
 
 </div>
 
-<v-click>
+</div>
+
+<div v-click>
 
 ## [ADR 0012](https://github.com/janephp/janephp/blob/next/docs/contributing/adrs/0012-symfony-httpclient-migration-x-fetch-mode.md) — the decision record
 
@@ -46,4 +46,4 @@ One transport abstraction instead of three — and it finally unlocks **per-oper
 
 </div>
 
-</v-click>
+</div>

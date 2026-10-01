@@ -31,7 +31,7 @@ $apiClient = Acme\Generated\Client::create(null, [
 
 <div>
 
-<v-click>
+<div v-click>
 
 **Authentication — Symfony-style**
 
@@ -51,7 +51,7 @@ final class ApiKeyAuthentication
 }
 ```
 
-</v-click>
+</div>
 
 </div>
 

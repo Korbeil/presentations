@@ -1,4 +1,5 @@
 ## Presentations
+- [2026-11] [IA & PABLO — De l'ADE à l'orchestrateur](./2026-11-ia-pablo) *(in progress)*
 - [2026-09] [IA & PABLO](./2026-09-ia-pablo)
 - [2026-09] [JanePHP 8.x — API made easier, again](./2026-09-jane-8)
 - [2020-07] [Jane - API made easier](./2020-07-jane-api-made-easier) [[AFUP Day 2020](https://www.youtube.com/watch?v=qZSaiTInl6Q)]

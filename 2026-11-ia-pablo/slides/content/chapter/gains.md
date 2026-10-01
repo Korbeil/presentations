@@ -10,7 +10,7 @@
 
 </div>
 
-<div class="mt-8 text-base opacity-80">
+<div class="mt-4 text-base opacity-80">
 
 ```yaml {lines:false}
 # Les gains ne sont pas uniformes : les qualifier honnêtement,

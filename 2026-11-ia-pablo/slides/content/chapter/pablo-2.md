@@ -11,6 +11,3 @@
 
 </div>
 
-<div class="mt-8 text-base opacity-80">
-Une seule exception à *« PABLO n'utilise pas de LLM »* : <code>/pablo-commit-and-pr</code> — l'agent écrit commit + description de PR (la seule étape où un agent bat du code classique), puis <b>rend la main à PABLO</b>, qui passe la tâche en état <code>draft</code> et reprend la main.
-</div>

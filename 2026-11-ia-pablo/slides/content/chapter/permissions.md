@@ -23,7 +23,3 @@ permission:
 - motifs matchés sur la commande **parsée, arguments inclus** : `"git"` seul ne matche pas `git log`
 
 </div>
-
-<div class="mt-6 rounded-lg bg-#f7e9a0 p-3 text-base">
-Ces surcharges rendent « merci de ne faire que de l'analyse » <b>incontournable</b> : même si le prompt dérive ou si le ticket pousse l'agent à « corriger vite », il ne peut pas.
-</div>

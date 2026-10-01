@@ -24,6 +24,9 @@ src: ./content/chapter/unit-of-work-2.md
 src: ./content/chapter/unit-of-work.md
 ---
 ---
+src: ./content/chapter/unit-of-work-3.md
+---
+---
 src: ./content/chapter/ade.md
 ---
 ---
@@ -37,6 +40,9 @@ src: ./content/chapter/agents.md
 ---
 ---
 src: ./content/chapter/permissions.md
+---
+---
+src: ./content/chapter/permissions-2.md
 ---
 ---
 src: ./content/chapter/permission-philosophy.md
@@ -54,10 +60,19 @@ src: ./content/chapter/pablo.md
 src: ./content/chapter/pablo-2.md
 ---
 ---
+src: ./content/chapter/pablo-3.md
+---
+---
 src: ./content/chapter/launcher.md
 ---
 ---
+src: ./content/chapter/launcher-2.md
+---
+---
 src: ./content/chapter/state-machine.md
+---
+---
+src: ./content/chapter/state-machine-2.md
 ---
 ---
 src: ./content/chapter/states.md
@@ -73,6 +88,9 @@ src: ./content/chapter/green.md
 ---
 ---
 src: ./content/chapter/rebase-agent.md
+---
+---
+src: ./content/chapter/rebase-agent-2.md
 ---
 ---
 src: ./content/chapter/not-everything.md

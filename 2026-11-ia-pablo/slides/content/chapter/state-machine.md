@@ -15,20 +15,17 @@ public function states(): array
         // ... 9 états au total
     ];
 }
-
-public const POLL_CHECKS = [
-    State::Draft->value         => ['checkCiRed', 'checkCiGreen'],
-    State::ReadyToReview->value => ['checkCiRed', 'checkReviews'],
-    State::NeedsTesting->value  => ['checkFailureSignal'],
-];
 ```
 
-<div class="mt-3 text-base space-y-1">
+<div class="mt-4 text-base space-y-1">
 
 - chaque ligne : comment l'état s'affiche, ce qui tourne à l'entrée, si le poller le surveille
 - ajouter une étape = une ligne et une méthode, <b>pas un refactor</b> ; un seul handler d'entrée mutualisé entre poller, commands et overrides manuels — les transitions ne divergent jamais
-- autre différence avec les frameworks d'agents : les nœuds ne sont pas des étapes de raisonnement (plan, search, summarize, critique),
-
-mais <b>les états d'une PR dans une vraie équipe</b> — le graphe n'est pas l'agent, c'est le processus dans lequel je travaille déjà. C'est ce qui le rend stable au fil des sorties de modèles, avec prompts et modèles vivant dans les nœuds.
 
 </div>
+
+<style>
+.slidev-layout h1 { font-size: 32px; line-height: 36px; }
+.slidev-layout pre { font-size: 10.5px !important; line-height: 15px !important; padding-top: 0.4rem; padding-bottom: 0.4rem; }
+.slidev-layout li { line-height: 24px; }
+</style>

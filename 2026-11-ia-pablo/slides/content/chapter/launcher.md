@@ -23,6 +23,3 @@ interface AgentLauncherInterface
 
 </div>
 
-<div class="mt-8 rounded-lg bg-#f7e9a0 p-3 text-base">
-<b>La vérité fut toujours dans les agents.</b> Ce qui manquait : quelque chose d'assez bête pour tourner toutes les cinq minutes pour toujours, sans s'ennuyer.
-</div>

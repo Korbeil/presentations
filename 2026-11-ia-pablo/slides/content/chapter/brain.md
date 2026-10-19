@@ -18,11 +18,6 @@ Rien de dur — et c'est exactement le problème : chaque item coûte un **chang
 
 </div>
 
-<div class="absolute bottom-14 left-0 right-0 text-center text-xl">
-Une douzaine de pièces mobiles sur trois outils : il faut bien que quelqu'un fasse le polling. <b>C'était moi.</b><br>
-<b>J'avais automatisé la réflexion, et gardé l'attente.</b>
-</div>
-
 <!--
 Les minutes ne m'ont jamais fait mal. Ce qui fait mal, c'est l'entrelacement : vérifier la CI, retour à la tâche, se rappeler que personne n'a relu, retour.
 Tout ça vit dans GitHub et Jira, hors de mes worktrees.

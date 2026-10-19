@@ -1,0 +1,132 @@
+/* Yellow section dividers */
+.slidev-layout.chapter {
+  background: #e9ce37;
+  color: #2b2b2a;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 5rem;
+}
+.slidev-layout.chapter .chapter-number {
+  font-size: 9rem;
+  font-weight: 700;
+  line-height: 1;
+  color: rgba(43, 43, 42, 0.18);
+}
+.slidev-layout.chapter h1 {
+  font-size: 4rem;
+  line-height: 1.1;
+  margin: 0;
+}
+.slidev-layout.chapter p {
+  font-size: 1.6rem;
+  margin-top: 1rem;
+  opacity: 0.75;
+}
+
+/* Dark punchline slides */
+.slidev-layout.punchline {
+  background: #2b2b2a;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 5rem;
+  position: relative;
+}
+.slidev-layout.punchline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 10px;
+  background: #e9ce37;
+}
+.slidev-layout.punchline h1 {
+  color: #e9ce37;
+  font-size: 4rem;
+  line-height: 1.1;
+}
+.slidev-layout.punchline code {
+  background: rgba(233, 206, 55, 0.15);
+  color: #e9ce37;
+}
+.slidev-layout.punchline .accent {
+  color: #e9ce37;
+}
+
+/* Split layout: content left, yellow panel right */
+.slidev-layout.split {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  padding: 0 !important;
+}
+.slidev-layout.split .split-left {
+  padding: 2.5rem 2.5rem 2.5rem 3.5rem;
+}
+.slidev-layout.split .split-right {
+  background: #e9ce37;
+  color: #2b2b2a;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2.5rem;
+}
+.slidev-layout.split .split-right h3 {
+  opacity: 0.7;
+}
+.slidev-layout.split .split-right img {
+  width: 100%;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* Big numbers */
+.stat {
+  border-top: 4px solid #e9ce37;
+  padding-top: 0.75rem;
+}
+.split-right .stat {
+  border-top-color: #2b2b2a;
+}
+.stat .bignum {
+  font-size: 3.25rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.stat .bignum small {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.stat .cap {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  line-height: 1.35;
+  opacity: 0.75;
+}
+
+/* The theme drops ordered-list markers */
+.slidev-layout ol {
+  list-style: decimal !important;
+  padding-left: 1.5rem !important;
+}
+.slidev-layout ol li {
+  display: list-item !important;
+  list-style: decimal !important;
+}
+
+/* Section tag, top-left of content slides */
+.section-tag {
+  position: absolute;
+  top: 0.9rem;
+  left: 3.5rem;
+  background: #2b2b2a;
+  color: #e9ce37;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.1rem 0.6rem;
+  border-radius: 999px;
+}

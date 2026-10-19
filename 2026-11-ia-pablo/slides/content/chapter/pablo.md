@@ -1,14 +1,15 @@
-# Une question, en boucle
+---
+layout: punchline
+---
 
-<div class="rounded-lg bg-#2b2b2a text-white p-8 mt-8 w-5/6 text-xl">
+<div class="text-sm uppercase tracking-widest accent">Une question, en boucle</div>
 
-*Vu l'état de cette pull request, y a-t-il quelque chose qu'un agent devrait faire — et si oui, lequel ?*
-
+<div class="mt-6 text-4xl font-600 leading-snug">
+Vu l'état de cette pull request, y a-t-il quelque chose qu'un agent devrait faire — et si oui, <span class="accent">lequel&nbsp;?</span>
 </div>
 
-<div class="mt-10 text-lg opacity-80">
-Si oui, il lance cet agent via le CLI de l'ADE,<br>
-dans le bon worktree, exactement comme je l'aurais fait.
+<div class="mt-10 text-lg opacity-70">
+Si oui, il le lance via le CLI de l'ADE, dans le bon worktree, exactement comme je l'aurais fait.
 </div>
 
 <!--

@@ -22,11 +22,6 @@ pablo task:start https://acme.atlassian.net/browse/XXX-123
 Si le Wi-Fi lâche, la vidéo de secours est prête :-)
 </div>
 
-<style>
-.slidev-layout ol { list-style: decimal !important; padding-left: 1.5rem !important; }
-.slidev-layout ol li { display: list-item !important; list-style: decimal !important; }
-</style>
-
 <!--
 Avant : remplacer le lien acme par un vrai ticket sandbox.
 Avoir des tâches déjà en ci-red / waiting-review / needs-testing pour remplir le dashboard.

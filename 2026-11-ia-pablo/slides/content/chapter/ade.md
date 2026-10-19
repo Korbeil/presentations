@@ -1,35 +1,41 @@
-# L'ADE : Agent Development Environment
+---
+layout: split
+---
+
+# L'ADE
+
+<div class="text-xl font-600 -mt-2">Agent Development Environment</div>
 
 Un ADE n'est pas « un IDE avec un panneau IA greffé ».
 
-<div class="mt-6 text-xl space-y-6">
-
-<div>
-
 ### IDE
+
+<div class="text-lg">
 
 - Primitives : **fichiers & buffers**
 - Un développeur, une copie de travail, un fil de travail
 
 </div>
 
-<div>
+<div class="mt-8 text-base opacity-80">
+Tout ce que nous avons bâti — agents, commands, skills — <b>se transfère</b> : l'ADE se tient <b>au-dessus</b> de cette boîte à outils.
+</div>
+
+::right::
+
+<mdi-robot-outline class="text-6xl mb-4" />
 
 ### ADE
+
+<div class="text-xl">
 
 - Primitives : **tâches, worktrees, agents**
 - On orchestre **plusieurs à la fois**
 
 </div>
 
-</div>
-
-<div class="mt-10 text-lg opacity-80">
-Tout ce que nous avons bâti — agents, commands, skills — <b>se transfère</b> : l'ADE se tient <b>au-dessus</b> de cette boîte à outils, et ça le rend plus fort.
-</div>
-
 <style>
-.slidev-layout h3 { margin-top: 0.5rem; margin-bottom: 0.25rem; }
+.slidev-layout h3 { margin-top: 1rem; margin-bottom: 0.25rem; }
 </style>
 
 <!--

@@ -1,8 +1,10 @@
 # Une CI verte est une politique, pas un fait
 
-Ma première version : rouge sur échec, verte si tout passe, *pending* sinon. Fonctionnait partout… sauf sur le projet où j'avais le plus besoin de PABLO.
+Ma première règle : rouge sur échec, verte si tout passe, *pending* sinon. Elle marchait partout… sauf sur le projet où j'avais le plus besoin de PABLO : CircleCI y publie ses gates de déploiement manuelles comme des checks GitHub, `PENDING` pour toujours ou `ACTION_REQUIRED`. La CI n'était jamais verte.
 
-Ce projet tourne sur **CircleCI**, qui publie ses gates de déploiement sous forme de *status contexts* GitHub — des gates manuelles, `PENDING` pour toujours sur des branches où personne n'a cliqué, ou qui arrivent en `ACTION_REQUIRED` (comptées comme des échecs par ma règle première). Alors « Est-ce que la CI est verte ? » n'était jamais oui.
+<div class="mt-4 grid grid-cols-[1fr_1.1fr] gap-6 items-start">
+
+<div>
 
 ```yaml
 ci:
@@ -11,8 +13,18 @@ ci:
 
 <div class="mt-3 text-base space-y-1">
 
-- tout check dont le nom, le workflow ou le status context contient ce substring est <b>retiré de la question</b> : ni rouge, ni pending pour toujours
-- reste intentionnellement bête : substring match, et un repo sans check est déclaré vert
-- GitHub appelle ça des « checks » — c'est un tas bruyant de tests unitaires, de gates manuelles et de bots bavards. Aucun outil ne peut deviner magiquement ; <b>la décision est poussée dans le YAML du projet</b>
+- tout check dont le nom, le workflow ou le status context contient ce mot est <b>retiré de la question</b>
+- volontairement bête : un substring, et un repo sans check est vert
+- **deux gates, un mot** — la décision vit dans le YAML du projet
 
 </div>
+
+</div>
+
+<img src="/images/github-approval-gates.png" class="rounded-lg shadow" alt="Gates d'approbation CircleCI dans les checks GitHub" />
+
+</div>
+
+<!--
+Ce que GitHub appelle des « checks », c'est un tas bruyant de tests, de gates manuelles et de bots bavards. Aucun outil ne peut deviner lesquels comptent pour une branche donnée.
+-->

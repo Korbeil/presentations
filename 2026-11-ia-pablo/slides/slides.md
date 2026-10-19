@@ -18,13 +18,7 @@ trainer: 'Baptiste Leduc'
 src: ./content/welcome.md
 ---
 ---
-src: ./content/chapter/unit-of-work-2.md
----
----
 src: ./content/chapter/unit-of-work.md
----
----
-src: ./content/chapter/unit-of-work-3.md
 ---
 ---
 src: ./content/chapter/ade.md
@@ -33,16 +27,10 @@ src: ./content/chapter/ade.md
 src: ./content/chapter/ade-2.md
 ---
 ---
-src: ./content/chapter/stack.md
----
----
 src: ./content/chapter/agents.md
 ---
 ---
 src: ./content/chapter/permissions.md
----
----
-src: ./content/chapter/permissions-2.md
 ---
 ---
 src: ./content/chapter/permission-philosophy.md
@@ -60,13 +48,7 @@ src: ./content/chapter/pablo.md
 src: ./content/chapter/pablo-2.md
 ---
 ---
-src: ./content/chapter/pablo-3.md
----
----
 src: ./content/chapter/launcher.md
----
----
-src: ./content/chapter/launcher-2.md
 ---
 ---
 src: ./content/chapter/state-machine.md
@@ -99,13 +81,7 @@ src: ./content/chapter/not-everything.md
 src: ./content/chapter/demo.md
 ---
 ---
-src: ./content/chapter/lessons.md
----
----
 src: ./content/end.md
----
----
-src: ./content/end-2.md
 ---
 ---
 src: ./content/thanks.md

@@ -1,6 +1,6 @@
-# Enter the ADE
+# L'ADE : Agent Development Environment
 
-Un **Agent Development Environment** n'est pas « une IDE avec un panneau IA greffé ».
+Un ADE n'est pas « un IDE avec un panneau IA greffé ».
 
 <div class="mt-6 text-xl space-y-6">
 
@@ -31,3 +31,7 @@ Tout ce que nous avons bâti — agents, commands, skills — <b>se transfère</
 <style>
 .slidev-layout h3 { margin-top: 0.5rem; margin-bottom: 0.25rem; }
 </style>
+
+<!--
+Le nom est récent et peu utilisé, mais il trace une ligne nette entre comment on développe aujourd'hui avec un IDE et ce qui arrive.
+-->

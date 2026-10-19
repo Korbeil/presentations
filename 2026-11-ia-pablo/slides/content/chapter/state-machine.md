@@ -1,6 +1,6 @@
-# Graph engineering ? Une state machine, un nom à la mode
+# Graph engineering ? Une state machine
 
-« Graph engineering » ? C'est une state machine avec un meilleur nom. Et son moteur tient littéralement dans une table, dans une classe (`StateMachine.php`) :
+Le même concept, avec un meilleur nom. Pas de framework : ils exigent de déclarer chaque transition, trop rigide quand plusieurs états retombent en `draft` et qu'une commande manuelle peut sortir une tâche de n'importe où. Le moteur tient dans une table, dans `StateMachine.php` :
 
 ```php
 public function states(): array
@@ -12,7 +12,7 @@ public function states(): array
             'onEnter' => $this->enterDraft(...), 'polled' => true],
         State::CiRed->value      => ['emoji' => '🔴', 'label' => 'ci-red',
             'onEnter' => $this->enterCiRed(...), 'polled' => true],
-        // ... 9 états au total
+        // ... 10 états au total
     ];
 }
 ```
@@ -20,7 +20,7 @@ public function states(): array
 <div class="mt-4 text-base space-y-1">
 
 - chaque ligne : comment l'état s'affiche, ce qui tourne à l'entrée, si le poller le surveille
-- ajouter une étape = une ligne et une méthode, <b>pas un refactor</b> ; un seul handler d'entrée mutualisé entre poller, commands et overrides manuels — les transitions ne divergent jamais
+- ajouter une étape = une ligne et une méthode, <b>pas un refactor</b> ; un seul handler d'entrée, partagé par le poller, les commandes et les overrides manuels — les transitions ne divergent jamais
 
 </div>
 

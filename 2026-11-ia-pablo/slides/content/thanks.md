@@ -4,20 +4,29 @@ layout: center
 
 # Merci !
 
-<div class="text-xl font-300 opacity-80 mt-2">Toute l'histoire est en ligne — scannez le code ou cliquez les liens :</div>
+<div class="text-lg font-300 opacity-80 mt-2">
+PABLO est public — à lire, emprunter, <i>casser</i>. Un seul utilisateur : moi. Pas un framework.
+</div>
 
-<div class="mt-6 grid grid-cols-[1fr_auto] gap-10 items-center text-base text-left">
+<div class="mt-8 grid grid-cols-3 gap-10 text-sm text-center">
 
 <div>
+<img src="/images/qr-ade-unit-of-work-fr.png" class="h-36 mx-auto rounded-lg bg-white p-1" alt="QR code de l'article L'ADE : une nouvelle unité de travail" />
+<div class="mt-3"><mdi-book-open-variant class="text-[#e9ce37]"/> <a href="https://jolicode.com/blog/l-agent-development-environment-une-nouvelle-unite-de-travail">L'ADE : une nouvelle unité de travail</a></div>
+</div>
 
-**Lire toute l'histoire** *(en anglais, aussi en français)*
+<div>
+<img src="/images/qr-ade-orchestrator-fr.png" class="h-36 mx-auto rounded-lg bg-white p-1" alt="QR code de l'article D'un ADE à un orchestrateur" />
+<div class="mt-3"><mdi-book-open-variant class="text-[#e9ce37]"/> <a href="https://jolicode.com/blog/d-un-ade-a-un-orchestrator-la-construction-de-pablo">D'un ADE à un orchestrateur : la construction de PABLO</a></div>
+</div>
 
-<div class="mt-3 mb-3"><mdi-book-open-variant class="text-[#e9ce37]"/> <a href="https://jolicode.com/blog/the-agent-development-environment-a-new-unit-of-work">L'ADE : une nouvelle unité de travail</a></div>
-
-<div class="mb-3"><mdi-book-open-variant class="text-[#e9ce37]"/> <a href="https://jolicode.com/blog/from-an-ade-to-an-orchestrator-building-pablo">D'un ADE à un orchestrateur : la construction de PABLO</a></div>
+<div>
+<img src="/images/qr-pablo-repo.png" class="h-36 mx-auto rounded-lg bg-white p-1" alt="QR code du dépôt GitHub de PABLO" />
+<div class="mt-3"><mdi-github class="text-[#e9ce37]"/> <a href="https://github.com/korbeil/pablo">github.com/korbeil/pablo</a></div>
+</div>
 
 </div>
 
-<img src="/images/qr-ade-unit-of-work.png" class="h-56 rounded-lg bg-white p-1" alt="QR code de l'article L'ADE : une nouvelle unité de travail" />
-
+<div class="mt-8 text-sm opacity-70">
+PHP 8.4+ · <code>./bin/install.sh</code> · <code>pablo system:doctor</code> · <code>pablo task:start &lt;issue-url&gt;</code> — articles aussi en anglais
 </div>

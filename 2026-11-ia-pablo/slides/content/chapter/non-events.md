@@ -1,7 +1,5 @@
 # Choisir ce qui n'est *pas* un événement
 
-La moitié de la conception d'une state machine, celle qui ne reçoit presque jamais d'attention :
-
 <div class="mt-6 text-lg space-y-4">
 
 - un seul chemin de retour en `draft`, et c'est une <b>commande</b>
@@ -13,5 +11,5 @@ La moitié de la conception d'une state machine, celle qui ne reçoit presque ja
 </div>
 
 <div class="mt-10 rounded-lg bg-#2b2b2a text-white p-6 text-xl">
-Oui, moitié design : un onglet en moins, deux heures récupérées — et surtout, *moitié des décisions assumées*.
+La moitié du design d'une state machine, c'est choisir ce qui n'est <b>pas</b> un événement — et c'est la moitié qui ne reçoit presque aucune attention.
 </div>

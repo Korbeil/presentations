@@ -7,15 +7,10 @@
 </div>
 
 <div class="mt-10 text-lg opacity-80">
-…alors il lance cet agent via le CLI de l'ADE,<br>
-dans le bon worktree, exactement ce que j'aurais fait.
+Si oui, il lance cet agent via le CLI de l'ADE,<br>
+dans le bon worktree, exactement comme je l'aurais fait.
 </div>
 
-<div class="mt-10 text-base opacity-80">
-
-```yaml {lines:false}
-# pourquoi PHP en 2026 pour un démon ?
-# le langage dans lequel je pense le plus vite,
-# et le seul utilisateur, c'est moi.
-```
-</div>
+<!--
+L'ADE reste l'endroit où je travaille ; PABLO se tient un niveau au-dessus.
+-->

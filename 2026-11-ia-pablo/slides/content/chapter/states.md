@@ -1,32 +1,42 @@
-# Une state machine, neuf états
+# Dix états, et ce qui les réveille
 
-Pas de `todo`, et que c'est un choix : un ticket non commencé n'a aucune tâche, il apparaît juste dans la liste de ce qui m'est assigné. Un merge ferme la tâche **depuis n'importe quel état** et supprime le worktree.
-
-<div class="text-xs">
-
-| État | Entré par | Ce qui se passe à l'entrée |
-| --- | --- | --- |
-| <mdi-hammer class="text-[#e9ce37]"/> `in-progress` | `pablo task:start <issue-url>` | crée branche + worktree, lance `task-analyst` une fois (+ script de startup du projet) |
-| <mdi-sleep class="text-[#e9ce37]"/> `waiting` | `pablo task:waiting` | rien — le polling s'arrête ; le retour rétablit l'état précédent |
-| <mdi-pencil class="text-[#e9ce37]"/> `draft` | `/pablo-commit-and-pr` | commit, push, draft PR ouverte |
-| <mdi-circle class="text-red-500"/> `ci-red` | poller : CI en échec | lance `ci-analyst` sur les checks et leurs logs |
-| <mdi-eye class="text-[#e9ce37]"/> `ready-to-review` | poller : CI verte | rend la prête sur GitHub, puis retombe dans `waiting-review` |
-| <mdi-eye-outline class="text-[#e9ce37]"/> `waiting-review` | l'état ci-dessus | rien — là où une tâche attend des humains |
-| <mdi-flask class="text-[#e9ce37]"/> `needs-testing` | poller : review approbatrice | stocke le timestamp qui devient la baseline QA |
-| <mdi-source-pull class="text-[#e9ce37]"/> `request-changes` | poller : modifications demandées | repasse la PR en draft, lance `pr-feedback` |
-| <mdi-bug class="text-red-500"/> `testing-failed` | poller : signal d'échec QA | repasse la PR en draft, lance `task-feedback` |
-
+<div class="text-base">
+Pas de <code>todo</code>, et c'est un choix : un ticket non commencé n'a pas de tâche. <code>waiting</code> met le polling en pause depuis n'importe où ; un merge ferme la tâche depuis n'importe quel état.
 </div>
 
-<div class="mt-2 rounded-lg p-3 text-sm">
-<b>La règle d'or :</b> chaque flèche <b>vers <code>draft</code></b> est une commande tapée. Toutes les autres flèches viennent du poller.<br>
+```mermaid {scale: 0.5}
+flowchart LR
+  S([task:start]) ==> IP[in-progress]
+  IP ==> D[draft]
+  D --> CR[ci-red]
+  D --> RR[ready-to-review]
+  CR --> RR
+  RR --> WR[waiting-review]
+  WR --> CR
+  WR --> RC[request-changes]
+  WR --> AP[approved]
+  AP --> NT[needs-testing]
+  NT --> TF[testing-failed]
+  RC ==> D
+  TF ==> D
+  classDef red fill:#fde2e2,stroke:#e05252
+  class CR,TF red
+```
+
+<div class="mt-2 rounded-lg bg-#f7e9a0 p-3 text-base">
+<b>La règle d'or :</b> les flèches épaisses sont des commandes tapées — <code>task:start</code>, puis <code>/pablo-commit-and-pr</code> pour <b>toutes celles qui entrent dans <code>draft</code></b>. Les autres viennent du poller.
 Je décide quand une tâche me quitte ; la machine s'occupe du reste.
 </div>
 
-<style>
-.slidev-layout table th,
-.slidev-layout table td {
-  padding-top: 0.15rem;
-  padding-bottom: 0.15rem;
-}
-</style>
+<!--
+Ce qui se passe à l'entrée :
+- in-progress : branche + worktree, task-analyst une fois, + script de startup du projet
+- draft : commit, push, draft PR
+- ci-red : ci-analyst sur les checks en échec et leurs logs
+- ready-to-review : passe la PR en ready sur GitHub, puis retombe en waiting-review
+- waiting-review : rien, là où une tâche attend des humains
+- approved : nouveau depuis l'article — enchaîne sur needs-testing, ou reste là si le projet n'a pas de QA
+- needs-testing : stocke le timestamp qui sert de baseline QA
+- request-changes : repasse la PR en draft, lance pr-feedback
+- testing-failed : repasse la PR en draft, lance task-feedback
+-->

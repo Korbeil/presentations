@@ -19,8 +19,14 @@ permissions:
 - dry-run par défaut ; `auto_apply: true` <b>seulement</b> là où je connais la forme du travail
 - jamais `--force` : `--force-with-lease` — si j'ai poussé entre-temps, le job recule, mon push gagne toujours
 - branche sale : jamais rebasée ; conflit qui demande un humain → `PABLO_CONFLICT_UNRESOLVABLE`, rien n'est poussé
+- et toutes les heures, le checkout principal est remis sur `origin/main` (`checkout` + `reset --hard`) — seulement s'il est propre et sans commit en avance ; sinon, PABLO n'y touche pas
 
 </div>
+
+<!--
+Mise à jour du checkout principal : sans agent, du code déterministe. Cadence main_update.interval_minutes (60 par défaut), désactivable par projet avec main_update.enabled: false, ou à la main avec `pablo sync:main`.
+Ignoré aussi si un rebase/merge est en cours, ou si main est checkout dans un autre worktree. Les worktrees de tâche partent de origin/main, jamais du main local.
+-->
 
 <style>
 .slidev-layout pre { font-size: 11px !important; line-height: 16px !important; }

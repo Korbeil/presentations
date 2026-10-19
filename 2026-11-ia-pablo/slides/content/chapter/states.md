@@ -17,6 +17,7 @@ flowchart LR
   WR --> AP[approved]
   AP --> NT[needs-testing]
   NT --> TF[testing-failed]
+  CR ==> D
   RC ==> D
   TF ==> D
   classDef red fill:#fde2e2,stroke:#e05252

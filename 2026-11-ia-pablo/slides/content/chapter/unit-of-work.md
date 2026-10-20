@@ -5,7 +5,7 @@
 - <mdi-code-braces class="text-[#e9ce37]"/> **Des lignes de C** — pointeurs, mémoire manuelle, segfaults
 - <mdi-package-variant-closed class="text-[#e9ce37]"/> **Des bibliothèques** — PHP 5, sans Composer ni framework : on réinventait les roues
 - <mdi-layers-triple class="text-[#e9ce37]"/> **Des frameworks** — Laravel, puis Symfony : un multiplicateur
-- <mdi-robot-outline class="text-[#e9ce37]"/> **Des fonctionnalités** — Copilot *(2021)* complète, Cursor *(2023)* écrit, Claude Code *(2025)* livre
+- <mdi-robot-outline class="text-[#e9ce37]"/> **Des fonctionnalités** — Copilot complète *(2021)*, Cursor écrit *(2023)*, Claude Code livre *(2025)*
 
 </div>
 

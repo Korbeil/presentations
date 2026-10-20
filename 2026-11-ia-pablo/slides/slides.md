@@ -112,6 +112,10 @@ src: ./content/chapter/demo.md
 tag: "Démo"
 ---
 ---
+src: ./content/chapter/mental-load.md
+tag: "Bilan"
+---
+---
 src: ./content/end.md
 tag: "Bilan"
 ---

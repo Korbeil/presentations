@@ -20,8 +20,10 @@ flowchart LR
   CR ==> D
   RC ==> D
   TF ==> D
-  classDef red fill:#fde2e2,stroke:#e05252
-  class CR,TF red
+  classDef hot fill:#f7e9a0,stroke:#e9ce37,stroke-width:2px
+  classDef start fill:#cfeccf,stroke:#4caf50,stroke-width:2px
+  class CR,TF,RC hot
+  class IP start
 ```
 
 <div class="mt-2 rounded-lg bg-#f7e9a0 p-3 text-base">

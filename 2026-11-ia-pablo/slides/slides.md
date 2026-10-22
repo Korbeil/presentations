@@ -85,11 +85,7 @@ src: ./content/chapter/states.md
 tag: "03 · Le moteur"
 ---
 ---
-src: ./content/chapter/reviews.md
-tag: "03 · Le moteur"
----
----
-src: ./content/chapter/green.md
+src: ./content/chapter/agents-pablo.md
 tag: "03 · Le moteur"
 ---
 ---
@@ -98,6 +94,14 @@ tag: "03 · Le moteur"
 ---
 ---
 src: ./content/chapter/rebase-agent-2.md
+---
+---
+src: ./content/chapter/reviews.md
+tag: "03 · Le moteur"
+---
+---
+src: ./content/chapter/green.md
+tag: "03 · Le moteur"
 ---
 ---
 src: ./content/chapter/not-everything.md

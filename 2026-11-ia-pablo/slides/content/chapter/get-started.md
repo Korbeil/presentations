@@ -28,7 +28,7 @@ pablo project:new       # ajouter un projet (wizard)
 ### Au quotidien
 
 ```bash
-pablo task:start <url-jira>   # branche, worktree, analyse
+pablo task:start <url-issue>   # branche, worktree, analyse
 /pablo-commit-and-pr          # commit, push, draft PR
 pablo task:waiting            # pause / reprise
 pablo task:close              # on range

@@ -85,10 +85,6 @@ src: ./content/chapter/states.md
 tag: "03 · Le moteur"
 ---
 ---
-src: ./content/chapter/non-events.md
-tag: "03 · Le moteur"
----
----
 src: ./content/chapter/reviews.md
 tag: "03 · Le moteur"
 ---
@@ -108,8 +104,12 @@ src: ./content/chapter/not-everything.md
 tag: "03 · Le moteur"
 ---
 ---
-src: ./content/chapter/demo.md
-tag: "Démo"
+src: ./content/chapter/get-started.md
+tag: "En pratique"
+---
+---
+src: ./content/chapter/dashboard.md
+tag: "En pratique"
 ---
 ---
 src: ./content/chapter/mental-load.md

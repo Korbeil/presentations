@@ -1,7 +1,3 @@
----
-layout: split
----
-
 # Ce qui a vraiment changé
 
 <div class="mt-2 pl-4 border-l-4 border-[#e9ce37] text-lg font-600">
@@ -20,6 +16,3 @@ Je n'ai pas arrêté de vérifier, j'ai arrêté de vérifier moi-même.
 
 </div>
 
-::right::
-
-<img src="/images/pablo-dashboard.png" alt="Dashboard web de PABLO" />

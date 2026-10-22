@@ -11,7 +11,7 @@
 </div>
 
 <div class="mt-6 rounded-lg bg-#f7e9a0 p-4 text-base">
-Les quatre premiers sont <b>en lecture seule</b> : ils analysent, jamais de code touché. Le cinquième est la seule exception — et c'est la slide suivante.
+Les quatre premiers sont <b>en lecture seule</b> : ils analysent, jamais de code touché.
 </div>
 
 <!--

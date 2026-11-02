@@ -1,0 +1,237 @@
+:root {
+  --jaune: #e9ce37;
+  --jaune-pale: #f7e9a0;
+  --ink: #2b2b2a;
+  --jane: #4cd1c5;
+  --jane-pale: #d9f6f2;
+}
+
+/* Yellow section dividers */
+.slidev-layout.chapter {
+  background: var(--jaune);
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 5rem;
+}
+.slidev-layout.chapter .chapter-number {
+  font-size: 9rem;
+  font-weight: 700;
+  line-height: 1;
+  color: rgba(43, 43, 42, 0.18);
+  animation: chapter-in 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.slidev-layout.chapter .chapter-body {
+  animation: chapter-in 0.7s 0.12s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes chapter-in {
+  from { opacity: 0; transform: translateY(1.5rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.slidev-layout.chapter h1 {
+  font-size: 4rem;
+  line-height: 1.1;
+  margin: 0;
+}
+.slidev-layout.chapter p {
+  font-size: 1.6rem;
+  margin-top: 1rem;
+  opacity: 0.75;
+}
+.slidev-layout.chapter code {
+  background: rgba(43, 43, 42, 0.1);
+  color: var(--ink);
+}
+
+/* Dark punchline slides */
+.slidev-layout.punchline {
+  background: var(--ink);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 5rem;
+  position: relative;
+}
+.slidev-layout.punchline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 10px;
+  background: linear-gradient(180deg, var(--jaune), var(--jane));
+}
+.slidev-layout.punchline h1 {
+  color: var(--jaune);
+  font-size: 4rem;
+  line-height: 1.1;
+}
+.slidev-layout.punchline code {
+  background: rgba(233, 206, 55, 0.15);
+  color: var(--jaune);
+}
+.slidev-layout.punchline .accent {
+  color: var(--jaune);
+}
+.slidev-layout.punchline .teal {
+  color: var(--jane);
+}
+
+/* Split layout: content left, yellow panel right */
+.slidev-layout.split {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  padding: 0 !important;
+}
+.slidev-layout.split .split-left {
+  padding: 2.5rem 2.5rem 2.5rem 3.5rem;
+}
+.slidev-layout.split .split-right {
+  background: var(--jaune);
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2.5rem;
+}
+.slidev-layout.split .split-right h3 {
+  opacity: 0.7;
+}
+.slidev-layout.split .split-right code {
+  background: rgba(43, 43, 42, 0.1);
+  color: var(--ink);
+}
+
+/* Big numbers */
+.stat {
+  border-top: 4px solid var(--jaune);
+  padding-top: 0.75rem;
+}
+.stat.teal {
+  border-top-color: var(--jane);
+}
+.split-right .stat {
+  border-top-color: var(--ink);
+}
+.stat .bignum {
+  font-size: 3.25rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.stat .bignum small {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.stat .cap {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  line-height: 1.35;
+  opacity: 0.75;
+}
+
+/* Gradient text, Jane logo colours */
+.grad {
+  background: linear-gradient(90deg, var(--jaune), var(--jane));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent !important;
+}
+
+/* Pills */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.75rem;
+  border-radius: 999px;
+  background: var(--jaune-pale);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.chip.teal {
+  background: var(--jane-pale);
+}
+.chip.dark {
+  background: var(--ink);
+  color: var(--jaune);
+}
+
+/* Terminal output, written as <pre class="term"> so whitespace survives */
+.slidev-layout pre.term {
+  background: var(--ink) !important;
+  color: #e8e8e6;
+  border-radius: 0.6rem;
+  margin: 0;
+  padding: 0.9rem 1.1rem !important;
+  font-family: 'JetBrains Mono NL', monospace;
+  font-size: 0.72rem !important;
+  line-height: 1.55 !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  white-space: pre-wrap;
+}
+.term .dots {
+  display: flex;
+  gap: 0.35rem;
+  margin-bottom: 0.6rem;
+}
+.term .dots i {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: #6b6b69;
+}
+.term .dots i:first-child { background: #ff5f57; }
+.term .dots i:nth-child(2) { background: var(--jaune); }
+.term .dots i:nth-child(3) { background: var(--jane); }
+.term .err { color: #ff8a80; font-weight: 600; }
+.term .ok { color: var(--jane); font-weight: 600; }
+.term .y { color: var(--jaune); }
+.term .dim { opacity: 0.55; }
+
+/* Callout */
+.callout {
+  border-left: 4px solid var(--jaune);
+  padding-left: 1rem;
+  font-weight: 600;
+}
+
+/* Smoother click reveals */
+.slidev-vclick-target {
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.slidev-vclick-hidden {
+  transform: translateY(0.6rem);
+}
+
+/* The theme drops ordered-list markers */
+.slidev-layout ol {
+  list-style: decimal !important;
+  padding-left: 1.5rem !important;
+}
+.slidev-layout ol li {
+  display: list-item !important;
+  list-style: decimal !important;
+}
+
+/* Section tag, top-left of content slides */
+.section-tag {
+  position: absolute;
+  top: 0.9rem;
+  left: 3.5rem;
+  background: var(--ink);
+  color: var(--jaune);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.1rem 0.6rem;
+  border-radius: 999px;
+  z-index: 10;
+}
+
+/* Workaround: hide Slidev "go to" dialog when it opens unexpectedly. */
+#slidev-goto-dialog {
+  display: none !important;
+}

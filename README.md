@@ -1,4 +1,5 @@
 ## Presentations
+- [2026-11] [Jane 8 — Modern PHP models, Symfony HttpClient and lazy API calls](./2026-11-jane-8) *(~22min)*
 - [2026-11] [IA & PABLO — De l'ADE à l'orchestrateur](./2026-11-ia-pablo) *(~25min)*
 - [2026-09] [IA & PABLO](./2026-09-ia-pablo) *(~5min)*
 - [2026-09] [JanePHP 8.x — API made easier, again](./2026-09-jane-8) *(~10min)*

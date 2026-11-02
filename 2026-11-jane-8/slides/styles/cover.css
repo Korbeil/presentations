@@ -1,0 +1,47 @@
+.slidev-layout.cover {
+  position: relative;
+  overflow: hidden;
+}
+.slidev-layout.cover h1 {
+  margin-top: 7.5rem;
+  padding-left: 2rem;
+  position: relative;
+  font-size: 6rem;
+  line-height: 1;
+  font-weight: 700;
+}
+.slidev-layout.cover h2 {
+  margin-top: 2rem;
+  padding-left: 2rem;
+  position: relative;
+}
+.slidev-layout.cover .cover-glow {
+  position: absolute;
+  inset: auto -10rem -14rem auto;
+  width: 34rem;
+  height: 34rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(76, 209, 197, 0.22), rgba(233, 206, 55, 0.12) 45%, transparent 70%);
+  animation: glow 8s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes glow {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(-3rem, -2rem) scale(1.1); }
+}
+.slidev-layout.cover .jane-logo {
+  position: absolute;
+  top: 2.5rem;
+  right: 3rem;
+}
+.slidev-layout.cover .jane-logo img {
+  width: 21rem;
+  border-radius: 1rem;
+  box-shadow: 0 12px 30px rgba(43, 43, 42, 0.15);
+}
+.slidev-layout.cover .jolicode-logo {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

@@ -7,17 +7,16 @@
 ### Installer
 
 ```bash
-./bin/install.sh        # composer, shim, liens agents,
-                        # scheduler en arrière-plan
-pablo system:doctor     # tout est installé et authentifié ?
-pablo project:new       # ajouter un projet (wizard)
+curl -fsSL https://getpablo.dev/installer | bash
+pablo system:doctor   # installé et authentifié ?
+pablo project:new     # ajouter un projet
 ```
 
 <div class="text-base opacity-80 space-y-1">
 
-- PHP 8.4+, Composer, `gh`, `acli`
-- un ADE : Orca ou OpenChamber
-- `--with-web` pour garder le dashboard allumé
+- **pas de PHP** : `git`, `curl`, `gh`, et `acli` / `linear` selon le tracker
+- un runtime : OpenCode, Claude Code ou Copilot CLI
+- un ADE : Orca, OpenChamber ou headless
 
 </div>
 
@@ -28,10 +27,10 @@ pablo project:new       # ajouter un projet (wizard)
 ### Au quotidien
 
 ```bash
-pablo task:start <url-issue>   # branche, worktree, analyse
-/pablo-commit-and-pr          # commit, push, draft PR
-pablo task:waiting            # pause / reprise
-pablo task:close              # on range
+pablo task:start <issue>  # worktree + analyse
+/pablo-commit-and-pr      # commit, push, draft PR
+pablo task:waiting        # pause / reprise
+pablo task:close          # on range
 ```
 
 <div class="text-base opacity-80 space-y-1">
@@ -45,8 +44,15 @@ pablo task:close              # on range
 
 </div>
 
-<div class="mt-8 text-center text-lg opacity-80">
-README + <code>docs/installation.md</code> dans le dépôt
+<div class="mt-6 rounded-lg bg-#2b2b2a text-white px-5 py-3 text-base flex items-center gap-4">
+<mdi-party-popper class="text-[#e9ce37] text-3xl shrink-0"/>
+<div>
+<b class="text-[#e9ce37]">Un seul binaire, zéro PHP.</b> Plus de clone ni de Composer : un fichier de ~29 Mo qui embarque son propre PHP, dashboard compris. Linux et macOS, x86 et ARM.
+</div>
+</div>
+
+<div class="mt-4 text-center text-base opacity-80">
+<a href="https://getpablo.dev">getpablo.dev</a> — quickstart et doc complète
 </div>
 
 <style>
@@ -56,4 +62,8 @@ README + <code>docs/installation.md</code> dans le dépôt
 <!--
 Slide tranquille, pas de démo live : les gens veulent savoir comment s'y mettre.
 Laisser le temps de prendre en photo / noter les commandes.
+Le binaire : la vraie barrière à l'adoption, ce n'était pas PABLO, c'était « installe d'abord PHP 8.4 ». Je continue d'écrire du PHP, mais plus personne n'a besoin de le savoir pour l'utiliser.
+Comment : Box emballe l'app en phar, collée à un micro.sfx de static-php-cli ; un php CLI statique est aussi embarqué pour servir le dashboard (pablo web).
+Une release = les 7 premiers caractères du SHA ; les 4 binaires sont construits, smoke-testés (debian:stable-slim sans PHP) et vérifiés par sha256sums.txt. pablo update --rollback revient à la version précédente.
+Piège rencontré : OPcache désactivé dans le binaire, opcache.enable_cli=1 plante au démarrage avec le micro de PHP 8.5.
 -->

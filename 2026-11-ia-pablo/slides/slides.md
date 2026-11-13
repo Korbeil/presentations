@@ -116,6 +116,10 @@ src: ./content/chapter/dashboard.md
 tag: "En pratique"
 ---
 ---
+src: ./content/chapter/analytics.md
+tag: "En pratique"
+---
+---
 src: ./content/chapter/mental-load.md
 tag: "Bilan"
 ---

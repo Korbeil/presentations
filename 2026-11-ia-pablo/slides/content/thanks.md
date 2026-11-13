@@ -23,5 +23,5 @@ PABLO est public — à lire, emprunter, <i>casser</i>. Un seul utilisateur : mo
 </div>
 
 <div class="mt-8 text-sm opacity-70">
-<mdi-github class="text-[#e9ce37]"/> <a href="https://github.com/korbeil/pablo">github.com/korbeil/pablo</a> · PHP 8.4+ · <code>./bin/install.sh</code> · <code>pablo system:doctor</code> · <code>pablo task:start &lt;issue-url&gt;</code> — articles aussi en anglais
+<mdi-github class="text-[#e9ce37]"/> <a href="https://github.com/korbeil/pablo">github.com/korbeil/pablo</a> · <a href="https://getpablo.dev">getpablo.dev</a> · <code>curl -fsSL https://getpablo.dev/installer | bash</code> — articles aussi en anglais
 </div>
